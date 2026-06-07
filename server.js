@@ -23,7 +23,7 @@ const UPLOADS_DIR = IS_VERCEL ? '/tmp/uploads'        : path.join(__dirname, 'pu
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
-// Seed projects file -- on Vercel, pre-load from the committed JSON if /tmp is empty
+// Seed projects file
 if (!fs.existsSync(DATA_FILE)) {
   const committed = path.join(__dirname, 'data', 'projects.json');
   const seed = fs.existsSync(committed) ? fs.readFileSync(committed, 'utf8') : '[]';
@@ -34,7 +34,7 @@ if (!fs.existsSync(DATA_FILE)) {
 const readProjects  = () => JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
 const writeProjects = (data) => fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
 
-// --- MULTER (local / small-file fallback) ---
+// --- MULTER ---
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, UPLOADS_DIR),
   filename: (_req, file, cb) => {
@@ -69,7 +69,7 @@ app.use(session({
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve uploads -- on Vercel, serve from /tmp/uploads
+// Serve uploads
 app.use('/uploads', (req, res, next) => {
   const filePath = path.join(UPLOADS_DIR, req.path.replace(/^\//, ''));
   if (fs.existsSync(filePath)) {
@@ -108,15 +108,10 @@ app.post('/api/admin/logout', (req, res) => {
 });
 
 app.get('/api/admin/check', (req, res) => {
-  if (req.session && req.session.isAdmin) {
-    res.json({ authenticated: true });
-  } else {
-    res.status(401).json({ authenticated: false });
-  }
+  res.json({ authenticated: !!(req.session && req.session.isAdmin) });
 });
 
-// --- CLOUDINARY SIGNATURE (direct browser upload) ---
-// Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET in Vercel env vars
+// --- CLOUDINARY SIGN ---
 app.post('/api/admin/cloudinary-sign', requireAuth, (req, res) => {
   const cloud  = process.env.CLOUDINARY_CLOUD_NAME;
   const key    = process.env.CLOUDINARY_API_KEY;
@@ -126,7 +121,6 @@ app.post('/api/admin/cloudinary-sign', requireAuth, (req, res) => {
   }
   const timestamp = Math.round(Date.now() / 1000);
   const folder    = 'portfolio';
-  // Params must be sorted alphabetically before signing
   const str = `folder=${folder}&timestamp=${timestamp}${secret}`;
   const signature = crypto.createHash('sha1').update(str).digest('hex');
   res.json({ timestamp, signature, apiKey: key, cloudName: cloud, folder });
@@ -142,12 +136,16 @@ app.post('/api/admin/projects',
   upload.fields([{ name: 'cover', maxCount: 1 }, { name: 'images', maxCount: 20 }]),
   (req, res) => {
     const projects = readProjects();
-    const { title, category, description, summary, tags, tools, role, duration, link, published, featured, order, coverUrl, imageUrls } = req.body;
-    // Support Cloudinary URLs (coverUrl) or local upload (req.files)
-    const cover  = coverUrl || req.files?.cover?.[0]?.filename || null;
-    const localImages = (req.files?.images || []).map(f => f.filename);
-    const cloudImages = imageUrls ? (Array.isArray(imageUrls) ? imageUrls : [imageUrls]) : [];
-    const images = [...localImages, ...cloudImages];
+    const { title, category, description, summary, tags, tools, role, duration, link,
+            published, featured, order, coverUrl, imageUrls } = req.body;
+
+    // Cover: Cloudinary URL takes priority, then uploaded file
+    const cover = coverUrl || req.files?.cover?.[0]?.filename || null;
+
+    // Gallery: Cloudinary URLs + uploaded files
+    const cloudinaryImages = imageUrls ? (Array.isArray(imageUrls) ? imageUrls : [imageUrls]) : [];
+    const uploadedImages   = (req.files?.images || []).map(f => f.filename);
+    const images = [...cloudinaryImages, ...uploadedImages];
 
     const project = {
       id: uuidv4(), title: title || 'Untitled', category: category || '',
@@ -177,13 +175,13 @@ app.put('/api/admin/projects/:id',
     if (idx === -1) return res.status(404).json({ error: 'Not found' });
 
     const existing = projects[idx];
-    const { title, category, description, summary, tags, tools, role, duration, link, published, featured, order, removeImages, coverUrl, imageUrls } = req.body;
+    const { title, category, description, summary, tags, tools, role, duration, link,
+            published, featured, order, removeImages, coverUrl, imageUrls } = req.body;
 
     let currentImages = [...(existing.images || [])];
     if (removeImages) {
       const toRemove = Array.isArray(removeImages) ? removeImages : [removeImages];
       toRemove.forEach(filename => {
-        // Only delete local files, not Cloudinary URLs
         if (!filename.startsWith('http')) {
           const filePath = path.join(UPLOADS_DIR, filename);
           if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
@@ -192,14 +190,16 @@ app.put('/api/admin/projects/:id',
       });
     }
 
-    const newCover = coverUrl || req.files?.cover?.[0]?.filename || null;
-    if (newCover && existing.cover && !existing.cover.strtsWith('http')) {
+    // Cover: Cloudinary URL takes priority, then uploaded file, then keep existing
+    let newCover = coverUrl || req.files?.cover?.[0]?.filename || null;
+    if (newCover && existing.cover && !existing.cover.startsWith('http')) {
       const oldPath = path.join(UPLOADS_DIR, existing.cover);
       if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
     }
 
-    const localImages = (req.files?.images || []).map(f => f.filename);
-    const cloudImages = imageUrls ? (Array.isArray(imageUrls) ? imageUrls : [imageUrls]) : [];
+    // New gallery items
+    const cloudinaryImages = imageUrls ? (Array.isArray(imageUrls) ? imageUrls : [imageUrls]) : [];
+    const uploadedImages   = (req.files?.images || []).map(f => f.filename);
 
     const updated = {
       ...existing,
@@ -209,7 +209,7 @@ app.put('/api/admin/projects/:id',
       tools: tools ? tools.split(',').map(t => t.trim()).filter(Boolean) : existing.tools,
       role: role ?? existing.role, duration: duration ?? existing.duration, link: link ?? existing.link,
       cover: newCover || existing.cover,
-      images: [...currentImages, ...localImages, ...cloudImages],
+      images: [...currentImages, ...cloudinaryImages, ...uploadedImages],
       published: published !== undefined ? (published === 'true' || published === true) : existing.published,
       featured:  featured  !== undefined ? (featured  === 'true' || featured  === true) : existing.featured,
       order: order !== undefined ? (parseInt(order) || 0) : existing.order,
@@ -228,10 +228,9 @@ app.delete('/api/admin/projects/:id', requireAuth, (req, res) => {
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
   const [removed] = projects.splice(idx, 1);
   [removed.cover, ...(removed.images || [])].filter(Boolean).forEach(f => {
-    if (!f.startsWith('http')) {
-      const fp = path.join(UPLOADS_DIR, f);
-      if (fs.existsSync(fp)) fs.unlinkSync(fp);
-    }
+    if (f.startsWith('http')) return; // Cloudinary â skip local delete
+    const fp = path.join(UPLOADS_DIR, f);
+    if (fs.existsSync(fp)) fs.unlinkSync(fp);
   });
   writeProjects(projects);
   res.json({ ok: true });
@@ -247,17 +246,12 @@ app.post('/api/admin/projects/reorder', requireAuth, (req, res) => {
   res.json({ ok: true });
 });
 
-// --- ADMIN PAGE ROUTE ---
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
-});
-
-// --- START SERVER (local only) ---
+// Start server (local only)
 if (!IS_VERCEL) {
   app.listen(PORT, () => {
-    console.log(`\n>> Portfolio server running at http://localhost:${PORT}`);
-    console.log(`>> Admin panel:      http://localhost:${PORT}/admin`);
-    console.log(`>> API endpoints:    http://localhost:${PORT}/api/projects\n`);
+    console.log(`\nPortfolio server running at http://localhost:${PORT}`);
+    console.log(`Admin panel:      http://localhost:${PORT}/admin`);
+    console.log(`API endpoints:    http://localhost:${PORT}/api/projects\n`);
   });
 }
 
