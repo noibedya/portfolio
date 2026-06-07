@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Noibedya â Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f4f3f0;
+      --surface: #eeede9;
+      --surface-hover: #e5e3de;
+      --text: #1a1916;
+      --text-muted: #6b6860;
+      --accent: #d4a853;
+      --accent-dark: #b8902f;
+      --border: #dddbd5;
+      --radius: 16px;
+      --shadow: 0 4px 24px rgba(26,25,22,0.08);
+      --shadow-hover: 0 12px 40px rgba(26,25,22,0.14);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ââ NAV ââ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      padding: 20px 40px;
+    }
+
+    .nav-inner {
+      display: flex; gap: 4px;
+      background: rgba(244,243,240,0.88);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 8px;
+      box-shadow: 0 2px 16px rgba(26,25,22,0.06);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 13px; font-weight: 500;
+      padding: 7px 18px;
+      border-radius: 100px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    nav a:hover { color: var(--text); background: var(--surface-hover); }
+    nav a.active { color: var(--text); background: var(--surface-hover); }
+
+    .contact-pill {
+      position: fixed; top: 20px; right: 28px;
+      z-index: 101;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px; font-weight: 600;
+      padding: 10px 22px;
+      border-radius: 100px;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(212,168,83,0.35);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      user-select: none;
+    }
+    .contact-pill:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212,168,83,0.4);
+    }
+    .contact-pill:active {
+      transform: translateY(0) scale(0.96);
+      box-shadow: 0 2px 8px rgba(212,168,83,0.3);
+    }
+
+    /* ââ LAYOUT ââ */
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+    section { padding: 100px 0; }
+    hr { border: none; border-top: 1px solid var(--border); }
+
+    /* ââ HERO ââ */
+    #hero {
+      padding-top: 150px; padding-bottom: 80px;
+      display: flex; align-items: flex-start;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block; width: 20px; height: 1px;
+      background: var(--text-muted);
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 5.5vw, 66px);
+      font-weight: 400; line-height: 1.08;
+      letter-spacing: -0.02em;
+      max-width: 620px; margin-bottom: 28px;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+
+    .hero-sub {
+      font-size: 16px; color: var(--text-muted);
+      max-width: 480px; line-height: 1.75;
+      margin-bottom: 36px;
+    }
+
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px; }
+
+    .tag {
+      font-size: 12px; font-weight: 500;
+      padding: 6px 14px; border-radius: 100px;
+      border: 1px solid var(--border);
+      color: var(--text-muted); background: transparent;
+      transition: all 0.2s;
+    }
+    .tag:hover { border-color: var(--accent); color: var(--accent); background: rgba(212,168,83,0.06); }
+
+    /* HEADSHOT */
+    .headshot-wrap {
+      flex-shrink: 0;
+      width: 260px; height: 320px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .headshot-wrap:hover {
+      transform: translateY(-6px) rotate(1deg);
+      box-shadow: var(--shadow-hover);
+    }
+    .headshot-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      display: block;
+    }
+    .headshot-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px; color: var(--text-muted);
+    }
+    .headshot-placeholder svg { opacity: 0.3; }
+    .headshot-placeholder span { font-size: 12px; opacity: 0.5; text-align: center; padding: 0 16px; }
+
+    /* HERO CTA */
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    /* ââ BUTTONS ââ */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 26px; border-radius: 100px;
+      font-size: 14px; font-weight: 500;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+      user-select: none; outline: none;
+      position: relative; overflow: hidden;
+    }
+
+    /* Ripple effect */
+    .btn::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(255,255,255,0.2);
+      border-radius: inherit;
+      opacity: 0; transform: scale(0);
+      transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+    .btn:active::after { transform: scale(2); opacity: 0; transition: 0s; }
+
+    .btn-primary {
+      background: var(--text); color: var(--bg);
+      box-shadow: 0 4px 16px rgba(26,25,22,0.2);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(26,25,22,0.25);
+    }
+    .btn-primary:active { transform: translateY(0) scale(0.97); box-shadow: 0 2px 8px rgba(26,25,22,0.15); }
+
+    .btn-secondary {
+      background: transparent; color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: var(--surface-hover);
+      border-color: var(--text-muted);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(26,25,22,0.08);
+    }
+    .btn-secondary:active { transform: translateY(0) scale(0.97); }
+
+    .btn-accent {
+      background: var(--accent); color: #fff;
+      box-shadow: 0 4px 16px rgba(212,168,83,0.35);
+    }
+    .btn-accent:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212,168,83,0.4);
+    }
+    .btn-accent:active { transform: translateY(0) scale(0.97); }
+
+    /* ââ SECTION HEADER ââ */
+    .section-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 40px;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3vw, 38px);
+      font-weight: 400; letter-spacing: -0.02em;
+    }
+    .section-label {
+      font-size: 12px; font-weight: 500;
+      color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    /* ââ PROJECTS ââ */
+    .projects-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+
+    .project-card {
+      background: var(--surface); border-radius: var(--radius);
+      overflow: hidden; text-decoration: none; color: inherit;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.2s;
+      display: block; position: relative;
+      box-shadow: 0 2px 8px rgba(26,25,22,0.04);
+      cursor: pointer;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      background: var(--surface-hover);
+    }
+    .project-card:active { transform: translateY(-2px) scale(0.99); }
+    .project-card.featured { grid-column: span 2; }
+
+    .project-thumb {
+      width: 100%; aspect-ratio: 16/9;
+      background: var(--border); position: relative; overflow: hidden;
+    }
+    .project-card.featured .project-thumb { aspect-ratio: 21/9; }
+
+    .project-thumb img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .project-card:hover .project-thumb img { transform: scale(1.03); }
+
+    .thumb-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, var(--surface) 0%, var(--border) 100%);
+    }
+
+    .project-info {
+      padding: 24px 28px 28px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+    }
+    .project-meta { flex: 1; }
+
+    .project-category {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 6px;
+    }
+    .project-name {
+      font-size: 18px; font-weight: 500;
+      letter-spacing: -0.01em; margin-bottom: 6px;
+      transition: color 0.2s;
+    }
+    .project-card:hover .project-name { color: var(--accent); }
+
+    .project-desc { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
+
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .project-tag {
+      font-size: 11px; padding: 3px 10px; border-radius: 100px;
+      background: rgba(212,168,83,0.12); color: var(--accent-dark);
+      font-weight: 500;
+    }
+
+    .arrow-icon {
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-left: 20px;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .project-card:hover .arrow-icon {
+      background: var(--text); border-color: var(--text);
+      transform: rotate(45deg);
+    }
+    .project-card:hover .arrow-icon svg { stroke: var(--bg); }
+
+    /* Empty state */
+    .projects-empty {
+      grid-column: span 2; text-align: center;
+      padding: 80px 40px;
+      background: var(--surface); border-radius: var(--radius);
+      color: var(--text-muted);
+    }
+    .projects-empty h3 { font-size: 18px; margin-bottom: 8px; font-weight: 500; }
+    .projects-empty p { font-size: 14px; }
+
+    /* ââ ABOUT ââ */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: start;
+    }
+    .about-text p {
+      font-size: 15px; color: var(--text-muted);
+      line-height: 1.85; margin-bottom: 18px;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text strong { color: var(--text); font-weight: 500; }
+
+    .skills-group { margin-bottom: 28px; }
+    .skills-group-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;
+    }
+    .skills-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-chip {
+      font-size: 13px; padding: 7px 14px; border-radius: 8px;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text);
+      transition: all 0.2s;
+    }
+    .skill-chip:hover {
+      background: var(--surface-hover); border-color: var(--accent);
+      color: var(--accent-dark); transform: translateY(-1px);
+    }
+
+    /* ââ CONTACT ââ */
+    #contact { text-align: center; padding: 120px 0; }
+    .contact-wrap { max-width: 560px; margin: 0 auto; }
+    .contact-wrap h2 { font-size: clamp(36px, 5vw, 56px); margin-bottom: 16px; }
+    .contact-wrap p { color: var(--text-muted); font-size: 16px; margin-bottom: 40px; line-height: 1.75; }
+    .contact-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* ââ FOOTER ââ */
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 0;
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--text-muted); font-size: 13px;
+    }
+    footer a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+    footer a:hover { color: var(--text); }
+    .footer-links { display: flex; gap: 24px; }
+
+    /* ââ LOADING ââ */
+    .spinner {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      animation: spin 0.7s linear infinite;
+      margin: 40px auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ââ PROJECT MODAL ââ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(26,25,22,0.6);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: var(--bg);
+      border-radius: 24px;
+      max-width: 820px; width: 100%;
+      max-height: 88vh; overflow-y: auto;
+      box-shadow: 0 24px 80px rgba(26,25,22,0.25);
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+    .modal-overlay.open .modal { transform: translateY(0) scale(1); }
+
+    .modal-close {
+      position: absolute; top: 20px; right: 20px;
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--bg); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; x-index: 1;
+    }
+    .modal-close:hover { background: var(--surface-hover); transform: rotate(90deg); }
+    .modal-close:active { transform: rotate(90deg) scale(0.9); }
+
+    .modal-cover {
+      width: 100%; aspect-ratio: 16/9;
+      background: var(--surface); overflow: hidden;
+      border-radius: 24px 24px 0 0;
+    }
+    .modal-cover img { width: 100%; height: 100%; object-fit: cover; }
+
+    .modal-body { padding: 36px 40px 48px; }
+    .modal-category {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px;
+    }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px; font-weight: 400; letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+    .modal-meta {
+      display: flex; gap: 32px; margin-bottom: 28px;
+      padding-bottom: 28px; border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .modal-meta-item span:first-child {
+      display: block; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 4px;
+    }
+    .modal-meta-item span:last-child { font-size: 14px; color: var(--text); }
+    .modal-desc { font-size: 15px; color: var(--text-muted); line-height: 1.85; margin-bottom: 24px; }
+    .modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .modal-tag {
+      font-size: 12px; padding: 5px 14px; border-radius: 100px;
+      background: rgba(212,168,83,0.12); color: var(--accent-dark); font-weight: 500;
+    }
+    .modal-images { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+    .modal-images img { width: 100%; border-radius: 12px; object-fit: cover; }
+    .modal-link { margin-top: 28px; }
+
+    /* ââ RESPONSIVE ââ */
+    @media (max-width: 800px) {
+      .container { padding: 0 24px; }
+      nav { display: none; }
+      .hero-layout { grid-template-columns: 1fr; }
+      .headshot-wrap { width: 180px; height: 220px; margin: 0 auto; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: span 1; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      section { padding: 70px 0; }
+      #hero { padding-top: 100px; }
+      .modal-body { padding: 24px; }
+      .modal-images { grid-template-columns: 1fr; }
+      .modal-meta { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#hero" class="active">Home</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+    </div>
+  </nav>
+  <a href="#contact" class="contact-pill">Contact</a>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-layout">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Available for work</div>
+          <h1>Designing products<br>people <em>love</em> to use.</h1>
+          <p class="hero-sub">Hi, I'm Noibedya â a product designer focused on crafting clear, intuitive digital experiences that sit at the intersection of function and feel.</p>
+          <div class="hero-tags">
+            <span class="tag">UX / Product Design</span>
+            <span class="tag">Design Systems</span>
+            <span class="tag">User Research</span>
+            <span class="tag">Prototyping</span>
+            <span class="tag">Figma</span>
+          </div>
+          <div class="hero-cta">
+            <a href="#work" class="btn btn-primary">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              View my work
+            </a>
+            <a href="mailto:nnr1011@outlook.com" class="btn btn-secondary">
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              Say hello
+            </a>
+          </div>
+        </div>
+        <div class="headshot-wrap" id="headshotWrap">
+          <img src="/assets/headshot.jpg" alt="Noibedya â Product Designer"
+               onerror="this.closest('.headshot-wrap').innerHTML=`<div class='headshot-placeholder'><svg width='48' height='48' fill='none' viewBox='0 0 24 24' stroke='currentColor'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='1' d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'/></svg><span>Add headshot.jpg to<br/>portfolio/public/assets/</span></div>`"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr/>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="container">
+      <div class="section-header">
+        <h2>Selected Work</h2>
+        <span class="section-label" id="projectCount">Loadingâ¦</span>
+      </div>
+      <div class="projects-grid" id="projectsGrid">
+        <div style="grid-column:span 2;text-align:center;padding:40px 0">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr/>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-header">
+        <h2>About Me</h2>
+        <span class="section-label">Background</span>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm <strong>Noibedya</strong>, a product designer with a passion for making complex systems feel simple. I care deeply about the humans on the other side of the screen â understanding their goals, frustrations, and contexts before I ever open Figma.</p>
+          <p>My process starts with <strong>research and curiosity</strong>. I map out problems thoroughly, prototype quickly, and iterate with feedback. I believe good design earns its place by being invisible â it just works.</p>
+          <p>I've worked with startups and scale-ups across fintech, SaaS, and consumer apps. Equally comfortable <strong>leading end-to-end product design</strong> and collaborating with engineers and PMs to ship real things.</p>
+          <p>When I'm not designing, I'm exploring design history, reading about cognitive psychology, or hunting for good coffee.</p>
+        </div>
+        <div class="skills-col">
+          <div class="skills-group">
+            <div class="skills-group-label">Design</div>
+            <div class="skills-list">
+              <span class="skill-chip">UX Research</span>
+              <span class="skill-chip">Interaction Design</span>
+              <span class="skill-chip">Visual Design</span>
+              <span class="skill-chip">Prototyping</span>
+              <span class="skill-chip">Design Systems</span>
+              <span class="skill-chip">Accessibility</span>
+            </div>
+          </div>
+          <div class="skills-group">
+            <div class="skills-group-label">Tools</div>
+            <div class="skills-list">
+              <span class="skill-chip">Figma</span>
+              <span class="skill-chip">Framer</span>
+              <span class="skill-chip">Maze</span>
+              <span class="skill-chip">Notion</span>
+              <span class="skill-chip">Lottie</span>
+              <span class="skill-chip">Zeroheight</span>
+            </div>
+          </div>
+          <div class="skills-group">
+            <div class="skills-group-label">Collaboration</div>
+            <div class="skills-list">
+              <span class="skill-chip">Cross-functional teams</span>
+              <span class="skill-chip">Agile / Scrum</span>
+              <span class="skill-chip">Design critiques</span>
+              <span class="skill-chip">Stakeholder mgmt</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr/>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-wrap">
+        <h2>Let's make something <em>great.</em></h2>
+        <p>Open to full-time roles, freelance projects, and interesting conversations. Don't hesitate to reach out.</p>
+        <div class="contact-links">
+          <a href="mailto:nnr1011@outlook.com" class="btn btn-primary">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            Send an email
+          </a>
+          <a href="https://linkedin.com/in/noibedya" target="_blank" rel="noopener" class="btn btn-secondary">
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path stroke-linecap="round" d="M7 10v7M7 7v.5M11 17v-4c0-1.1.9-2 2-2s2 .9 2 2v4"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="container">
+    <footer>
+      <span>Â© 2025 Noibedya Narayan Ray</span>
+      <div class="footer-links">
+        <a href="mailto:nnr1011@outlook.com">Email</a>
+        <a href="https://linkedin.com/in/noibedya" target="_blank">LinkedIn</a>
+        <a href="/admin.html">Admin</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- PROJECT MODAL -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+    <div class="modal" id="modal">
+      <button class="modal-close" onclick="closeModalDirect()" aria-label="Close">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script>
+    // ââ Active nav on scroll ââââââââââââââââââââââââââââââââââââââââââââââ
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + entry.target.id));
+        }
+      });
+    }, { threshold: 0.35 });
+    sections.forEach(s => observer.observe(s));
+
+    // ââ Load projects from API âââââââââââââââââââââââââââââââââââââââââââ
+    const ARROW_SVG = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+
+    async function loadProjects() {
+      const grid = document.getElementById('projectsGrid');
+      const count = document.getElementById('projectCount');
+      try {
+        const res = await fetch('/api/projects');
+        const projects = await res.json();
+
+        count.textContent = projects.length + ' project' + (projects.length !== 1 ? 's' : '');
+
+        if (projects.length === 0) {
+          grid.innerHTML = `
+            <div class="projects-empty">
+              <h3>No projects yet</h3>
+              <p>Add your first case study from the <a href="/admin.html" style="color:var(--accent)">admin panel</a>.</p>
+            </div>`;
+          return;
+        }
+
+        grid.innerHTML = projects.map((p, i) => {
+          const featured = p.featured && i === 0 ? 'featured' : '';
+          const cover = p.cover
+            ? `<img src="/uploads/${p.cover}" alt="${p.title}" loading="lazy"/>`
+            : `<div class="thumb-placeholder">
+                 <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="var(--border)" stroke-width="1">
+                   <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9l4-4 4 4 4-5 4 5"/>
+                   <circle cx="8.5" cy="7" r="1.5"/>
+                 </svg>
+               </div>`;
+
+          const tags = p.tags?.slice(0, 3).map(t =>
+            `<span class="project-tag">${t}</span>`).join('') || '';
+
+          return `
+            <a class="project-card ${featured}" href="#" onclick="openModal('${p.id}'); return false;">
+              <div class="project-thumb">${cover}</div>
+              <div class="project-info">
+                <div class="project-meta">
+                  <div class="project-category">${p.category || 'Case Study'}</div>
+                  <div class="project-name">${p.title}</div>
+                  <div class="project-desc">${p.summary || p.description?.slice(0, 120) || ''}</div>
+                  ${tags ? `<div class="project-tags">${tags}</div>` : ''}
+                </div>
+                <div class="arrow-icon">${ARROW_SVG}</div>
+              </div>
+            </a>`;
+        }).join('');
+
+      } catch (err) {
+        count.textContent = '';
+        grid.innerHTML = `<div class="projects-empty">
+          <h3>Couldn't load projects</h3>
+          <p>Make sure the server is running (<code>npm start</code>).</p>
+        </div>`;
+      }
+    }
+
+    // ââ Modal ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+    let allProjects = [];
+
+    async function openModal(id) {
+      // Fetch fresh if not cached
+      if (allProjects.length === 0) {
+        const res = await fetch('/api/projects');
+        allProjects = await res.json();
+      }
+      const p = allProjects.find(x => x.id === id);
+      if (!p) return;
+
+      const coverHtml = p.cover
+        ? `<div class="modal-cover"><img src="/uploads/${p.cover}" alt="${p.title}"/></div>`
+        : '';
+
+      const metaHtml = [
+        p.role     && `<div class="modal-meta-item"><span>Role</span><span>${p.role}</span></div>`,
+        p.duration && `<div class="modal-meta-item"><span>Duration</span><span>${p.duration}</span></div>`,
+        p.tools?.length && `<div class="modal-meta-item"><span>Tools</span><span>${p.tools.join(', ')}</span></div>`,
+      ].filter(Boolean).join('');
+
+      const tagsHtml = p.tags?.map(t => `<span class="modal-tag">${t}</span>`).join('') || '';
+
+      const imagesHtml = p.images?.length
+        ? `<div class="modal-images">${p.images.map(f =>
+            `<img src="/uploads/${f}" alt=""/>`).join('')}</div>` : '';
+
+      const linkHtml = p.link
+        ? `<div class="modal-link"><a href="${p.link}" target="_blank" rel="noopener" class="btn btn-accent">
+             View live project ${ARROW_SVG}</a></div>` : '';
+
+      document.getElementById('modalContent').innerHTML = `
+        ${coverHtml}
+        <div class="modal-body">
+          <div class="modal-category">${p.category || 'Case Study'}</div>
+          <div class="modal-title">${p.title}</div>
+          ${metaHtml ? `<div class="modal-meta">${metaHtml}</div>` : ''}
+          <div class="modal-desc">${(p.description || '').replace(/\n/g, '<br/>')}</div>
+          ${tagsHtml ? `<div class="modal-tags">${tagsHtml}</div>` : ''}
+          ${imagesHtml}
+          ${linkHtml}
+        </div>`;
+
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModalDirect() {
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function closeModal(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModalDirect();
+    });
+
+    // ââ Init âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
+    loadProjects();
+  </script>
+
+</body>
+</html>
