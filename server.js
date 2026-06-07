@@ -4,6 +4,7 @@ const cors    = require('cors');
 const session = require('express-session');
 const path    = require('path');
 const fs      = require('fs');
+const crypto  = require('crypto');
 const { v4: uuidv4 } = require('uuid');
 
 const app  = express();
@@ -33,7 +34,7 @@ if (!fs.existsSync(DATA_FILE)) {
 const readProjects  = () => JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
 const writeProjects = (data) => fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
 
-// --- MULTER ---
+// --- MULTER (local / small-file fallback) ---
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, UPLOADS_DIR),
   filename: (_req, file, cb) => {
@@ -44,11 +45,15 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (_req, file, cb) => {
-  const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+  const allowed = [
+    'image/jpeg', 'image/png', 'image/webp', 'image/gif',
+    'video/mp4', 'video/quicktime', 'video/webm', 'video/avi', 'video/mov',
+    'application/pdf'
+  ];
   cb(null, allowed.includes(file.mimetype));
 };
 
-const upload = multer({ storage, fileFilter, limits: { fileSize: 20 * 1024 * 1024 } });
+const upload = multer({ storage, fileFilter, limits: { fileSize: 100 * 1024 * 1024 } });
 
 // --- MIDDLEWARE ---
 app.use(cors());
@@ -110,6 +115,23 @@ app.get('/api/admin/check', (req, res) => {
   }
 });
 
+// --- CLOUDINARY SIGNATURE (direct browser upload) ---
+// Set CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET in Vercel env vars
+app.post('/api/admin/cloudinary-sign', requireAuth, (req, res) => {
+  const cloud  = process.env.CLOUDINARY_CLOUD_NAME;
+  const key    = process.env.CLOUDINARY_API_KEY;
+  const secret = process.env.CLOUDINARY_API_SECRET;
+  if (!cloud || !key || !secret) {
+    return res.status(503).json({ error: 'Cloudinary not configured' });
+  }
+  const timestamp = Math.round(Date.now() / 1000);
+  const folder    = 'portfolio';
+  // Params must be sorted alphabetically before signing
+  const str = `folder=${folder}&timestamp=${timestamp}${secret}`;
+  const signature = crypto.createHash('sha1').update(str).digest('hex');
+  res.json({ timestamp, signature, apiKey: key, cloudName: cloud, folder });
+});
+
 // --- ADMIN PROJECT API ---
 app.get('/api/admin/projects', requireAuth, (_req, res) => {
   res.json(readProjects().sort((a, b) => a.order - b.order || new Date(b.createdAt) - new Date(a.createdAt)));
@@ -120,9 +142,12 @@ app.post('/api/admin/projects',
   upload.fields([{ name: 'cover', maxCount: 1 }, { name: 'images', maxCount: 20 }]),
   (req, res) => {
     const projects = readProjects();
-    const { title, category, description, summary, tags, tools, role, duration, link, published, featured, order } = req.body;
-    const cover  = req.files?.cover?.[0]?.filename || null;
-    const images = (req.files?.images || []).map(f => f.filename);
+    const { title, category, description, summary, tags, tools, role, duration, link, published, featured, order, coverUrl, imageUrls } = req.body;
+    // Support Cloudinary URLs (coverUrl) or local upload (req.files)
+    const cover  = coverUrl || req.files?.cover?.[0]?.filename || null;
+    const localImages = (req.files?.images || []).map(f => f.filename);
+    const cloudImages = imageUrls ? (Array.isArray(imageUrls) ? imageUrls : [imageUrls]) : [];
+    const images = [...localImages, ...cloudImages];
 
     const project = {
       id: uuidv4(), title: title || 'Untitled', category: category || '',
@@ -152,23 +177,29 @@ app.put('/api/admin/projects/:id',
     if (idx === -1) return res.status(404).json({ error: 'Not found' });
 
     const existing = projects[idx];
-    const { title, category, description, summary, tags, tools, role, duration, link, published, featured, order, removeImages } = req.body;
+    const { title, category, description, summary, tags, tools, role, duration, link, published, featured, order, removeImages, coverUrl, imageUrls } = req.body;
 
     let currentImages = [...(existing.images || [])];
     if (removeImages) {
       const toRemove = Array.isArray(removeImages) ? removeImages : [removeImages];
       toRemove.forEach(filename => {
-        const filePath = path.join(UPLOADS_DIR, filename);
-        if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+        // Only delete local files, not Cloudinary URLs
+        if (!filename.startsWith('http')) {
+          const filePath = path.join(UPLOADS_DIR, filename);
+          if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+        }
         currentImages = currentImages.filter(f => f !== filename);
       });
     }
 
-    const newCover = req.files?.cover?.[0]?.filename || null;
-    if (newCover && existing.cover) {
+    const newCover = coverUrl || req.files?.cover?.[0]?.filename || null;
+    if (newCover && existing.cover && !existing.cover.strtsWith('http')) {
       const oldPath = path.join(UPLOADS_DIR, existing.cover);
       if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
     }
+
+    const localImages = (req.files?.images || []).map(f => f.filename);
+    const cloudImages = imageUrls ? (Array.isArray(imageUrls) ? imageUrls : [imageUrls]) : [];
 
     const updated = {
       ...existing,
@@ -178,7 +209,7 @@ app.put('/api/admin/projects/:id',
       tools: tools ? tools.split(',').map(t => t.trim()).filter(Boolean) : existing.tools,
       role: role ?? existing.role, duration: duration ?? existing.duration, link: link ?? existing.link,
       cover: newCover || existing.cover,
-      images: [...currentImages, ...(req.files?.images || []).map(f => f.filename)],
+      images: [...currentImages, ...localImages, ...cloudImages],
       published: published !== undefined ? (published === 'true' || published === true) : existing.published,
       featured:  featured  !== undefined ? (featured  === 'true' || featured  === true) : existing.featured,
       order: order !== undefined ? (parseInt(order) || 0) : existing.order,
@@ -197,8 +228,10 @@ app.delete('/api/admin/projects/:id', requireAuth, (req, res) => {
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
   const [removed] = projects.splice(idx, 1);
   [removed.cover, ...(removed.images || [])].filter(Boolean).forEach(f => {
-    const fp = path.join(UPLOADS_DIR, f);
-    if (fs.existsSync(fp)) fs.unlinkSync(fp);
+    if (!f.startsWith('http')) {
+      const fp = path.join(UPLOADS_DIR, f);
+      if (fs.existsSync(fp)) fs.unlinkSync(fp);
+    }
   });
   writeProjects(projects);
   res.json({ ok: true });
