@@ -1,972 +1,882 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin &mdash; Portfolio CMS</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; }
-    body { font-family: 'Inter', sans-serif; background: #0f0f0e; color: #e8e7e2; min-height: 100vh; }
-    :root {
-      --gold: #c9a96e;
-      --gold-dim: rgba(201,169,110,0.15);
-      --bg: #0f0f0e;
-      --bg2: #1a1a18;
-      --bg3: #222220;
-      --border: rgba(255,255,255,0.07);
-      --text: #e8e7e2;
-      --muted: rgba(232,231,226,0.45);
-      --danger: #e85454;
-      --success: #3ecf8e;
-      --radius: 12px;
-      --transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin &mdash; Portfolio CMS</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#141413;--surface:#1e1e1c;--surface2:#252523;--border:#2e2e2b;
+  --gold:#c9a96e;--gold2:#b8935a;--text:#f0efe9;--muted:#888;--red:#e05555;
+  --green:#4caf7d;--radius:10px;--sidebar:280px;
+}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14px;}
 
-    /* âââ LAYOUT âââ */
-    .app { display: grid; grid-template-rows: 60px 1fr; min-height: 100vh; }
+/* ===== LOGIN ===== */
+#loginScreen{
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;padding:1.5rem;
+}
+.login-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;padding:2.5rem 2rem;
+  width:100%;max-width:420px;text-align:center;
+}
+.login-icon{
+  width:56px;height:56px;background:var(--surface2);border-radius:12px;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:1.6rem;
+}
+.login-card h2{font-size:1.3rem;font-weight:600;margin-bottom:.4rem;}
+.login-card p{color:var(--muted);margin-bottom:1.75rem;font-size:.875rem;}
+.field-label{display:block;text-align:left;font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
+.login-input{
+  width:100%;padding:.75rem 1rem;background:var(--surface2);border:1px solid var(--border);
+  border-radius:8px;color:var(--text);font-size:.9rem;outline:none;transition:border .2s;
+}
+.login-input:focus{border-color:var(--gold);}
+.btn-primary{
+  width:100%;margin-top:1rem;padding:.8rem;background:var(--gold);color:#1a1a18;
+  border:none;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s;
+}
+.btn-primary:hover{background:var(--gold2);}
+#loginError{color:var(--red);font-size:.8rem;margin-top:.75rem;display:none;}
 
-    /* âââ HEADER âââ */
-    header {
-      background: var(--bg2);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 32px;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-    .header-brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .brand-dot {
-      width: 8px; height: 8px;
-      background: var(--gold);
-      border-radius: 50%;
-      box-shadow: 0 0 8px rgba(201,169,110,0.5);
-    }
-    .brand-name {
-      font-size: 0.875rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: var(--text);
-    }
-    .header-actions { display: flex; align-items: center; gap: 12px; }
-    .btn-sm {
-      font-size: 0.8rem;
-      font-weight: 500;
-      padding: 7px 16px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      transition: var(--transition);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .btn-ghost {
-      background: transparent;
-      color: var(--muted);
-      border: 1px solid var(--border);
-    }
-    .btn-ghost:hover { background: var(--bg3); color: var(--text); }
-    .btn-gold {
-      background: var(--gold);
-      color: #1a1a18;
-      font-weight: 600;
-    }
-    .btn-gold:hover { opacity: 0.88; transform: translateY(-1px); }
-    .btn-danger {
-      background: transparent;
-      color: var(--danger);
-      border: 1px solid rgba(232,84,84,0.25);
-    }
-    .btn-danger:hover { background: rgba(232,84,84,0.1); }
+/* ===== APP LAYOUT ===== */
+#appScreen{display:none;height:100vh;overflow:hidden;}
+.app{display:grid;grid-template-columns:var(--sidebar) 1fr;height:100vh;}
 
-    /* âââ MAIN CONTENT âââ */
-    .main-content {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      overflow: hidden;
-    }
+/* ===== MOBILE TOPBAR ===== */
+.mobile-bar{
+  display:none;align-items:center;justify-content:space-between;
+  padding:.75rem 1rem;background:var(--surface);border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:50;
+}
+.mobile-bar-title{font-weight:600;font-size:.95rem;}
+.hamburger{
+  background:none;border:none;color:var(--text);cursor:pointer;
+  padding:.35rem;display:flex;flex-direction:column;gap:4px;
+}
+.hamburger span{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;transition:.3s;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px);}
 
-    /* âââ SIDEBAR âââ */
-    aside {
-      background: var(--bg2);
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-    }
-    .sidebar-section { padding: 20px; border-bottom: 1px solid var(--border); }
-    .sidebar-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-    .btn-new {
-      width: 100%;
-      background: var(--gold-dim);
-      color: var(--gold);
-      border: 1px dashed rgba(201,169,110,0.3);
-      font-size: 0.85rem;
-      font-weight: 600;
-      padding: 10px 16px;
-      border-radius: var(--radius);
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    .btn-new:hover { background: rgb!(201,169,110,0.22); border-color: var(--gold); }
+/* ===== SIDEBAR ===== */
+.sidebar{
+  background:var(--surface);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;height:100vh;overflow:hidden;
+}
+.sidebar-head{
+  padding:1rem;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+}
+.sidebar-brand{font-weight:700;font-size:.9rem;display:flex;align-items:center;gap:.5rem;}
+.sidebar-brand span{color:var(--gold);}
+.btn-new{
+  background:var(--gold);color:#1a1a18;border:none;border-radius:6px;
+  padding:.4rem .75rem;font-size:.78rem;font-weight:600;cursor:pointer;transition:background .2s;
+}
+.btn-new:hover{background:var(--gold2);}
+.sidebar-search{padding:.75rem 1rem;border-bottom:1px solid var(--border);flex-shrink:0;}
+.search-input{
+  width:100%;padding:.5rem .75rem;background:var(--surface2);border:1px solid var(--border);
+  border-radius:6px;color:var(--text);font-size:.82rem;outline:none;
+}
+.search-input:focus{border-color:var(--gold);}
+.project-list{flex:1;overflow-y:auto;padding:.5rem;}
+.project-list::-webkit-scrollbar{width:4px;}
+.project-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.proj-item{
+  padding:.65rem .75rem;border-radius:8px;cursor:pointer;transition:background .15s;
+  display:flex;align-items:center;gap:.5rem;margin-bottom:2px;
+}
+.proj-item:hover{background:var(--surface2);}
+.proj-item.active{background:rgba(201,169,110,.12);border-left:2px solid var(--gold);}
+.proj-thumb{width:36px;height:36px;border-radius:6px;object-fit:cover;flex-shrink:0;background:var(--surface2);}
+.proj-thumb-ph{width:36px;height:36px;border-radius:6px;background:var(--surface2);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1rem;}
+.proj-info{flex:1;min-width:0;}
+.proj-title{font-size:.82rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.proj-meta{font-size:.72rem;color:var(--muted);display:flex;gap:.4rem;align-items:center;margin-top:2px;}
+.badge{display:inline-block;padding:1px 6px;border-radius:4px;font-size:.65rem;font-weight:600;}
+.badge-pub{background:rgba(76,175,125,.2);color:var(--green);}
+.badge-draft{background:rgba(136,136,136,.15);color:var(--muted);}
+.sidebar-foot{
+  padding:.75rem 1rem;border-top:1px solid var(--border);flex-shrink:0;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.sidebar-foot a{font-size:.8rem;color:var(--muted);text-decoration:none;}
+.sidebar-foot a:hover{color:var(--text);}
+.btn-logout{background:none;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:.3rem .7rem;font-size:.78rem;cursor:pointer;transition:.2s;}
+.btn-logout:hover{border-color:var(--red);color:var(--red);}
 
-    #projects-list { padding: 12px; display: flex; flex-direction: column; gap: 4px; flex: 1; overflow-y: auto; }
-    .project-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: var(--transition);
-      border: 1px solid transparent;
-    }
-    .project-item:hover { background: var(--bg3); }
-    .project-item.active { background: var(--bg3); border-color: var(--border); }
-    .project-item-thumb {
-      width: 36px; height: 36px;
-      border-radius: 6px;
-      object-fit: cover;
-      background: var(--bg3);
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .project-item-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
-    .project-item-info { flex: 1; min-width: 0; }
-    .project-item-title {
-      font-size: 0.825rem;
-      font-weight: 500;
-      color: var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .project-item-meta {
-      font-size: 0.7rem;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-    .status-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .status-dot.published { background: var(--success); }
-    .status-dot.draft { background: var(--muted); }
+/* ===== OVERLAY (mobile) ===== */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90;}
+.overlay.show{display:block;}
 
-    /* âââ PANELS âââ */
-    .panel-area {
-      background: var(--bg);
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-    }
+/* ===== MAIN PANEL ===== */
+.main{display:flex;flex-direction:column;height:100vh;overflow:hidden;}
+.empty-state{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1rem;color:var(--muted);
+}
+.empty-state .icon{font-size:3rem;opacity:.3;}
+.empty-state p{font-size:.95rem;}
+.btn-ghost{
+  background:none;border:1px solid var(--border);color:var(--text);border-radius:8px;
+  padding:.55rem 1.1rem;font-size:.82rem;cursor:pointer;transition:.2s;
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
 
-    /* Login panel */
-    #panel-login {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-    }
-    .login-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 48px 40px;
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-    }
-    .login-icon {
-      width: 56px; height: 56px;
-      background: var(--gold-dim);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-    }
-    .login-card h1 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .login-card p { font-size: 0.875rem; color: var(--muted); margin-bottom: 32px; }
-    .input-group { margin-bottom: 16px; text-align: left; }
-    .input-group label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--muted);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    .input-group input {
-      width: 100%;
-      background: var(--bg3);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      font-size: 0.9rem;
-      padding: 12px 16px;
-      font-family: inherit;
-      transition: var(--transition);
-      outline: none;
-    }
-    .input-group input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,169,110,0.12); }
-    .btn-login {
-      width: 100%;
-      background: var(--gold);
-      color: #1a1a18;
-      font-weight: 700;
-      font-size: 0.9rem;
-      padding: 13px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      transition: var(--transition);
-      font-family: inherit;
-      margin-top: 8px;
-    }
-    .btn-login:hover { opacity: 0.88; transform: translateY(-1px); }
-    .login-error {
-      background: rgba(232,84,84,0.1);
-      border: 1px solid rgba(232,84,84,0.25);
-      color: var(--danger);
-      font-size: 0.825rem;
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-bottom: 16px;
-      display: none;
-    }
+/* ===== FORM ===== */
+.form-wrap{flex:1;overflow-y:auto;padding:1.5rem;}
+.form-wrap::-webkit-scrollbar{width:4px;}
+.form-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.form-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem;}
+.form-head-left{display:flex;align-items:center;gap:.75rem;}
+.btn-back{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1rem;padding:.25rem;display:none;}
+.btn-delete{background:none;border:1px solid var(--border);color:var(--red);border-radius:6px;padding:.4rem .75rem;font-size:.78rem;cursor:pointer;transition:.2s;}
+.btn-delete:hover{background:rgba(224,85,85,.1);}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-group{display:flex;flex-direction:column;gap:.4rem;}
+.form-group.full{grid-column:1/-1;}
+.form-label{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
+.form-input,.form-textarea,.form-select{
+  background:var(--surface2);border:1px solid var(--border);border-radius:8px;
+  color:var(--text);font-size:.875rem;padding:.6rem .85rem;outline:none;transition:border .2s;
+  font-family:inherit;width:100%;
+}
+.form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--gold);}
+.form-textarea{resize:vertical;min-height:80px;}
+.form-select option{background:var(--surface2);}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:.65rem .85rem;background:var(--surface2);border:1px solid var(--border);border-radius:8px;}
+.toggle-label{font-size:.875rem;}
+.toggle{position:relative;display:inline-block;width:40px;height:22px;}
+.toggle input{opacity:0;width:0;height:0;}
+.slider{position:absolute;inset:0;background:#444;border-radius:22px;cursor:pointer;transition:.3s;}
+.slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s;}
+.toggle input:checked + .slider{background:var(--gold);}
+.toggle input:checked + .slider::before{transform:translateX(18px);}
 
-    /* Dashboard / welcome panel */
-    #panel-dashboard {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 12px;
-      color: var(--muted);
-      padding: 40px;
-      text-align: center;
-    }
-    #panel-dashboard h2 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text);
-    }
-    #panel-dashboard p { font-size: 0.875rem; }
+/* ===== UPLOAD ZONES ===== */
+.upload-zone{
+  border:2px dashed var(--border);border-radius:10px;padding:1.25rem;
+  text-align:center;cursor:pointer;transition:.2s;Position:relative;
+}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--gold);background:rgba(201,169,110,.05);}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.upload-zone-text{color:var(--muted);font-size:.82rem;}
+.upload-zone-text strong{color:var(--gold);}
+.upload-accept{font-size:.7rem;color:var(--muted);margin-top:.25rem;}
 
-    /* Form panel */
-    #panel-form {
-      padding: 40px;
-      max-width: 800px;
-    }
-    .form-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 32px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border);
-    }
-    .form-header h2 { font-size: 1.1rem; font-weight: 600; }
-    .form-header-actions { display: flex; gap: 10px; }
+/* Progress bar */
+.upload-progress{display:none;margin-top:.75rem;}
+.progress-bar-wrap{background:var(--border);border-radius:4px;height:4px;overflow:hidden;}
+.progress-bar{height:100%;background:var(--gold);width:0%;transition:width .3s;}
+.progress-text{font-size:.72rem;color:var(--muted);margin-top:.35rem;}
 
-    .form-section { margin-bottom: 32px; }
-    .form-section-title {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 16px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .form-group { margin-bottom: 16px; }
-    .form-group label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      font-size: 0.875rem;
-      padding: 11px 14px;
-      font-family: inherit;
-      transition: var(--transition);
-      outline: none;
-      resize: vertical;
-    }
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(201,169,110,0.1);
-    }
-    .form-group select option { background: var(--bg2); }
-    .form-group textarea { min-height: 100px; line-height: 1.6; }
+/* Cover preview */
+.cover-preview{margin-top:.75rem;display:none;}
+.cover-preview img,.cover-preview video{max-width:100%;max-height:200px;border-radius:8px;display:block;}
+.cover-preview iframe{width:100%;height:200px;border-radius:8px;border:none;}
+.cover-preview .file-name{font-size:.72rem;color:var(--muted);margin-top:.35rem;}
+.remove-cover{
+  margin-top:.4rem;background:none;border:none;color:var(--red);font-size:.75rem;cursor:pointer;
+}
 
-    /* Upload zones */
-    .upload-zone {
-      border: 1.5px dashed var(--border);
-      border-radius: var(--radius);
-      padding: 28px;
-      text-align: center;
-      cursor: pointer;
-      transition: var(--transition);
-      position: relative;
-    }
-    .upload-zone:hover { border-color: var(--gold); background: var(--gold-dim); }
-    .upload-zone input[type="file"] {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-      width: 100%;
-    }
-    .upload-zone-icon { font-size: 1.5rem; margin-bottom: 8px; opacity: 0.5; }
-    .upload-zone p { font-size: 0.825rem; color: var(--muted); }
-    .upload-zone strong { color: var(--gold); }
-    .upload-preview {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 12px;
-    }
-    .upload-preview-item {
-      position: relative;
-      width: 80px; height: 80px;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-    .upload-preview-item img { width: 100%; height: 100%; object-fit: cover; }
-    .upload-preview-item button {
-      position: absolute;
-      top: 3px; right: 3px;
-      width: 20px; height: 20px;
-      background: rgba(0,0,0,0.7);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+/* Gallery grid */
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:.5rem;margin-top:.75rem;}
+.gallery-item{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1;}
+.gallery-item img,.gallery-item video{width:100%;height:100%;object-fit:cover;}
+.gallery-item .pdf-thumb{width:100%;height:100%;background:var(--surface2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;color:var(--muted);}
+.gallery-item .pdf-thumb span{font-size:.6rem;text-align:center;padding:0 .25rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%;}
+.gallery-item .rm-btn{
+  position:absolute;top:3px;right:3px;background:rgba(0,0,0,.7);border:none;
+  color:#fff;border-radius:50%;width:20px;height:20px;font-size:.7rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
 
-    /* Toggles */
-    .toggle-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
-      background: var(--bg2);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      margin-bottom: 10px;
-    }
-    .toggle-info p { font-size: 0.875rem; font-weight: 500; }
-    .toggle-info span { font-size: 0.75rem; color: var(--muted); }
-    .toggle {
-      position: relative;
-      width: 44px; height: 24px;
-    }
-    .toggle input { opacity: 0; width: 0; height: 0; }
-    .toggle-slider {
-      position: absolute;
-      inset: 0;
-      background: var(--bg3);
-      border-radius: 100px;
-      cursor: pointer;
-      transition: var(--transition);
-      border: 1px solid var(--border);
-    }
-    .toggle-slider::before {
-      content: '';
-      position: absolute;
-      width: 18px; height: 18px;
-      left: 2px; top: 2px;
-      background: var(--muted);
-      border-radius: 50%;
-      transition: var(--transition);
-    }
-    .toggle input:checked + .toggle-slider { background: var(--gold); border-color: var(--gold); }
-    .toggle input:checked + .toggle-slider::before {
-      transform: translateX(20px);
-      background: var(--white, #fff);
-    }
+/* ===== SAVE BAR ===== */
+.save-bar{
+  position:sticky;bottom:0;padding:1rem 1.5rem;
+  background:var(--surface);border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-shrink:0;
+}
+.save-btn{
+  background:var(--gold);color:#1a1a18;border:none;border-radius:8px;
+  padding:.65rem 1.5rem;font-size:.875rem;font-weight:600;cursor:pointer;transition:background .2s;
+}
+.save-btn:hover{background:var(--gold2);}
+.save-btn:disabled{opacity:.5;cursor:not-allowed;}
+.save-status{font-size:.78rem;color:var(--muted);}
 
-    /* Save bar */
-    .save-bar {
-      position: sticky;
-      bottom: 0;
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      padding: 16px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .save-status { font-size: 0.8rem; color: var(--muted); }
-    .save-status.saved { color: var(--success); }
-    .save-status.saving { color: var(--gold); }
-    .save-actions { display: flex; gap: 12px; }
-    .btn-save {
-      background: var(--gold);
-      color: #1a1a18;
-      font-weight: 700;
-      font-size: 0.875rem;
-      padding: 10px 24px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      transition: var(--transition);
-      font-family: inherit;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-save:hover { opacity: 0.88; transform: translateY(-1px); }
-    .btn-save:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+/* ===== TOAST ===== */
+#toast{
+  position:fixed;bottom:1.5rem;right:1.5rem;background:var(--surface);
+  border:1px solid var(--border);border-radius:10px;padding:.75rem 1rem;
+  font-size:.82rem;display:none;z-index:999;max-width:280px;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);
+}
+#toast.success{border-color:var(--green);color:var(--green);}
+#toast.error{border-color:var(--red);color:var(--red);}
 
-    /* Toast */
-    #toast {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 14px 20px;
-      font-size: 0.875rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-      z-index: 200;
-      transform: translateY(100px);
-      opacity: 0;
-      transition: var(--transition);
-      max-width: 340px;
-    }
-    #toast.show { transform: translateY(0); opacity: 1; }
-    #toast.success { border-color: rgba(62,207,142,0.3); color: var(--success); }
-    #toast.error { border-color: rgba(232,84,84,0.3); color: var(--danger); }
+/* ===== CLOUDINARY SETUP NOTICE ===== */
+.cloud-notice{
+  background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.25);
+  border-radius:8px;padding:.75rem 1rem;font-size:.78rem;color:var(--gold);
+  margin-bottom:1rem;display:none;
+}
 
-    /* Hidden */
-    .hidden { display: none !important; }
-  </style>
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .app{grid-template-columns:1fr;}
+  .mobile-bar{display:flex;}
+  .sidebar{
+    position:fixed;top:0;left:0;height:100%;width:var(--sidebar);z-index:100;
+    transform:translateX(-100%);transition:transform .3s ease;
+  }
+  .sidebar.open{transform:translateX(0);}
+  .main{height:calc(100vh - 49px);}
+  .form-grid{grid-template-columns:1fr;}
+  .form-wrap{padding:1rem;}
+  .btn-back{display:inline-flex;}
+  .save-bar{padding:.75rem 1rem;}
+}
+@media(max-width:480px){
+  :root{--sidebar:85vw;}
+  .form-head{flex-direction:column;align-items:flex-start;}
+}
+</style>
 </head>
 <body>
-<div class="app">
-  <!-- HEADER -->
-  <header>
-    <div class="header-brand">
-      <div class="brand-dot"></div>
-      <span class="brand-name">Portfolio CMS</span>
-    </div>
-    <div class="header-actions">
-      <a href="/" target="_blank" class="btn-sm btn-ghost">
-        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-        View site
-      </a>
-      <button class="btn-sm btn-danger hidden" id="btn-logout" onclick="logout()">Sign out</button>
-    </div>
-  </header>
 
-  <div class="main-content">
-    <!-- SIDEBAR -->
-    <aside id="sidebar" class="hidden">
-      <div class="sidebar-section">
-        <p class="sidebar-label">Projects</p>
-        <button class="btn-new" onclick="openNewForm()">
-          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-          New project
-        </button>
-      </div>
-      <div id="projects-list">
-        <p style="padding:12px;font-size:0.8rem;color:var(--muted)">Loading...</p>
-      </div>
-    </aside>
-
-    <!-- PANELS -->
-    <div class="panel-area">
-      <!-- Login -->
-      <div id="panel-login">
-        <div class="login-card">
-          <div class="login-icon">
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="var(--gold)" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-          </div>
-          <h1>Admin Access</h1>
-          <p>Enter your password to manage portfolio content</p>
-          <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
-          <div class="input-group">
-            <label>Password</label>
-            <input type="password" id="password-input" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
-              onkeydown="if(event.key==='Enter') doLogin()" />
-          </div>
-          <button class="btn-login" onclick="doLogin()">Sign in</button>
-        </div>
-      </div>
-
-      <!-- Dashboard (empty state) -->
-      <div id="panel-dashboard" class="hidden">
-        <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="rgba(232,231,226,0.2)" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-        <h2>Select a project or create a new one</h2>
-        <p>Use the sidebar to manage your portfolio case studies</p>
-      </div>
-
-      <!-- Form -->
-      <div id="panel-form" class="hidden">
-        <div class="form-header">
-          <h2 id="form-title">New Project</h2>
-          <div class="form-header-actions">
-            <button class="btn-sm btn-danger" id="btn-delete" onclick="deleteProject()" style="display:none">
-              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-              Delete
-            </button>
-          </div>
-        </div>
-
-        <form id="project-form" enctype="multipart/form-data">
-          <input type="hidden" id="project-id" />
-
-          <!-- Basic -->
-          <div class="form-section">
-            <p class="form-section-title">Basic Info</p>
-            <div class="form-group">
-              <label>Project Title *</label>
-              <input type="text" id="f-title" placeholder="e.g. Redesigning the onboarding flow" required />
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Category</label>
-                <input type="text" id="f-category" placeholder="e.g. UX Research" />
-              </div>
-              <div class="form-group">
-                <label>Role</label>
-                <input type="text" id="f-role" placeholder="e.g. Lead Designer" />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Duration</label>
-                <input type="text" id="f-duration" placeholder="e.g. 3 months" />
-              </div>
-              <div class="form-group">
-                <label>External Link</label>
-                <input type="url" id="f-link" placeholder="https://behance.net/..." />
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Short Summary (shown on card)</label>
-              <input type="text" id="f-summary" placeholder="One-line description" />
-            </div>
-            <div class="form-group">
-              <label>Full Description</label>
-              <textarea id="f-description" rows="5" placeholder="Detailed case study description..."></textarea>
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>Tags (comma separated)</label>
-                <input type="text" id="f-tags" placeholder="UX, Research, Figma" />
-              </div>
-              <div class="form-group">
-                <label>Tools (comma separated)</label>
-                <input type="text" id="f-tools" placeholder="Figma, Maze, Notion" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Sort Order</label>
-              <input type="number" id="f-order" placeholder="0" min="0" />
-            </div>
-          </div>
-
-          <!-- Media -->
-          <div class="form-section">
-            <p class="form-section-title">Media</p>
-            <div class="form-group">
-              <label>Cover Image</label>
-              <div class="upload-zone" id="cover-zone">
-                <input type="file" id="f-cover" accept="image/*" onchange="previewCover(this)" />
-                <div id="cover-preview-area">
-                  <div class="upload-zone-icon">
-                    <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 20M14 8a2 2 0 11-4 0 2 2 0 014 0zM6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                  </div>
-                  <p>Drop cover image here or <strong>browse</strong></p>
-                  <p style="font-size:0.75rem;margin-top:4px">16:9 recommended &bull; Max 20MB</p>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label>Gallery Images</label>
-              <div class="upload-zone" id="images-zone">
-                <input type="file" id="f-images" accept="image/*" multiple onchange="previewImages(this)" />
-                <div class="upload-zone-icon">
-                  <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                </div>
-                <p>Drop multiple images here or <strong>browse</strong></p>
-                <div class="upload-preview" id="images-preview"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Settings -->
-          <div class="form-section">
-            <p class="form-section-title">Settings</p>
-            <div class="toggle-row">
-              <div class="toggle-info">
-                <p>Published</p>
-                <span>Show this project on the public portfolio</span>
-              </div>
-              <label class="toggle">
-                <input type="checkbox" id="f-published" checked />
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-            <div class="toggle-row">
-              <div class="toggle-info">
-                <p>Featured</p>
-                <span>Highlight at the top of the work section</span>
-              </div>
-              <label class="toggle">
-                <input type="checkbox" id="f-featured" />
-                <span class="toggle-slider"></span>
-              </label>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <!-- Save bar (only shown with form) -->
-      <div class="save-bar hidden" id="save-bar">
-        <span class="save-status" id="save-status"></span>
-        <div class="save-actions">
-          <button class="btn-sm btn-ghost" onclick="showDashboard()">Cancel</button>
-          <button class="btn-save" id="btn-save" onclick="saveProject()">
-            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
-            Save project
-          </button>
-        </div>
-      </div>
-    </div>
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-icon">&#128274;</div>
+    <h2>Admin Access</h2>
+    <p>Enter your password to manage portfolio content</p>
+    <label class="field-label" for="pwdInput">Password</label>
+    <input class="login-input" id="pwdInput" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password">
+    <button class="btn-primary" onclick="doLogin()">Sign in</button>
+    <div id="loginError">Wrong password. Try again.</div>
   </div>
 </div>
 
-<!-- Toast -->
+<!-- APP -->
+<div id="appScreen">
+  <!-- Mobile top bar -->
+  <div class="mobile-bar">
+    <span class="mobile-bar-title">Portfolio CMS</span>
+    <button class="hamburger" id="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <div class="app">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <div class="sidebar-brand">&#9679; <span>Portfolio CMS</span></div>
+        <button class="btn-new" onclick="newProject()">+ New</button>
+      </div>
+      <div class="sidebar-search">
+        <input class="search-input" id="searchInput" type="text" placeholder="Search projects..." oninput="filterProjects()">
+      </div>
+      <div class="project-list" id="projectList"></div>
+      <div class="sidebar-foot">
+        <a href="/" target="_blank">View site &rarr;</a>
+        <button class="btn-logout" onclick="logout()">Log out</button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main" id="main">
+      <div class="empty-state" id="emptyState">
+        <div class="icon">&#128196;</div>
+        <p>Select a project or create a new one</p>
+        <button class="btn-ghost" onclick="newProject()">+ New Project</button>
+      </div>
+
+      <!-- FORM -->
+      <div id="formPanel" style="display:none;display:flex;flex-direction:column;height:100%;overflow:hidden;">
+        <div class="form-wrap">
+          <div class="form-head">
+            <div class="form-head-left">
+              <button class="btn-back" onclick="closeSidebar()" title="Back">&#8592;</button>
+              <h2 id="formTitle" style="font-size:1rem;font-weight:600;">New Project</h2>
+            </div>
+            <button class="btn-delete" id="deleteBtn" onclick="deleteProject()" style="display:none;">Delete</button>
+          </div>
+
+          <div id="cloudNotice" class="cloud-notice">
+            &#9888; Cloudinary not configured &mdash; uploads limited to ~4 MB. Add CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET to Vercel env vars for unlimited uploads.
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group full">
+              <label class="form-label">Title</label>
+              <input class="form-input" id="fTitle" type="text" placeholder="Project title">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Category</label>
+              <select class="form-select" id="fCategory">
+                <option value="">Select category</option>
+                <option>UX Design</option>
+                <option>Product Design</option>
+                <option>UI Design</option>
+                <option>Branding</option>
+                <option>Research</option>
+                <option>Case Study</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Role</label>
+              <input class="form-input" id="fRole" type="text" placeholder="e.g. Lead Designer">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Duration</label>
+              <input class="form-input" id="fDuration" type="text" placeholder="e.g. 3 months">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Link</label>
+              <input class="form-input" id="fLink" type="url" placeholder="https://...">
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Summary (short)</label>
+              <input class="form-input" id="fSummary" type="text" placeholder="One-line description">
+            </div>
+            <div class="form-group full">
+              <label class="form-label">Description</label>
+              <textarea class="form-textarea" id="fDesc" rows="4" placeholder="Full project description..."></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tags (comma separated)</label>
+              <input class="form-input" id="fTags" type="text" placeholder="UX, Mobile, Figma">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tools (comma separated)</label>
+              <input class="form-input" id="fTools" type="text" placeholder="Figma, Miro, Notion">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Display Order</label>
+              <input class="form-input" id="fOrder" type="number" placeholder="0" min="0">
+            </div>
+
+            <!-- Toggles -->
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <div class="toggle-row">
+                <span class="toggle-label">Published</span>
+                <label class="toggle"><input type="checkbox" id="fPublished"><span class="slider"></span></label>
+              </div>
+            </div>
+            <div class="form-group full">
+              <div class="toggle-row">
+                <span class="toggle-label">Featured on homepage</span>
+                <label class="toggle"><input type="checkbox" id="fFeatured"><span class="slider"></span></label>
+              </div>
+            </div>
+
+            <!-- Cover upload -->
+            <div class="form-group full">
+              <label class="form-,abel">Cover Image / Video / PDF</label>
+              <div class="upload-zone" id="coverZone">
+                <input type="file" id="coverInput" accept="image/*,video/*,.pdf,application/pdf" onchange="handleCoverSelect(this)">
+                <div class="upload-zone-text"><strong>Click to upload</strong> or drag &amp; drop</div>
+                <div class="upload-accept">Images, videos (MP4, WebM), PDFs &mdash; any size with Cloudinary</div>
+              </div>
+              <div class="upload-progress" id="coverProgress">
+                <div class="progress-bar-wrap"><div class="progress-bar" id="coverProgressBar"></div></div>
+                <div class="progress-text" id="coverProgressText">Uploading...</div>
+              </div>
+              <div class="cover-preview" id="coverPreview"></div>
+            </div>
+
+            <!-- Gallery upload -->
+            <div class="form-group full">
+              <label class="form-label">Gallery (images / videos / PDFs)</label>
+              <div class="upload-zone" id="galleryZone">
+                <input type="file" id="galleryInput" accept="image/*,video/*,.pdf,application/pdf" multiple onchange="handleGallerySelect(this)">
+                <div class="upload-zone-text"><strong>Click to upload</strong> or drag &amp; drop</div>
+                <div class="upload-accept">Multiple files supported &mdash; images, videos, PDFs</div>
+              </div>
+              <div class="upload-progress" id="galleryProgress">
+                <div class="progress-bar-wrap"><div class="progress-bar" id="galleryProgressBar"></div></div>
+                <div class="progress-text" id="galleryProgressText">Uploading...</div>
+              </div>
+              <div class="gallery-grid" id="galleryGrid"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Save bar -->
+        <div class="save-bar">
+          <span class="save-status" id="saveStatus"></span>
+          <button class="save-btn" id="saveBtn" onclick="saveProject()">Save Project</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
-  const API = '/api';
-  let currentProjectId = null;
+// ===== STATE =====
+let projects = [];
+let currentId = null;
+let isNew = false;
+let coverFile = null;
+let coverUrl = null;
+let galleryFiles = [];
+let galleryUrls = [];
+let removedImages = [];
+let cloudinaryEnabled = false;
 
-  // âââ AUTH âââ
-  async function doLogin() {
-    const pw = document.getElementById('password-input').value;
-    const err = document.getElementById('login-error');
-    err.style.display = 'none';
-    try {
-      const res = await fetch(API + '/admin/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password: pw })
-      });
-      if (res.ok) {
-        document.getElementById('panel-login').classList.add('hidden');
-        document.getElementById('sidebar').classList.remove('hidden');
-        document.getElementById('btn-logout').classList.remove('hidden');
-        showDashboard();
-        loadSidebar();
-      } else {
-        err.style.display = 'block';
-        document.getElementById('password-input').select();
-      }
-    } catch(e) {
-      err.textContent = 'Connection error. Is the server running?';
-      err.style.display = 'block';
+// ===== AUTH =====
+async function checkAuth() {
+  try {
+    const r = await fetch('/api/admin/check');
+    if (r.ok) showApp();
+  } catch(e) {}
+}
+
+async function doLogin() {
+  const pwd = document.getElementById('pwdInput').value;
+  const err = document.getElementById('loginError');
+  err.style.display = 'none';
+  try {
+    const r = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pwd })
+    });
+    if (r.ok) { showApp(); }
+    else { err.style.display = 'block'; }
+  } catch(e) { err.textContent = 'Connection error.'; err.style.display = 'block'; }
+}
+
+async function logout() {
+  await fetch('/api/admin/logout', { method: 'POST' });
+  location.reload();
+}
+
+function showApp() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('appScreen').style.display = 'block';
+  checkCloudinary();
+  loadSidebar();
+}
+
+// ===== CLOUDINARY =====
+async function checkCloudinary() {
+  try {
+    const r = await fetch('/api/admin/cloudinary-sign', { method: 'POST' });
+    cloudinaryEnabled = r.ok;
+    if (!cloudinaryEnabled) {
+      document.getElementById('cloudNotice').style.display = 'block';
     }
-  }
+  } catch(e) { cloudinaryEnabled = false; }
+}
 
-  async function logout() {
-    await fetch(API + '/admin/logout', { method: 'POST' });
-    location.reload();
-  }
+async function uploadToCloudinary(file, onProgress) {
+  const signRes = await fetch('/api/admin/cloudinary-sign', { method: 'POST' });
+  if (!signRes.ok) return null;
+  const { timestamp, signature, apiKey, cloudName, folder } = await signRes.json();
 
-  async function checkAuth() {
-    try {
-      const res = await fetch(API + '/admin/check');
-      if (res.ok) {
-        document.getElementById('panel-login').classList.add('hidden');
-        document.getElementById('sidebar').classList.remove('hidden');
-        document.getElementById('btn-logout').classList.remove('hidden');
-        showDashboard();
-        loadSidebar();
-      }
-    } catch(e) {}
-  }
-  checkAuth();
+  const resourceType = file.type.startsWith('video/') ? 'video'
+    : file.type === 'application/pdf' ? 'raw' : 'image';
 
-  // âââ PANELS âââ
-  function showDashboard() {
-    document.getElementById('panel-dashboard').classList.remove('hidden');
-    document.getElementById('panel-form').classList.add('hidden');
-    document.getElementById('save-bar').classList.add('hidden');
-    currentProjectId = null;
-    document.querySelectorAll('.project-item').forEach(el => el.classList.remove('active'));
-  }
+  const fd = new FormData();
+  fd.append('file', file);
+  fd.append('api_key', apiKey);
+  fd.append('timestamp', timestamp);
+  fd.append('signature', signature);
+  fd.append('folder', folder);
 
-  function showForm(project) {
-    document.getElementById('panel-dashboard').classList.add('hidden');
-    document.getElementById('panel-form').classList.remove('hidden');
-    document.getElementById('save-bar').classList.remove('hidden');
-    if (project) {
-      document.getElementById('form-title').textContent = project.title || 'Edit Project';
-      document.getElementById('btn-delete').style.display = 'flex';
-      currentProjectId = project.id;
-      fillForm(project);
-    } else {
-      document.getElementById('form-title').textContent = 'New Project';
-      document.getElementById('btn-delete').style.display = 'none';
-      currentProjectId = null;
-      clearForm();
-    }
-  }
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable && onProgress) onProgress(Math.round(e.loaded / e.total * 100));
+    };
+    xhr.onload = () => {
+      try {
+        const data = JSON.parse(xhr.responseText);
+        resolve(data.secure_url || null);
+      } catch(e) { resolve(null); }
+    };
+    xhr.onerror = () => reject(new Error('Upload failed'));
+    xhr.open('POST', `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`);
+    xhr.send(fd);
+  });
+}
 
-  function openNewForm() {
-    showForm(null);
-    document.querySelectorAll('.project-item').forEach(el => el.classList.remove('active'));
-  }
+// ===== SIDEBAR =====
+async function loadSidebar() {
+  try {
+    const r = await fetch('/api/admin/projects');
+    projects = await r.json();
+    renderList(projects);
+  } catch(e) { showToast('Failed to load projects', 'error'); }
+}
 
-  // âââ SIDEBAR âââ
-  async function loadSidebar() {
-    const list = document.getElementById('projects-list');
-    try {
-      const res = await fetch(API + '/admin/projects', { credentials: 'include' });
-      const projects = await res.json();
-      if (!projects.length) {
-        list.innerHTML = '<p style="padding:12px;font-size:0.8rem;color:var(--muted)">No projects yet.</p>';
-        return;
-      }
-      list.innerHTML = projects.map(p => `
-        <div class="project-item" data-id="${p.id}" onclick="openProject('${p.id}')">
-          <div class="project-item-thumb">
-            ${p.cover
-              ? `<img src="/uploads/${p.cover}" alt="" onerror="this.parentElement.innerHTML='<svg width=16 height=16 fill=none viewBox=\\'0 0 24 24\\' stroke=\\'currentColor\\' stroke-width=\\'1.5\\'><rect x=\\'3\\' y=\\'3\\' width=\\'18\\' height=\\'18\\' rx=\\'3\\'/></svg>'"/>`
-              : '<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="rgba(232,231,226,0.3)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>'
-            }
-          </div>
-          <div class="project-item-info">
-            <div class="project-item-title">${p.title}</div>
-            <div class="project-item-meta">${p.category || 'Uncategorized'}</div>
-          </div>
-          <div class="status-dot ${p.published ? 'published' : 'draft'}" title="${p.published ? 'Published' : 'Draft'}"></div>
+function renderList(list) {
+  const el = document.getElementById('projectList');
+  if (!list.length) {
+    el.innerHTML = '<div style="padding:1rem;color:var(--muted);font-size:.8rem;text-align:center;">No projects yet</div>';
+    return;
+  }
+  el.innerHTML = list.map(p => {
+    const thumb = p.cover
+      ? (p.cover.startsWith('http')
+          ? (p.cover.includes('/video/') || p.cover.match(/\.(mp4|webm|mov)$/i)
+              ? `<div class="proj-thumb-ph">&#127916;</div>`
+              : (p.cover.match(/\.pdf$/i) || p.cover.includes('/raw/'))
+                ? `<div class="proj-thumb-ph">&#128196;</div>`
+                : `<img class="proj-thumb" src="${p.cover}" loading="lazy" alt="">`)
+          : `<img class="proj-thumb" src="/uploads/${p.cover}" loading="lazy" alt="">`)
+      : `<div class="proj-thumb-ph">&#128196;</div>`;
+    return `<div class="proj-item${p.id===currentId?' active':''}" onclick="openProject('${p.id}')">
+      ${thumb}
+      <div class="proj-info">
+        <div class="proj-title">${esc(p.title||'Untitled')}</div>
+        <div class="proj-meta">
+          <span class="badge ${p.published?'badge-pub':'badge-draft'}">${p.published?'Live':'Draft'}</span>
+          ${p.category?`<span>${esc(p.category)}</span>`:''}
         </div>
-      `).join('');
-    } catch(e) {
-      list.innerHTML = '<p style="padding:12px;font-size:0.8rem;color:var(--muted)">Failed to load.</p>';
-    }
-  }
-
-  async function openProject(id) {
-    document.querySelectorAll('.project-item').forEach(el => {
-      el.classList.toggle('active', el.dataset.id === id);
-    });
-    try {
-      const res = await fetch(API + '/admin/projects', { credentials: 'include' });
-      const projects = await res.json();
-      const project = projects.find(p => p.id === id);
-      if (project) showForm(project);
-    } catch(e) { showToast('Failed to load project', 'error'); }
-  }
-
-  // âââ FORM âââ
-  function fillForm(p) {
-    document.getElementById('project-id').value = p.id || '';
-    document.getElementById('f-title').value = p.title || '';
-    document.getElementById('f-category').value = p.category || '';
-    document.getElementById('f-role').value = p.role || '';
-    document.getElementById('f-duration').value = p.duration || '';
-    document.getElementById('f-link').value = p.link || '';
-    document.getElementById('f-summary').value = p.summary || '';
-    document.getElementById('f-description').value = p.description || '';
-    document.getElementById('f-tags').value = (p.tags || []).join(', ');
-    document.getElementById('f-tools').value = (p.tools || []).join(', ');
-    document.getElementById('f-order').value = p.order ?? 0;
-    document.getElementById('f-published').checked = p.published !== false;
-    document.getElementById('f-featured').checked = !!p.featured;
-
-    // Cover preview
-    const pa = document.getElementById('cover-preview-area');
-    if (p.cover) {
-      pa.innerHTML = `<img src="/uploads/${p.cover}" style="width:100%;max-height:140px;object-fit:cover;border-radius:8px;"/>`;
-    } else {
-      resetCoverPreview();
-    }
-    document.getElementById('images-preview').innerHTML = (p.images || []).map(img =>
-      `<div class="upload-preview-item"><img src="/uploads/${img}" /><button onclick="this.parentElement.remove()">&#x2715;</button></div>`
-    ).join('');
-
-    document.getElementById('save-status').textContent = '';
-  }
-
-  function clearForm() {
-    ['f-title','f-category','f-role','f-duration','f-link','f-summary','f-description','f-tags','f-tools'].forEach(id => {
-      document.getElementById(id).value = '';
-    });
-    document.getElementById('f-order').value = '0';
-    document.getElementById('f-published').checked = true;
-    document.getElementById('f-featured').checked = false;
-    document.getElementById('f-cover').value = '';
-    document.getElementById('f-images').value = '';
-    document.getElementById('images-preview').innerHTML = '';
-    resetCoverPreview();
-    document.getElementById('save-status').textContent = '';
-  }
-
-  function resetCoverPreview() {
-    document.getElementById('cover-preview-area').innerHTML = `
-      <div class="upload-zone-icon">
-        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 20M14 8a2 2 0 11-4 0 2 2 0 014 0zM6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
       </div>
-      <p>Drop cover image here or <strong>browse</strong></p>
-      <p style="font-size:0.75rem;margin-top:4px">16:9 recommended &bull; Max 20MB</p>
-    `;
+    </div>`;
+  }).join('');
+}
+
+function filterProjects() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  renderList(q ? projects.filter(p => (p.title||'').toLowerCase().includes(q)) : projects);
+}
+
+// ===== PROJECT FORM =====
+function newProject() {
+  currentId = null;
+  isNew = true;
+  coverFile = null; coverUrl = null;
+  galleryFiles = []; galleryUrls = []; removedImages = [];
+  resetForm();
+  document.getElementById('formTitle').textContent = 'New Project';
+  document.getElementById('deleteBtn').style.display = 'none';
+  showForm();
+  closeSidebar();
+}
+
+function openProject(id) {
+  const p = projects.find(x => x.id === id);
+  if (!p) return;
+  currentId = id;
+  isNew = false;
+  coverFile = null; coverUrl = null;
+  galleryFiles = []; galleryUrls = []; removedImages = [];
+
+  document.getElementById('formTitle').textContent = p.title || 'Untitled';
+  document.getElementById('deleteBtn').style.display = 'inline-block';
+  document.getElementById('fTitle').value = p.title || '';
+  document.getElementById('fCategory').value = p.category || '';
+  document.getElementById('fRole').value = p.role || '';
+  document.getElementById('fDuration').value = p.duration || '';
+  document.getElementById('fLink').value = p.link || '';
+  document.getElementById('fSummary').value = p.summary || '';
+  document.getElementById('fDesc').value = p.description || '';
+  document.getElementById('fTags').value = (p.tags||[]).join(', ');
+  document.getElementById('fTools').value = (p.tools||[]).join(', ');
+  document.getElementById('fOrder').value = p.order ?? 0;
+  document.getElementById('fPublished').checked = !!p.published;
+  document.getElementById('fFeatured').checked = !!p.featured;
+
+  // Cover preview
+  const cp = document.getElementById('coverPreview');
+  cp.style.display = p.cover ? 'block' : 'none';
+  if (p.cover) {
+    const url = p.cover.startsWith('http') ? p.cover : `/uploads/${p.cover}`;
+    cp.innerHTML = renderMediaPreview(url, p.cover);
   }
 
-  function previewCover(input) {
-    if (!input.files[0]) return;
-    const url = URL.createObjectURL(input.files[0]);
-    document.getElementById('cover-preview-area').innerHTML =
-      `<img src="${url}" style="width:100%;max-height:140px;object-fit:cover;border-radius:8px;"/>`;
-  }
+  // Gallery
+  const gg = document.getElementById('galleryGrid');
+  gg.innerHTML = '';
+  (p.images||[]).forEach(f => {
+    const url = f.startsWith('http') ? f : `/uploads/${f}`;
+    addGalleryItem(url, f, true);
+  });
 
-  function previewImages(input) {
-    const preview = document.getElementById('images-preview');
-    Array.from(input.files).forEach(file => {
+  renderList(projects);
+  showForm();
+  closeSidebar();
+}
+
+function renderMediaPreview(url, filename) {
+  const isVideo = url.match(/\.(mp4|webm|mov|avi)$/i) || url.includes('/video/');
+  const isPdf = url.match(/\.pdf$/i) || url.includes('/raw/');
+  if (isVideo) return `<video controls src="${url}" style="max-width:100%;max-height:200px;border-radius:8px;display:block;"></video><div class="file-name">${filename.split('/').pop()}</div>`;
+  if (isPdf) return `<div style="background:var(--surface2);border-radius:8px;padding:1.5rem;text-align:center;color:var(--muted);"><div style="font-size:2rem;">&#128196;</div><div style="font-size:.75rem;margin-top:.4rem;">${filename.split('/').pop()}</div><a href="${url}" target="_blank" style="color:var(--gold);font-size:.78rem;text-decoration:none;">Open PDF &rarr;</a></div>`;
+  return `<img src="${url}" style="max-width:100%;max-height:200px;border-radius:8px;display:block;" alt="Cover"><div class="file-name">${filename.split('/').pop()}</div>`;
+}
+
+function showForm() {
+  document.getElementById('emptyState').style.display = 'none';
+  const fp = document.getElementById('formPanel');
+  fp.style.display = 'flex';
+}
+
+function resetForm() {
+  ['fTitle','fRole','fDuration','fLink','fSummary','fDesc','fTags','fTools'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('fCategory').value = '';
+  document.getElementById('fOrder').value = '0';
+  document.getElementById('fPublished').checked = false;
+  document.getElementById('fFeatured').checked = false;
+  document.getElementById('coverPreview').style.display = 'none';
+  document.getElementById('coverPreview').innerHTML = '';
+  document.getElementById('galleryGrid').innerHTML = '';
+  document.getElementById('coverInput').value = '';
+  document.getElementById('galleryInput').value = '';
+}
+
+// ===== COVER UPLOAD =====
+async function handleCoverSelect(input) {
+  const file = input.files[0];
+  if (!file) return;
+  coverFile = file;
+  coverUrl = null;
+
+  const prog = document.getElementById('coverProgress');
+  const bar = document.getElementById('coverProgressBar');
+  const txt = document.getElementById('coverProgressText');
+  const cp = document.getElementById('coverPreview');
+
+  if (cloudinaryEnabled) {
+    prog.style.display = 'block';
+    bar.style.width = '0%';
+    txt.textContent = 'Uploading to cloud...';
+    try {
+      const url = await uploadToCloudinary(file, pct => {
+        bar.style.width = pct + '%';
+        txt.textContent = `Uploading... ${pct}%`;
+      });
+      prog.style.display = 'none';
+      if (url) {
+        coverUrl = url;
+        coverFile = null;
+        cp.style.display = 'block';
+        cp.innerHTML = renderMediaPreview(url, file.name) + `<button class="remove-cover" onclick="removeCover()">Remove</button>`;
+        showToast('Cover uploaded', 'success');
+      } else {
+        showToast('Cloudinary upload failed', 'error');
+      }
+    } catch(e) {
+      prog.style.display = 'none';
+      showToast('Upload error: ' + e.message, 'error');
+    }
+  } else {
+    // Local preview only (will be sent via FormData)
+    const url = URL.createObjectURL(file);
+    cp.style.display = 'block';
+    cp.innerHTML = renderMediaPreview(url, file.name) + `<button class="remove-cover" onclick="removeCover()">Remove</button>`;
+  }
+}
+
+function removeCover() {
+  coverFile = null; coverUrl = null;
+  document.getElementById('coverPreview').style.display = 'none';
+  document.getElementById('coverPreview').innerHTML = '';
+  document.getElementById('coverInput').value = '';
+}
+
+// ===== GALLERY UPLOAD =====
+async function handleGallerySelect(input) {
+  const files = Array.from(input.files);
+  if (!files.length) return;
+
+  const prog = document.getElementById('galleryProgress');
+  const bar = document.getElementById('galleryProgressBar');
+  const txt = document.getElementById('galleryProgressText');
+
+  if (cloudinaryEnabled) {
+    prog.style.display = 'block';
+    bar.style.width = '0%';
+    txt.textContent = `Uploading 0 / ${files.length}...`;
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      try {
+        const url = await uploadToCloudinary(file, pct => {
+          const overall = Math.round(((i + pct/100) / files.length) * 100);
+          bar.style.width = overall + '%';
+          txt.textContent = `Uploading ${i+1} / ${files.length} (${pct}%)...`;
+        });
+        if (url) {
+          galleryUrls.push(url);
+          addGalleryItem(url, file.name, false);
+        }
+      } catch(e) {
+        showToast(`Failed: ${file.name}`, 'error');
+      }
+    }
+    prog.style.display = 'none';
+    showToast(`${files.length} file(s) uploaded`, 'success');
+  } else {
+    files.forEach(file => {
+      galleryFiles.push(file);
       const url = URL.createObjectURL(file);
-      const div = document.createElement('div');
-      div.className = 'upload-preview-item';
-      div.innerHTML = `<img src="${url}" /><button onclick="this.parentElement.remove()">&#x2715;</button>`;
-      preview.appendChild(div);
+      addGalleryItem(url, file.name, false, galleryFiles.length - 1);
     });
   }
+  input.value = '';
+}
 
-  // âââ SAVE âââ
-  async function saveProject() {
-    const btn = document.getElementById('btn-save');
-    const status = document.getElementById('save-status');
-    btn.disabled = true;
-    status.className = 'save-status saving';
-    status.textContent = 'Saving...';
+function addGalleryItem(url, filename, isExisting, localIdx) {
+  const grid = document.getElementById('galleryGrid');
+  const div = document.createElement('div');
+  div.className = 'gallery-item';
+  const isVideo = url.match(/\.(mp4|webm|mov|avi)$/i) || url.includes('/video/');
+  const isPdf = url.match(/\.pdf$/i) || url.includes('/raw/');
+  const key = isExisting ? filename : url;
+  div.dataset.key = key;
 
+  let inner = '';
+  if (isVideo) inner = `<video src="${url}" muted playsinline style="width:100%;height:100%;object-fit:cover;"></video>`;
+  else if (isPdf) inner = `<div class="pdf-thumb"><span>&#128196;</span><span>${filename.split('/').pop().slice(0,12)}</span></div>`;
+  else inner = `<img src="${url}" alt="" loading="lazy">`;
+
+  div.innerHTML = inner + `<button class="rm-btn" onclick="removeGalleryItem('${key}',${!!isExisting})" title="Remove">&times;</button>`;
+  grid.appendChild(div);
+}
+
+function removeGalleryItem(key, isExisting) {
+  if (isExisting) {
+    removedImages.push(key);
+  } else {
+    // Remove from galleryFiles or galleryUrls
+    galleryUrls = galleryUrls.filter(u => u !== key);
+    const idx = galleryFiles.findIndex(f => URL.createObjectURL(f) === key);
+    if (idx > -1) galleryFiles.splice(idx, 1);
+  }
+  const item = document.querySelector(`.gallery-item[data-key="${CSS.escape(key)}"]`);
+  if (item) item.remove();
+}
+
+// ===== SAVE =====
+async function saveProject() {
+  const btn = document.getElementById('saveBtn');
+  const status = document.getElementById('saveStatus');
+  btn.disabled = true;
+  status.textContent = 'Saving...';
+
+  try {
     const fd = new FormData();
-    fd.append('title', document.getElementById('f-title').value);
-    fd.append('category', document.getElementById('f-category').value);
-    fd.append('role', document.getElementById('f-role').value);
-    fd.append('duration', document.getElementById('f-duration').value);
-    fd.append('link', document.getElementById('f-link').value);
-    fd.append('summary', document.getElementById('f-summary').value);
-    fd.append('description', document.getElementById('f-description').value);
-    fd.append('tags', document.getElementById('f-tags').value);
-    fd.append('tools', document.getElementById('f-tools').value);
-    fd.append('order', document.getElementById('f-order').value || '0');
-    fd.append('published', document.getElementById('f-published').checked);
-    fd.append('featured', document.getElementById('f-featured').checked);
+    fd.append('title',       document.getElementById('fTitle').value.trim());
+    fd.append('category',    document.getElementById('fCategory').value);
+    fd.append('role',        document.getElementById('fRole').value.trim());
+    fd.append('duration',    document.getElementById('fDuration').value.trim());
+    fd.append('link',        document.getElementById('fLink').value.trim());
+    fd.append('summary',     document.getElementById('fSummary').value.trim());
+    fd.append('description', document.getElementById('fDesc').value.trim());
+    fd.append('tags',        document.getElementById('fTags').value.trim());
+    fd.append('tools',       document.getElementById('fTools').value.trim());
+    fd.append('order',       document.getElementById('fOrder').value || '0');
+    fd.append('published',   document.getElementById('fPublished').checked);
+    fd.append('featured',    document.getElementById('fFeatured').checked);
 
-    const cover = document.getElementById('f-cover').files[0];
-    if (cover) fd.append('cover', cover);
-    const images = document.getElementById('f-images').files;
-    Array.from(images).forEach(img => fd.append('images', img));
+    // Cover: Cloudinary URL or local file
+    if (coverUrl) fd.append('coverUrl', coverUrl);
+    else if (coverFile) fd.append('cover', coverFile);
 
-    try {
-      const url = currentProjectId
-        ? `${API}/admin/projects/${currentProjectId}`
-        : `${API}/admin/projects`;
-      const method = currentProjectId ? 'PUT' : 'POST';
-      const res = await fetch(url, { method, body: fd, credentials: 'include' });
-      if (!res.ok) throw new Error(await res.text());
-      const saved = await res.json();
-      currentProjectId = saved.id;
-      document.getElementById('form-title').textContent = saved.title;
-      document.getElementById('btn-delete').style.display = 'flex';
-      status.className = 'save-status saved';
-      status.textContent = 'Saved successfully';
-      showToast('Project saved!', 'success');
-      loadSidebar();
-    } catch(e) {
-      status.className = 'save-status';
-      status.textContent = 'Save failed';
-      showToast('Failed to save: ' + e.message, 'error');
-    } finally {
-      btn.disabled = false;
+    // Gallery: Cloudinary URLs
+    galleryUrls.forEach(u => fd.append('imageUrls', u));
+    // Gallery: local files
+    galleryFiles.forEach(f => fd.append('images', f));
+    // Removed images
+    removedImages.forEach(f => fd.append('removeImages', f));
+
+    const url = isNew ? '/api/admin/projects' : `/api/admin/projects/${currentId}`;
+    const method = isNew ? 'POST' : 'PUT';
+    const r = await fetch(url, { method, body: fd });
+    if (!r.ok) throw new Error(await r.text());
+    const saved = await r.json();
+
+    if (isNew) {
+      isNew = false;
+      currentId = saved.id;
+      document.getElementById('deleteBtn').style.display = 'inline-block';
     }
+    document.getElementById('formTitle').textContent = saved.title || 'Untitled';
+    status.textContent = 'Saved ' + new Date().toLocaleTimeString();
+    showToast('Project saved!', 'success');
+    await loadSidebar();
+    renderList(projects);
+  } catch(e) {
+    status.textContent = '';
+    showToast('Save failed: ' + e.message, 'error');
+  } finally {
+    btn.disabled = false;
   }
+}
 
-  async function deleteProject() {
-    if (!currentProjectId) return;
-    if (!confirm('Delete this project? This cannot be undone.')) return;
-    try {
-      const res = await fetch(`${API}/admin/projects/${currentProjectId}`, {
-        method: 'DELETE', credentials: 'include'
-      });
-      if (!res.ok) throw new Error();
-      showToast('Project deleted', 'success');
-      showDashboard();
-      loadSidebar();
-    } catch(e) {
-      showToast('Failed to delete', 'error');
-    }
+// ===== DELETE =====
+async function deleteProject() {
+  if (!currentId) return;
+  if (!confirm('Delete this project? This cannot be undone.')) return;
+  try {
+    const r = await fetch(`/api/admin/projects/${currentId}`, { method: 'DELETE' });
+    if (!r.ok) throw new Error();
+    currentId = null;
+    document.getElementById('formPanel').style.display = 'none';
+    document.getElementById('emptyState').style.display = 'flex';
+    showToast('Project deleted', 'success');
+    await loadSidebar();
+  } catch(e) {
+    showToast('Delete failed', 'error');
   }
+}
 
-  // âââ TOAST âââ
-  let toastTimer;
-  function showToast(msg, type='success') {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.className = 'show ' + type;
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => { t.className = ''; }, 3000);
-  }
-</script>
+// ===== MOBILE SIDEBAR =====
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  const hb = document.getElementById('hamburger');
+  const ov = document.getElementById('overlay');
+  const open = sb.classList.toggle('open');
+  hb.classList.toggle('open', open);
+  ov.classList.toggle('show', open);
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+
+// ===== TOAST =====
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = type;
+  t.style.display = 'block';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.style.display = 'none', 3000);
+}
+
+// ===== HELPERS =====
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// Enter key on login
+document.getElementById('pwdInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+// Init
+checkAuth();
+ </script>
 </body>
 </html>
