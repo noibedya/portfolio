@@ -1,811 +1,972 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin â Noibedya Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin &mdash; Portfolio CMS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; }
+    body { font-family: 'Inter', sans-serif; background: #0f0f0e; color: #e8e7e2; min-height: 100vh; }
     :root {
-      --bg: #0f0e0d;
-      --surface: #1a1916;
-      --surface2: #222120;
-      --border: #2e2c29;
-      --text: #f0efe9;
-      --text-muted: #7a7870;
-      --accent: #d4a853;
-      --accent-dark: #b8902f;
-      --red: #e05555;
-      --green: #5baa72;
+      --gold: #c9a96e;
+      --gold-dim: rgba(201,169,110,0.15);
+      --bg: #0f0f0e;
+      --bg2: #1a1a18;
+      --bg3: #222220;
+      --border: rgba(255,255,255,0.07);
+      --text: #e8e7e2;
+      --muted: rgba(232,231,226,0.45);
+      --danger: #e85454;
+      --success: #3ecf8e;
       --radius: 12px;
+      --transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
     }
 
-    html, body { height: 100%; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg); color: var(--text);
-      font-size: 14px; line-height: 1.5;
+    /* âââ LAYOUT âââ */
+    .app { display: grid; grid-template-rows: 60px 1fr; min-height: 100vh; }
+
+    /* âââ HEADER âââ */
+    header {
+      background: var(--bg2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-dot {
+      width: 8px; height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(201,169,110,0.5);
+    }
+    .brand-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .btn-sm {
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { background: var(--bg3); color: var(--text); }
+    .btn-gold {
+      background: var(--gold);
+      color: #1a1a18;
+      font-weight: 600;
+    }
+    .btn-gold:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-danger {
+      background: transparent;
+      color: var(--danger);
+      border: 1px solid rgba(232,84,84,0.25);
+    }
+    .btn-danger:hover { background: rgba(232,84,84,0.1); }
+
+    /* âââ MAIN CONTENT âââ */
+    .main-content {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      overflow: hidden;
     }
 
-    /* ââ LOGIN SCREEN ââ */
-    #loginScreen {
-      min-height: 100vh; display: flex;
-      align-items: center; justify-content: center;
-      padding: 20px;
+    /* âââ SIDEBAR âââ */
+    aside {
+      background: var(--bg2);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .sidebar-section { padding: 20px; border-bottom: 1px solid var(--border); }
+    .sidebar-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .btn-new {
+      width: 100%;
+      background: var(--gold-dim);
+      color: var(--gold);
+      border: 1px dashed rgba(201,169,110,0.3);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-new:hover { background: rgb!(201,169,110,0.22); border-color: var(--gold); }
+
+    #projects-list { padding: 12px; display: flex; flex-direction: column; gap: 4px; flex: 1; overflow-y: auto; }
+    .project-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+    .project-item:hover { background: var(--bg3); }
+    .project-item.active { background: var(--bg3); border-color: var(--border); }
+    .project-item-thumb {
+      width: 36px; height: 36px;
+      border-radius: 6px;
+      object-fit: cover;
+      background: var(--bg3);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .project-item-thumb img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
+    .project-item-info { flex: 1; min-width: 0; }
+    .project-item-title {
+      font-size: 0.825rem;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .project-item-meta {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .status-dot.published { background: var(--success); }
+    .status-dot.draft { background: var(--muted); }
+
+    /* âââ PANELS âââ */
+    .panel-area {
+      background: var(--bg);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Login panel */
+    #panel-login {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
     }
     .login-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 20px; padding: 48px 40px;
-      width: 100%; max-width: 400px;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
     }
-    .login-logo {
-      width: 48px; height: 48px; border-radius: 12px;
-      background: var(--accent); display: flex; align-items: center; justify-content: center;
-      font-size: 22px; font-weight: 700; color: #fff;
-      margin-bottom: 28px;
+    .login-icon {
+      width: 56px; height: 56px;
+      background: var(--gold-dim);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
     }
-    .login-card h1 { font-size: 22px; font-weight: 600; margin-bottom: 6px; }
-    .login-card p { color: var(--text-muted); font-size: 13px; margin-bottom: 28px; }
-
-    input[type=password], input[type=text], input[type=url],
-    textarea, select {
-      width: 100%; background: var(--bg);
-      border: 1.5px solid var(--border);
-      border-radius: 10px; color: var(--text);
-      font-family: inherit; font-size: 14px;
-      padding: 11px 14px; outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+    .login-card h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 8px;
     }
-    input:focus, textarea:focus, select:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(212,168,83,0.15);
+    .login-card p { font-size: 0.875rem; color: var(--muted); margin-bottom: 32px; }
+    .input-group { margin-bottom: 16px; text-align: left; }
+    .input-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
     }
-    textarea { resize: vertical; min-height: 120px; }
-    select option { background: var(--bg); }
-
-    label {
-      display: block; font-size: 12px; font-weight: 600;
-      letter-spacing: 0.05em; color: var(--text-muted);
-      margin-bottom: 8px; text-transform: uppercase;
+    .input-group input {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 0.9rem;
+      padding: 12px 16px;
+      font-family: inherit;
+      transition: var(--transition);
+      outline: none;
     }
-
-    .form-group { margin-bottom: 20px; }
-
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 11px 22px; border-radius: 10px;
-      font-size: 13px; font-weight: 600; font-family: inherit;
-      border: none; cursor: pointer; text-decoration: none;
-      transition: transform 0.15s, box-shadow 0.15s, background 0.2s, opacity 0.2s;
-      user-select: none;
+    .input-group input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,169,110,0.12); }
+    .btn-login {
+      width: 100%;
+      background: var(--gold);
+      color: #1a1a18;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 13px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      margin-top: 8px;
     }
-    .btn:active { transform: scale(0.97); }
-
-    .btn-accent { background: var(--accent); color: #fff; }
-    .btn-accent:hover { background: var(--accent-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(212,168,83,0.3); }
-
-    .btn-ghost { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-    .btn-ghost:hover { background: var(--border); }
-
-    .btn-danger { background: rgba(224,85,85,0.12); color: var(--red); border: 1px solid rgba(224,85,85,0.2); }
-    .btn-danger:hover { background: rgba(224,85,85,0.2); }
-
-    .btn-success { background: var(--green); color: #fff; }
-    .btn-success:hover { opacity: 0.9; }
-
-    .btn-full { width: 100%; justify-content: center; padding: 13px; }
-
-    .error-msg {
-      background: rgba(224,85,85,0.12); border: 1px solid rgba(224,85,85,0.2);
-      border-radius: 8px; padding: 10px 14px;
-      color: var(--red); font-size: 13px; margin-top: 12px;
+    .btn-login:hover { opacity: 0.88; transform: translateY(-1px); }
+    .login-error {
+      background: rgba(232,84,84,0.1);
+      border: 1px solid rgba(232,84,84,0.25);
+      color: var(--danger);
+      font-size: 0.825rem;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 16px;
       display: none;
     }
 
-    /* ââ ADMIN LAYOUT ââ */
-    #adminApp { display: none; height: 100vh; overflow: hidden; flex-direction: column; }
-    #adminApp.visible { display: flex; }
-
-    .admin-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 28px; border-bottom: 1px solid var(--border);
-      background: var(--surface); flex-shrink: 0;
+    /* Dashboard / welcome panel */
+    #panel-dashboard {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      color: var(--muted);
+      padding: 40px;
+      text-align: center;
     }
-    .admin-header-left { display: flex; align-items: center; gap: 16px; }
-    .header-logo {
-      width: 32px; height: 32px; border-radius: 8px;
-      background: var(--accent); display: flex; align-items: center; justify-content: center;
-      font-size: 14px; font-weight: 700; color: #fff;
+    #panel-dashboard h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
     }
-    .admin-header h1 { font-size: 15px; font-weight: 600; }
-    .admin-header-right { display: flex; align-items: center; gap: 12px; }
+    #panel-dashboard p { font-size: 0.875rem; }
 
-    .admin-body {
-      display: flex; flex: 1; overflow: hidden;
+    /* Form panel */
+    #panel-form {
+      padding: 40px;
+      max-width: 800px;
     }
-
-    .sidebar {
-      width: 240px; border-right: 1px solid var(--border);
-      background: var(--surface); padding: 20px 16px;
-      flex-shrink: 0; overflow-y: auto;
+    .form-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
     }
+    .form-header h2 { font-size: 1.1rem; font-weight: 600; }
+    .form-header-actions { display: flex; gap: 10px; }
 
-    .sidebar-section { margin-bottom: 24px; }
-    .sidebar-label {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--text-muted);
-      padding: 0 8px; margin-bottom: 8px;
+    .form-section { margin-bottom: 32px; }
+    .form-section-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
     }
-    .sidebar-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 9px 10px; border-radius: 8px; cursor: pointer;
-      transition: background 0.15s; color: var(--text-muted);
-      font-size: 13px; font-weight: 500; border: none;
-      background: none; width: 100%; text-align: left; font-family: inherit;
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
     }
-    .sidebar-item:hover { background: var(--surface2); color: var(--text); }
-    .sidebar-item.active { background: rgba(212,168,83,0.12); color: var(--accent); }
-
-    .main-panel { flex: 1; overflow-y: auto; padding: 28px; }
-
-    /* ââ PROJECTS LIST ââ */
-    .panel-header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 24px;
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 0.875rem;
+      padding: 11px 14px;
+      font-family: inherit;
+      transition: var(--transition);
+      outline: none;
+      resize: vertical;
     }
-    .panel-header h2 { font-size: 18px; font-weight: 600; }
-
-    .stats-row {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 16px; margin-bottom: 28px;
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,169,110,0.1);
     }
-    .stat-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 20px;
-    }
-    .stat-card .stat-num { font-size: 28px; font-weight: 700; color: var(--accent); }
-    .stat-card .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+    .form-group select option { background: var(--bg2); }
+    .form-group textarea { min-height: 100px; line-height: 1.6; }
 
-    .project-list { display: flex; flex-direction: column; gap: 12px; }
-
-    .project-item {
-      background: var(--surface); border: 1px solid var(--border);
+    /* Upload zones */
+    .upload-zone {
+      border: 1.5px dashed var(--border);
       border-radius: var(--radius);
-      display: flex; align-items: center; gap: 16px;
-      padding: 16px 20px;
-      transition: border-color 0.2s;
-    }
-    .project-item:hover { border-color: var(--accent); }
-
-    .project-thumb-small {
-      width: 80px; height: 52px; border-radius: 8px;
-      background: var(--surface2); overflow: hidden; flex-shrink: 0;
-    }
-    .project-thumb-small img { width: 100%; height: 100%; object-fit: cover; }
-    .project-thumb-small .no-img {
-      width: 100%; height: 100%; display: flex; align-items: center;
-      justify-content: center; color: var(--text-muted);
-    }
-
-    .project-item-info { flex: 1; min-width: 0; }
-    .project-item-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-    .project-item-meta { font-size: 12px; color: var(--text-muted); }
-
-    .project-item-actions { display: flex; gap: 8px; flex-shrink: 0; }
-
-    .badge {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 3px 10px; border-radius: 100px; font-size: 11px; font-weight: 600;
-    }
-    .badge-published { background: rgba(91,170,114,0.15); color: var(--green); }
-    .badge-draft { background: rgba(122,120,112,0.15); color: var(--text-muted); }
-    .badge-featured { background: rgba(212,168,83,0.15); color: var(--accent); }
-
-    /* ââ FORM PANEL ââ */
-    .form-panel {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 16px; padding: 28px;
-    }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .form-grid .full { grid-column: span 2; }
-
-    /* File upload area */
-    .upload-area {
-      border: 2px dashed var(--border); border-radius: 10px;
-      padding: 28px; text-align: center; cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
+      padding: 28px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
       position: relative;
     }
-    .upload-area:hover { border-color: var(--accent); background: rgba(212,168,83,0.04); }
-    .upload-area.drag-over { border-color: var(--accent); background: rgba(212,168,83,0.08); }
-    .upload-area input[type=file] {
-      position: absolute; inset: 0; opacity: 0; cursor: pointer;
-      width: 100%; height: 100%; border: none; padding: 0;
+    .upload-zone:hover { border-color: var(--gold); background: var(--gold-dim); }
+    .upload-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
     }
-    .upload-area-icon { font-size: 28px; margin-bottom: 10px; }
-    .upload-area-text { font-size: 13px; color: var(--text-muted); }
-    .upload-area-text strong { color: var(--accent); }
-
-    .upload-previews {
-      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px;
-    }
+    .upload-zone-icon { font-size: 1.5rem; margin-bottom: 8px; opacity: 0.5; }
+    .upload-zone p { font-size: 0.825rem; color: var(--muted); }
+    .upload-zone strong { color: var(--gold); }
     .upload-preview {
-      width: 80px; height: 64px; border-radius: 8px; overflow: hidden;
-      position: relative; background: var(--surface2);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
     }
-    .upload-preview img { width: 100%; height: 100%; object-fit: cover; }
-    .upload-preview .remove-preview {
-      position: absolute; top: 3px; right: 3px;
-      width: 18px; height: 18px; border-radius: 50%;
-      background: rgba(224,85,85,0.85); border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; font-size: 10px; line-height: 1;
-      transition: transform 0.15s;
+    .upload-preview-item {
+      position: relative;
+      width: 80px; height: 80px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
     }
-    .upload-preview .remove-preview:hover { transform: scale(1.1); }
+    .upload-preview-item img { width: 100%; height: 100%; object-fit: cover; }
+    .upload-preview-item button {
+      position: absolute;
+      top: 3px; right: 3px;
+      width: 20px; height: 20px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-    /* Toggle switch */
-    .toggle-row { display: flex; align-items: center; justify-content: space-between; }
-    .toggle-label { font-size: 13px; color: var(--text); font-weight: 500; }
-    .toggle-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    /* Toggles */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: var(--bg2);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 10px;
+    }
+    .toggle-info p { font-size: 0.875rem; font-weight: 500; }
+    .toggle-info span { font-size: 0.75rem; color: var(--muted); }
     .toggle {
-      position: relative; width: 44px; height: 24px; flex-shrink: 0;
+      position: relative;
+      width: 44px; height: 24px;
     }
     .toggle input { opacity: 0; width: 0; height: 0; }
     .toggle-slider {
-      position: absolute; inset: 0; border-radius: 12px;
-      background: var(--border); cursor: pointer;
-      transition: background 0.2s;
+      position: absolute;
+      inset: 0;
+      background: var(--bg3);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid var(--border);
     }
     .toggle-slider::before {
-      content: ''; position: absolute;
-      width: 18px; height: 18px; border-radius: 50%;
-      background: #fff; top: 3px; left: 3px;
-      transition: transform 0.2s;
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      left: 2px; top: 2px;
+      background: var(--muted);
+      border-radius: 50%;
+      transition: var(--transition);
     }
-    .toggle input:checked + .toggle-slider { background: var(--accent); }
-    .toggle input:checked + .toggle-slider::before { transform: translateX(20px); }
+    .toggle input:checked + .toggle-slider { background: var(--gold); border-color: var(--gold); }
+    .toggle input:checked + .toggle-slider::before {
+      transform: translateX(20px);
+      background: var(--white, #fff);
+    }
+
+    /* Save bar */
+    .save-bar {
+      position: sticky;
+      bottom: 0;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .save-status { font-size: 0.8rem; color: var(--muted); }
+    .save-status.saved { color: var(--success); }
+    .save-status.saving { color: var(--gold); }
+    .save-actions { display: flex; gap: 12px; }
+    .btn-save {
+      background: var(--gold);
+      color: #1a1a18;
+      font-weight: 700;
+      font-size: 0.875rem;
+      padding: 10px 24px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-save:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-save:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
     /* Toast */
-    .toast {
-      position: fixed; bottom: 28px; right: 28px;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 14px 20px;
-      display: flex; align-items: center; gap: 10px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-      font-size: 13px; font-weight: 500;
-      transform: translateY(80px); opacity: 0;
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      z-index: 999; max-width: 320px;
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 20px;
+      font-size: 0.875rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      z-index: 200;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: var(--transition);
+      max-width: 340px;
     }
-    .toast.show { transform: translateY(0); opacity: 1; }
-    .toast.success { border-color: rgba(91,170,114,0.3); }
-    .toast.success .toast-icon { color: var(--green); }
-    .toast.error { border-color: rgba(224,85,85,0.3); }
-    .toast.error .toast-icon { color: var(--red); }
+    #toast.show { transform: translateY(0); opacity: 1; }
+    #toast.success { border-color: rgba(62,207,142,0.3); color: var(--success); }
+    #toast.error { border-color: rgba(232,84,84,0.3); color: var(--danger); }
 
-    .spinner-sm {
-      width: 16px; height: 16px; border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
-      animation: spin 0.7s linear infinite; display: inline-block;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .empty-state {
-      text-align: center; padding: 60px 20px;
-      color: var(--text-muted);
-    }
-    .empty-state .empty-icon { font-size: 40px; margin-bottom: 16px; }
-    .empty-state h3 { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-    .empty-state p { font-size: 13px; }
-
-    .delete-confirm {
-      background: rgba(224,85,85,0.08); border: 1px solid rgba(224,85,85,0.25);
-      border-radius: 10px; padding: 14px 16px;
-      display: flex; align-items: center; justify-content: space-between;
-      margin-top: 12px; font-size: 13px;
-    }
+    /* Hidden */
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
-
-  <!-- ââ LOGIN âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
-  <div id="loginScreen">
-    <div class="login-card">
-      <div class="login-logo">N</div>
-      <h1>Portfolio Admin</h1>
-      <p>Sign in to manage your case studies</p>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="loginPassword" placeholder="Enter admin password"
-               onkeydown="if(event.key==='Enter')login()"/>
-      </div>
-      <button class="btn btn-accent btn-full" onclick="login()" id="loginBtn">Sign in</button>
-      <div class="error-msg" id="loginError">Incorrect password. Try again.</div>
+<div class="app">
+  <!-- HEADER -->
+  <header>
+    <div class="header-brand">
+      <div class="brand-dot"></div>
+      <span class="brand-name">Portfolio CMS</span>
     </div>
-  </div>
-
-  <!-- ââ ADMIN APP ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ -->
-  <div id="adminApp">
-
-    <div class="admin-header">
-      <div class="admin-header-left">
-        <div class="header-logo">N</div>
-        <h1>Portfolio Admin</h1>
-      </div>
-      <div class="admin-header-right">
-        <a href="/" target="_blank" class="btn btn-ghost">
-          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          View site
-        </a>
-        <button class="btn btn-ghost" onclick="logout()">Sign out</button>
-      </div>
+    <div class="header-actions">
+      <a href="/" target="_blank" class="btn-sm btn-ghost">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        View site
+      </a>
+      <button class="btn-sm btn-danger hidden" id="btn-logout" onclick="logout()">Sign out</button>
     </div>
+  </header>
 
-    <div class="admin-body">
-      <div class="sidebar">
-        <div class="sidebar-section">
-          <div class="sidebar-label">Menu</div>
-          <button class="sidebar-item active" onclick="showPanel('projects')" id="nav-projects">
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-            Projects
-          </button>
-          <button class="sidebar-item" onclick="showPanel('new')" id="nav-new">
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M12 4v16m8-8H4"/></svg>
-            New project
-          </button>
-        </div>
+  <div class="main-content">
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="hidden">
+      <div class="sidebar-section">
+        <p class="sidebar-label">Projects</p>
+        <button class="btn-new" onclick="openNewForm()">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          New project
+        </button>
       </div>
-
-      <div class="main-panel" id="mainPanel">
-        <!-- content injected here -->
+      <div id="projects-list">
+        <p style="padding:12px;font-size:0.8rem;color:var(--muted)">Loading...</p>
       </div>
-    </div>
-  </div>
+    </aside>
 
-  <!-- Toast -->
-  <div class="toast" id="toast">
-    <span class="toast-icon" id="toastIcon">â</span>
-    <span id="toastMsg"></span>
-  </div>
-
-  <script>
-    let currentPanel = 'projects';
-    let editingId = null;
-    let coverFile = null;
-    let imageFiles = [];
-
-    // ââ AUTH âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-    async function checkAuth() {
-      const r = await fetch('/api/admin/check');
-      const d = await r.json();
-      if (d.authenticated) showApp();
-    }
-
-    async function login() {
-      const pw = document.getElementById('loginPassword').value;
-      const btn = document.getElementById('loginBtn');
-      btn.innerHTML = '<span class="spinner-sm"></span>';
-      btn.disabled = true;
-      try {
-        const r = await fetch('/api/admin/login', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ password: pw })
-        });
-        if (r.ok) {
-          showApp();
-        } else {
-          document.getElementById('loginError').style.display = 'block';
-        }
-      } finally {
-        btn.innerHTML = 'Sign in'; btn.disabled = false;
-      }
-    }
-
-    async function logout() {
-      await fetch('/api/admin/logout', { method: 'POST' });
-      location.reload();
-    }
-
-    function showApp() {
-      document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('adminApp').classList.add('visible');
-      showPanel('projects');
-    }
-
-    // ââ PANELS ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-    function showPanel(name) {
-      currentPanel = name;
-      document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
-      document.getElementById('nav-' + name)?.classList.add('active');
-      if (name === 'projects') renderProjectsPanel();
-      if (name === 'new') renderFormPanel(null);
-      if (name === 'edit') renderFormPanel(editingId);
-    }
-
-    // ââ PROJECTS LIST âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-    async function renderProjectsPanel() {
-      const panel = document.getElementById('mainPanel');
-      panel.innerHTML = '<div style="color:var(--text-muted);padding:40px;text-align:center">Loadingâ¦</div>';
-      const r = await fetch('/api/admin/projects');
-      const projects = await r.json();
-
-      const pub = projects.filter(p => p.published).length;
-      const drafts = projects.filter(p => !p.published).length;
-      const featured = projects.filter(p => p.featured).length;
-
-      panel.innerHTML = `
-        <div class="panel-header">
-          <h2>All Projects (${projects.length})</h2>
-          <button class="btn btn-accent" onclick="showPanel('new')">
-            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M12 4v16m8-8H4"/></svg>
-            New project
-          </button>
-        </div>
-
-        <div class="stats-row">
-          <div class="stat-card"><div class="stat-num">${projects.length}</div><div class="stat-label">Total projects</div></div>
-          <div class="stat-card"><div class="stat-num">${pub}</div><div class="stat-label">Published</div></div>
-          <div class="stat-card"><div class="stat-num">${drafts}</div><div class="stat-label">Drafts</div></div>
-        </div>
-
-        <div class="project-list">
-          ${projects.length === 0 ? `
-            <div class="empty-state">
-              <div class="empty-icon">ð¨</div>
-              <h3>No projects yet</h3>
-              <p>Click "New project" to upload your first case study.</p>
-            </div>` :
-          projects.map(p => `
-            <div class="project-item">
-              <div class="project-thumb-small">
-                ${p.cover
-                  ? `<img src="/uploads/${p.cover}" alt=""/>`
-                  : `<div class="no-img"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9l4-4 4 4 4-5 4 5"/></svg></div>`}
-              </div>
-              <div class="project-item-info">
-                <div class="project-item-title">${p.title}</div>
-                <div class="project-item-meta">
-                  ${p.category || 'Uncategorized'} Â· ${new Date(p.createdAt).toLocaleDateString()}
-                  &nbsp;
-                  <span class="badge ${p.published ? 'badge-published' : 'badge-draft'}">
-                    ${p.published ? 'â Published' : 'â Draft'}
-                  </span>
-                  ${p.featured ? '<span class="badge badge-featured">â Featured</span>' : ''}
-                </div>
-              </div>
-              <div class="project-item-actions">
-                <button class="btn btn-ghost" onclick="editProject('${p.id}')">Edit</button>
-                <button class="btn btn-danger" onclick="deleteProject('${p.id}', this)">Delete</button>
-              </div>
-            </div>`).join('')}
-        </div>`;
-    }
-
-    // ââ FORM ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-    function renderFormPanel(editId) {
-      editingId = editId;
-      coverFile = null; imageFiles = [];
-      const panel = document.getElementById('mainPanel');
-
-      if (editId) {
-        panel.innerHTML = '<div style="color:var(--text-muted);padding:40px;text-align:center">Loading projectâ¦</div>';
-        fetch('/api/admin/projects').then(r => r.json()).then(projects => {
-          const p = projects.find(x => x.id === editId);
-          if (!p) return;
-          renderForm(p);
-        });
-      } else {
-        renderForm(null);
-      }
-    }
-
-    function renderForm(p) {
-      const panel = document.getElementById('mainPanel');
-      const isEdit = !!p;
-
-      panel.innerHTML = `
-        <div class="panel-header">
-          <h2>${isEdit ? 'Edit Project' : 'New Project'}</h2>
-          <button class="btn btn-ghost" onclick="showPanel('projects')">â Back</button>
-        </div>
-
-        <form class="form-panel" id="projectForm" onsubmit="submitForm(event)">
-
-          <div class="form-group full">
-            <label>Cover Image</label>
-            <div class="upload-area" id="coverArea">
-              <input type="file" id="coverInput" accept="image/*" onchange="handleCoverChange(this)"/>
-              <div class="upload-area-icon">ð¼ï¸</div>
-              <div class="upload-area-text">
-                <strong>Click to upload</strong> or drag & drop<br/>
-                <span style="font-size:12px">JPG, PNG, WebP Â· max 20MB</span>
-              </div>
-            </div>
-            <div id="coverPreview" style="margin-top:12px">
-              ${p?.cover ? `<div class="upload-preview"><img src="/uploads/${p.cover}" alt="cover"/><button type="button" class="remove-preview" onclick="removeCoverPreview('${p.cover}')">â</button></div>` : ''}
-            </div>
+    <!-- PANELS -->
+    <div class="panel-area">
+      <!-- Login -->
+      <div id="panel-login">
+        <div class="login-card">
+          <div class="login-icon">
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="var(--gold)" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
           </div>
+          <h1>Admin Access</h1>
+          <p>Enter your password to manage portfolio content</p>
+          <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
+          <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="password-input" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+              onkeydown="if(event.key==='Enter') doLogin()" />
+          </div>
+          <button class="btn-login" onclick="doLogin()">Sign in</button>
+        </div>
+      </div>
 
-          <div class="form-grid">
+      <!-- Dashboard (empty state) -->
+      <div id="panel-dashboard" class="hidden">
+        <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="rgba(232,231,226,0.2)" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <h2>Select a project or create a new one</h2>
+        <p>Use the sidebar to manage your portfolio case studies</p>
+      </div>
 
-            <div class="form-group full">
+      <!-- Form -->
+      <div id="panel-form" class="hidden">
+        <div class="form-header">
+          <h2 id="form-title">New Project</h2>
+          <div class="form-header-actions">
+            <button class="btn-sm btn-danger" id="btn-delete" onclick="deleteProject()" style="display:none">
+              <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              Delete
+            </button>
+          </div>
+        </div>
+
+        <form id="project-form" enctype="multipart/form-data">
+          <input type="hidden" id="project-id" />
+
+          <!-- Basic -->
+          <div class="form-section">
+            <p class="form-section-title">Basic Info</p>
+            <div class="form-group">
               <label>Project Title *</label>
-              <input type="text" id="f-title" placeholder="e.g. Analytics Dashboard Redesign" required value="${p?.title || ''}"/>
+              <input type="text" id="f-title" placeholder="e.g. Redesigning the onboarding flow" required />
             </div>
-
-            <div class="form-group">
-              <label>Category</label>
-              <select id="f-category">
-                <option value="">Selectâ¦</option>
-                ${['SaaS Â· Dashboard','Mobile Â· App','E-Commerce','Design System','Fintech','Healthcare','Consumer App','B2B Product','Brand Identity','UX Research','Web Design','Other'].map(c =>
-                  `<option value="${c}" ${p?.category === c ? 'selected' : ''}>${c}</option>`
-                ).join('')}
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label>Display Order</label>
-              <input type="text" id="f-order" placeholder="0 = first" value="${p?.order ?? ''}"/>
-            </div>
-
-            <div class="form-group full">
-              <label>Short Summary <span style="font-weight:400;color:var(--text-muted)">(shown on cards)</span></label>
-              <input type="text" id="f-summary" placeholder="One sentence about the project" value="${p?.summary || ''}"/>
-            </div>
-
-            <div class="form-group full">
-              <label>Full Description <span style="font-weight:400;color:var(--text-muted)">(shown in modal)</span></label>
-              <textarea id="f-description" placeholder="Describe the problem, your process, the outcomeâ¦">${p?.description || ''}</textarea>
-            </div>
-
-            <div class="form-group">
-              <label>Your Role</label>
-              <input type="text" id="f-role" placeholder="e.g. Lead Product Designer" value="${p?.role || ''}"/>
-            </div>
-
-            <div class="form-group">
-              <label>Duration</label>
-              <input type="text" id="f-duration" placeholder="e.g. 3 months" value="${p?.duration || ''}"/>
-            </div>
-
-            <div class="form-group">
-              <label>Tags <span style="font-weight:400;color:var(--text-muted)">(comma separated)</span></label>
-              <input type="text" id="f-tags" placeholder="UX Research, Figma, Mobile" value="${p?.tags?.join(', ') || ''}"/>
-            </div>
-
-            <div class="form-group">
-              <label>Tools <span style="font-weight:400;color:var(--text-muted)">(comma separated)</span></label>
-              <input type="text" id="f-tools" placeholder="Figma, Maze, Notion" value="${p?.tools?.join(', ') || ''}"/>
-            </div>
-
-            <div class="form-group full">
-              <label>Live Link <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
-              <input type="url" id="f-link" placeholder="https://â¦" value="${p?.link || ''}"/>
-            </div>
-
-            <div class="form-group full">
-              <label>Additional Images <span style="font-weight:400;color:var(--text-muted)">(process shots, screens, etc.)</span></label>
-              <div class="upload-area" id="imagesArea">
-                <input type="file" id="imagesInput" accept="image/*" multiple onchange="handleImagesChange(this)"/>
-                <div class="upload-area-icon">ð</div>
-                <div class="upload-area-text">
-                  <strong>Click to upload multiple images</strong><br/>
-                  <span style="font-size:12px">Up to 20 images</span>
-                </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Category</label>
+                <input type="text" id="f-category" placeholder="e.g. UX Research" />
               </div>
-              <div class="upload-previews" id="imagesPreviews">
-                ${(p?.images || []).map(f =>
-                  `<div class="upload-preview" data-filename="${f}"><img src="/uploads/${f}" alt=""/><button type="button" class="remove-preview" onclick="removeExistingImage('${f}', this.closest('.upload-preview'))">â</button></div>`
-                ).join('')}
+              <div class="form-group">
+                <label>Role</label>
+                <input type="text" id="f-role" placeholder="e.g. Lead Designer" />
               </div>
             </div>
-
-            <div class="form-group">
-              <div class="toggle-row">
-                <div>
-                  <div class="toggle-label">Published</div>
-                  <div class="toggle-sub">Visible on your public portfolio</div>
-                </div>
-                <label class="toggle">
-                  <input type="checkbox" id="f-published" ${p?.published ? 'checked' : ''}/>
-                  <span class="toggle-slider"></span>
-                </label>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Duration</label>
+                <input type="text" id="f-duration" placeholder="e.g. 3 months" />
+              </div>
+              <div class="form-group">
+                <label>External Link</label>
+                <input type="url" id="f-link" placeholder="https://behance.net/..." />
               </div>
             </div>
-
             <div class="form-group">
-              <div class="toggle-row">
-                <div>
-                  <div class="toggle-label">Featured</div>
-                  <div class="toggle-sub">Shows as large card (first slot)</div>
-                </div>
-                <label class="toggle">
-                  <input type="checkbox" id="f-featured" ${p?.featured ? 'checked' : ''}/>
-                  <span class="toggle-slider"></span>
-                </label>
+              <label>Short Summary (shown on card)</label>
+              <input type="text" id="f-summary" placeholder="One-line description" />
+            </div>
+            <div class="form-group">
+              <label>Full Description</label>
+              <textarea id="f-description" rows="5" placeholder="Detailed case study description..."></textarea>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Tags (comma separated)</label>
+                <input type="text" id="f-tags" placeholder="UX, Research, Figma" />
+              </div>
+              <div class="form-group">
+                <label>Tools (comma separated)</label>
+                <input type="text" id="f-tools" placeholder="Figma, Maze, Notion" />
               </div>
             </div>
-
-            <div class="form-group full" style="display:flex;gap:12px;justify-content:flex-end;padding-top:8px">
-              <button type="button" class="btn btn-ghost" onclick="showPanel('projects')">Cancel</button>
-              <button type="submit" class="btn btn-success" id="submitBtn">
-                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" d="M5 13l4 4L19 7"/></svg>
-                ${isEdit ? 'Save changes' : 'Publish project'}
-              </button>
+            <div class="form-group">
+              <label>Sort Order</label>
+              <input type="number" id="f-order" placeholder="0" min="0" />
             </div>
-
           </div>
-        </form>`;
 
-      // Drag-and-drop for cover
-      setupDrop('coverArea', 'coverInput');
-      setupDrop('imagesArea', 'imagesInput');
-    }
+          <!-- Media -->
+          <div class="form-section">
+            <p class="form-section-title">Media</p>
+            <div class="form-group">
+              <label>Cover Image</label>
+              <div class="upload-zone" id="cover-zone">
+                <input type="file" id="f-cover" accept="image/*" onchange="previewCover(this)" />
+                <div id="cover-preview-area">
+                  <div class="upload-zone-icon">
+                    <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 20M14 8a2 2 0 11-4 0 2 2 0 014 0zM6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                  </div>
+                  <p>Drop cover image here or <strong>browse</strong></p>
+                  <p style="font-size:0.75rem;margin-top:4px">16:9 recommended &bull; Max 20MB</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Gallery Images</label>
+              <div class="upload-zone" id="images-zone">
+                <input type="file" id="f-images" accept="image/*" multiple onchange="previewImages(this)" />
+                <div class="upload-zone-icon">
+                  <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                </div>
+                <p>Drop multiple images here or <strong>browse</strong></p>
+                <div class="upload-preview" id="images-preview"></div>
+              </div>
+            </div>
+          </div>
 
-    // ââ FILE HANDLING âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-    let removedImages = [];
+          <!-- Settings -->
+          <div class="form-section">
+            <p class="form-section-title">Settings</p>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <p>Published</p>
+                <span>Show this project on the public portfolio</span>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="f-published" checked />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <div class="toggle-info">
+                <p>Featured</p>
+                <span>Highlight at the top of the work section</span>
+              </div>
+              <label class="toggle">
+                <input type="checkbox" id="f-featured" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </form>
+      </div>
 
-    function setupDrop(areaId, inputId) {
-      const area = document.getElementById(areaId);
-      if (!area) return;
-      area.addEventListener('dragover', e => { e.preventDefault(); area.classList.add('drag-over'); });
-      area.addEventListener('dragleave', () => area.classList.remove('drag-over'));
-      area.addEventListener('drop', e => {
-        e.preventDefault(); area.classList.remove('drag-over');
-        const input = document.getElementById(inputId);
-        const dt = e.dataTransfer;
-        if (dt.files.length) {
-          // Simulate input change
-          const fakeEvent = { target: { files: dt.files } };
-          if (areaId === 'coverArea') handleCoverChange(fakeEvent.target);
-          else handleImagesChange(fakeEvent.target);
-        }
+      <!-- Save bar (only shown with form) -->
+      <div class="save-bar hidden" id="save-bar">
+        <span class="save-status" id="save-status"></span>
+        <div class="save-actions">
+          <button class="btn-sm btn-ghost" onclick="showDashboard()">Cancel</button>
+          <button class="btn-save" id="btn-save" onclick="saveProject()">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+            Save project
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+<script>
+  const API = '/api';
+  let currentProjectId = null;
+
+  // âââ AUTH âââ
+  async function doLogin() {
+    const pw = document.getElementById('password-input').value;
+    const err = document.getElementById('login-error');
+    err.style.display = 'none';
+    try {
+      const res = await fetch(API + '/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw })
       });
-    }
-
-    function handleCoverChange(input) {
-      const file = input.files?.[0];
-      if (!file) return;
-      coverFile = file;
-      const url = URL.createObjectURL(file);
-      document.getElementById('coverPreview').innerHTML =
-        `<div class="upload-preview"><img src="${url}" alt="cover"/><button type="button" class="remove-preview" onclick="clearCover()">â¥</button></div>`;
-    }
-
-    function clearCover() {
-      coverFile = null;
-      document.getElementById('coverPreview').innerHTML = '';
-      document.getElementById('coverInput').value = '';
-    }
-
-    function removeCoverPreview(existingFilename) {
-      // Mark for removal on save
-      removedImages.push(existingFilename);
-      document.getElementById('coverPreview').innerHTML = '';
-    }
-
-     function handleImagesChange(input) {
-      const files = Array.from(input.files || []);
-      imageFiles = [...imageFiles, ...files];
-      const container = document.getElementById('imagesPreviews');
-      files.forEach(file => {
-        const url = URL.createObjectURL(file);
-        const div = document.createElement('div');
-        div.className = 'upload-preview';
-        div.innerHTML = `<img src="${url}" alt=""/><button type="button" class="remove-preview" onclick="removeNewImage(this, '${url}')">â</button>`;
-        container.appendChild(div);
-      });
-    }
-
-    function removeNewImage(btn, url) {
-      imageFiles = imageFiles.filter(f => URL.createObjectURL(f) !== url);
-      btn.closest('.upload-preview').remove();
-    }
-
-    function removeExistingImage(filename, el) {
-      removedImages.push(filename);
-      el.remove();
-    }
-
-    // ââ SUBMIT ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-    async function submitForm(e) {
-      e.preventDefault();
-      const btn = document.getElementById('submitBtn');
-      btn.innerHTML = '<span class="spinner-sm"></span> Savingâ¦';
-      btn.disabled = true;
-
-      const fd = new FormData();
-      fd.append('title',       document.getElementById('f-title').value);
-      fd.append('category',    document.getElementById('f-category').value);
-      fd.append('summary',     document.getElementById('f-summary').value);
-      fd.append('description', document.getElementById('f-description').value);
-      fd.append('role',        document.getElementById('f-role').value);
-      fd.append('duration',    document.getElementById('f-duration').value);
-      fd.append('tags',        document.getElementById('f-tags').value);
-      fd.append('tools',       document.getElementById('f-tools').value);
-      fd.append('link',        document.getElementById('f-link').value);
-      fd.append('order',       document.getElementById('f-order').value || '0');
-      fd.append('published',   document.getElementById('f-published').checked);
-      fd.append('featured',    document.getElementById('f-featured').checked);
-
-      if (coverFile) fd.append('cover', coverFile);
-      imageFiles.forEach(f => fd.append('images', f));
-      removedImages.forEach(f => fd.append('removeImages', f));
-
-      const url    = editingId ? `/api/admin/projects/${editingId}` : '/api/admin/projects';
-      const method = editingId ? 'PUT' : 'POST';
-
-      try {
-        const r = await fetch(url, { method, body: fd });
-        if (r.ok) {
-          showToast('Project saved!', 'success');
-          editingId = null; removedImages = [];
-          setTimeout(() => showPanel('projects'), 600);
-        } else {
-          const d = await r.json();
-          showToast(d.error || 'Save failed', 'error');
-        }
-      } catch {
-        showToast('Network error', 'error');
-      } finally {
-        btn.innerHTML = editingId ? 'Save changes' : 'Publish project';
-        btn.disabled = false;
+      if (res.ok) {
+        document.getElementById('panel-login').classList.add('hidden');
+        document.getElementById('sidebar').classList.remove('hidden');
+        document.getElementById('btn-logout').classList.remove('hidden');
+        showDashboard();
+        loadSidebar();
+      } else {
+        err.style.display = 'block';
+        document.getElementById('password-input').select();
       }
+    } catch(e) {
+      err.textContent = 'Connection error. Is the server running?';
+      err.style.display = 'block';
     }
+  }
 
-    // ââ EDIT / DELETE âââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-    function editProject(id) {
-      editingId = id;
-      removedImages = [];
-      // Update sidebar nav
-      document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
-      showPanel('edit');
+  async function logout() {
+    await fetch(API + '/admin/logout', { method: 'POST' });
+    location.reload();
+  }
+
+  async function checkAuth() {
+    try {
+      const res = await fetch(API + '/admin/check');
+      if (res.ok) {
+        document.getElementById('panel-login').classList.add('hidden');
+        document.getElementById('sidebar').classList.remove('hidden');
+        document.getElementById('btn-logout').classList.remove('hidden');
+        showDashboard();
+        loadSidebar();
+      }
+    } catch(e) {}
+  }
+  checkAuth();
+
+  // âââ PANELS âââ
+  function showDashboard() {
+    document.getElementById('panel-dashboard').classList.remove('hidden');
+    document.getElementById('panel-form').classList.add('hidden');
+    document.getElementById('save-bar').classList.add('hidden');
+    currentProjectId = null;
+    document.querySelectorAll('.project-item').forEach(el => el.classList.remove('active'));
+  }
+
+  function showForm(project) {
+    document.getElementById('panel-dashboard').classList.add('hidden');
+    document.getElementById('panel-form').classList.remove('hidden');
+    document.getElementById('save-bar').classList.remove('hidden');
+    if (project) {
+      document.getElementById('form-title').textContent = project.title || 'Edit Project';
+      document.getElementById('btn-delete').style.display = 'flex';
+      currentProjectId = project.id;
+      fillForm(project);
+    } else {
+      document.getElementById('form-title').textContent = 'New Project';
+      document.getElementById('btn-delete').style.display = 'none';
+      currentProjectId = null;
+      clearForm();
     }
+  }
 
-    async function deleteProject(id, btn) {
-      const item = btn.closest('.project-item');
-      const existing = item.querySelector('.delete-confirm');
-      if (existing) { existing.remove(); return; }
+  function openNewForm() {
+    showForm(null);
+    document.querySelectorAll('.project-item').forEach(el => el.classList.remove('active'));
+  }
 
-      const conf = document.createElement('div');
-      conf.className = 'delete-confirm';
-      conf.innerHTML = `
-        <span>Delete this project permanently?</span>
-        <div style="display:flex;gap:8px">
-          <button class="btn btn-ghost" onclick="this.closest('.delete-confirm').remove()" style="padding:7px 14px;font-size:12px">Cancel</button>
-          <button class="btn btn-danger" id="confirmDel" style="padding:7px 14px;font-size:12px">Delete</button>
-        </div>`;
-      item.after(conf);
-
-      conf.querySelector('#confirmDel').onclick = async () => {
-        const r = await fetch(`/api/admin/projects/${id}`, { method: 'DELETE' });
-        if (r.ok) {
-          showToast('Project deleted', 'success');
-          renderProjectsPanel();
-        } else {
-          showToast('Delete failed', 'error');
-        }
-      };
+  // âââ SIDEBAR âââ
+  async function loadSidebar() {
+    const list = document.getElementById('projects-list');
+    try {
+      const res = await fetch(API + '/admin/projects', { credentials: 'include' });
+      const projects = await res.json();
+      if (!projects.length) {
+        list.innerHTML = '<p style="padding:12px;font-size:0.8rem;color:var(--muted)">No projects yet.</p>';
+        return;
+      }
+      list.innerHTML = projects.map(p => `
+        <div class="project-item" data-id="${p.id}" onclick="openProject('${p.id}')">
+          <div class="project-item-thumb">
+            ${p.cover
+              ? `<img src="/uploads/${p.cover}" alt="" onerror="this.parentElement.innerHTML='<svg width=16 height=16 fill=none viewBox=\\'0 0 24 24\\' stroke=\\'currentColor\\' stroke-width=\\'1.5\\'><rect x=\\'3\\' y=\\'3\\' width=\\'18\\' height=\\'18\\' rx=\\'3\\'/></svg>'"/>`
+              : '<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="rgba(232,231,226,0.3)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/></svg>'
+            }
+          </div>
+          <div class="project-item-info">
+            <div class="project-item-title">${p.title}</div>
+            <div class="project-item-meta">${p.category || 'Uncategorized'}</div>
+          </div>
+          <div class="status-dot ${p.published ? 'published' : 'draft'}" title="${p.published ? 'Published' : 'Draft'}"></div>
+        </div>
+      `).join('');
+    } catch(e) {
+      list.innerHTML = '<p style="padding:12px;font-size:0.8rem;color:var(--muted)">Failed to load.</p>';
     }
+  }
 
-    // ââ TOAST âââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-    let toastTimer;
-    function showToast(msg, type = 'success') {
-      const t = document.getElementById('toast');
-      document.getElementById('toastMsg').textContent = msg;
-      document.getElementById('toastIcon').textContent = type === 'success' ? 'â' : 'â';
-      t.className = `toast ${type} show`;
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+  async function openProject(id) {
+    document.querySelectorAll('.project-item').forEach(el => {
+      el.classList.toggle('active', el.dataset.id === id);
+    });
+    try {
+      const res = await fetch(API + '/admin/projects', { credentials: 'include' });
+      const projects = await res.json();
+      const project = projects.find(p => p.id === id);
+      if (project) showForm(project);
+    } catch(e) { showToast('Failed to load project', 'error'); }
+  }
+
+  // âââ FORM âââ
+  function fillForm(p) {
+    document.getElementById('project-id').value = p.id || '';
+    document.getElementById('f-title').value = p.title || '';
+    document.getElementById('f-category').value = p.category || '';
+    document.getElementById('f-role').value = p.role || '';
+    document.getElementById('f-duration').value = p.duration || '';
+    document.getElementById('f-link').value = p.link || '';
+    document.getElementById('f-summary').value = p.summary || '';
+    document.getElementById('f-description').value = p.description || '';
+    document.getElementById('f-tags').value = (p.tags || []).join(', ');
+    document.getElementById('f-tools').value = (p.tools || []).join(', ');
+    document.getElementById('f-order').value = p.order ?? 0;
+    document.getElementById('f-published').checked = p.published !== false;
+    document.getElementById('f-featured').checked = !!p.featured;
+
+    // Cover preview
+    const pa = document.getElementById('cover-preview-area');
+    if (p.cover) {
+      pa.innerHTML = `<img src="/uploads/${p.cover}" style="width:100%;max-height:140px;object-fit:cover;border-radius:8px;"/>`;
+    } else {
+      resetCoverPreview();
     }
+    document.getElementById('images-preview').innerHTML = (p.images || []).map(img =>
+      `<div class="upload-preview-item"><img src="/uploads/${img}" /><button onclick="this.parentElement.remove()">&#x2715;</button></div>`
+    ).join('');
 
-    // ââ INIT ââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââââ
-    checkAuth();
-  </script>
+    document.getElementById('save-status').textContent = '';
+  }
 
+  function clearForm() {
+    ['f-title','f-category','f-role','f-duration','f-link','f-summary','f-description','f-tags','f-tools'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('f-order').value = '0';
+    document.getElementById('f-published').checked = true;
+    document.getElementById('f-featured').checked = false;
+    document.getElementById('f-cover').value = '';
+    document.getElementById('f-images').value = '';
+    document.getElementById('images-preview').innerHTML = '';
+    resetCoverPreview();
+    document.getElementById('save-status').textContent = '';
+  }
+
+  function resetCoverPreview() {
+    document.getElementById('cover-preview-area').innerHTML = `
+      <div class="upload-zone-icon">
+        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 20M14 8a2 2 0 11-4 0 2 2 0 014 0zM6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      </div>
+      <p>Drop cover image here or <strong>browse</strong></p>
+      <p style="font-size:0.75rem;margin-top:4px">16:9 recommended &bull; Max 20MB</p>
+    `;
+  }
+
+  function previewCover(input) {
+    if (!input.files[0]) return;
+    const url = URL.createObjectURL(input.files[0]);
+    document.getElementById('cover-preview-area').innerHTML =
+      `<img src="${url}" style="width:100%;max-height:140px;object-fit:cover;border-radius:8px;"/>`;
+  }
+
+  function previewImages(input) {
+    const preview = document.getElementById('images-preview');
+    Array.from(input.files).forEach(file => {
+      const url = URL.createObjectURL(file);
+      const div = document.createElement('div');
+      div.className = 'upload-preview-item';
+      div.innerHTML = `<img src="${url}" /><button onclick="this.parentElement.remove()">&#x2715;</button>`;
+      preview.appendChild(div);
+    });
+  }
+
+  // âââ SAVE âââ
+  async function saveProject() {
+    const btn = document.getElementById('btn-save');
+    const status = document.getElementById('save-status');
+    btn.disabled = true;
+    status.className = 'save-status saving';
+    status.textContent = 'Saving...';
+
+    const fd = new FormData();
+    fd.append('title', document.getElementById('f-title').value);
+    fd.append('category', document.getElementById('f-category').value);
+    fd.append('role', document.getElementById('f-role').value);
+    fd.append('duration', document.getElementById('f-duration').value);
+    fd.append('link', document.getElementById('f-link').value);
+    fd.append('summary', document.getElementById('f-summary').value);
+    fd.append('description', document.getElementById('f-description').value);
+    fd.append('tags', document.getElementById('f-tags').value);
+    fd.append('tools', document.getElementById('f-tools').value);
+    fd.append('order', document.getElementById('f-order').value || '0');
+    fd.append('published', document.getElementById('f-published').checked);
+    fd.append('featured', document.getElementById('f-featured').checked);
+
+    const cover = document.getElementById('f-cover').files[0];
+    if (cover) fd.append('cover', cover);
+    const images = document.getElementById('f-images').files;
+    Array.from(images).forEach(img => fd.append('images', img));
+
+    try {
+      const url = currentProjectId
+        ? `${API}/admin/projects/${currentProjectId}`
+        : `${API}/admin/projects`;
+      const method = currentProjectId ? 'PUT' : 'POST';
+      const res = await fetch(url, { method, body: fd, credentials: 'include' });
+      if (!res.ok) throw new Error(await res.text());
+      const saved = await res.json();
+      currentProjectId = saved.id;
+      document.getElementById('form-title').textContent = saved.title;
+      document.getElementById('btn-delete').style.display = 'flex';
+      status.className = 'save-status saved';
+      status.textContent = 'Saved successfully';
+      showToast('Project saved!', 'success');
+      loadSidebar();
+    } catch(e) {
+      status.className = 'save-status';
+      status.textContent = 'Save failed';
+      showToast('Failed to save: ' + e.message, 'error');
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  async function deleteProject() {
+    if (!currentProjectId) return;
+    if (!confirm('Delete this project? This cannot be undone.')) return;
+    try {
+      const res = await fetch(`${API}/admin/projects/${currentProjectId}`, {
+        method: 'DELETE', credentials: 'include'
+      });
+      if (!res.ok) throw new Error();
+      showToast('Project deleted', 'success');
+      showDashboard();
+      loadSidebar();
+    } catch(e) {
+      showToast('Failed to delete', 'error');
+    }
+  }
+
+  // âââ TOAST âââ
+  let toastTimer;
+  function showToast(msg, type='success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'show ' + type;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { t.className = ''; }, 3000);
+  }
+</script>
 </body>
 </html>
