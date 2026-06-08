@@ -1,7 +1,7 @@
 const express = require('express');
 const multer  = require('multer');
 const cors    = require('cors');
-const session = require('express-session');
+const cookieSession = require('cookie-session');
 const path    = require('path');
 const fs      = require('fs');
 const crypto  = require('crypto');
@@ -10,89 +10,96 @@ const { v4: uuidv4 } = require('uuid');
 const app  = express();
 const PORT = process.env.PORT || 3000;
 
-// --- ADMIN PASSWORD ---
 const ADMIN_PASSWORD = 'portfolio2025';
 
-// --- PATHS (Vercel uses /tmp for writable storage) ---
 const IS_VERCEL   = !!process.env.VERCEL;
-const DATA_FILE   = IS_VERCEL ? '/tmp/projects.json' : path.join(__dirname, 'data', 'projects.json');
-const UPLOADS_DIR = IS_VERCEL ? '/tmp/uploads'       : path.join(__dirname, 'public', 'uploads');
+const DATA_FILE   = IS_VERCEL ? '/tmp/projects.json'  : path.join(__dirname, 'data', 'projects.json');
+const UPLOADS_DIR = IS_VERCEL ? '/tmp/uploads'        : path.join(__dirname, 'public', 'uploads');
 
-// Ensure directories exist
 [IS_VERCEL ? '/tmp' : path.join(__dirname, 'data'), UPLOADS_DIR].forEach(dir => {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
-// Seed projects file
 if (!fs.existsSync(DATA_FILE)) {
   const committed = path.join(__dirname, 'data', 'projects.json');
   const seed = fs.existsSync(committed) ? fs.readFileSync(committed, 'utf8') : '[]';
   fs.writeFileSync(DATA_FILE, seed);
 }
 
-// --- HELPERS ---
 const readProjects  = () => JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
 const writeProjects = (data) => fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
 
-// --- MULTER ---
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, UPLOADS_DIR),
-  filename:    (_req, file, cb)  => cb(null, `${uuidv4()}${path.extname(file.originalname)}`)
+  filename: (_req, file, cb) => {
+    const ext  = path.extname(file.originalname).toLowerCase();
+    const name = `${Date.now()}-${uuidv4().slice(0, 8)}${ext}`;
+    cb(null, name);
+  }
 });
+
 const fileFilter = (_req, file, cb) => {
   const allowed = [
-    'image/jpeg','image/png','image/webp','image/gif',
-    'video/mp4','video/quicktime','video/webm','video/avi','video/mov',
+    'image/jpeg', 'image/png', 'image/webp', 'image/gif',
+    'video/mp4', 'video/quicktime', 'video/webm', 'video/avi', 'video/mov',
     'application/pdf'
   ];
   cb(null, allowed.includes(file.mimetype));
 };
+
 const upload = multer({ storage, fileFilter, limits: { fileSize: 100 * 1024 * 1024 } });
 
-// --- MIDDLEWARE ---
 app.use(cors());
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-app.use(session({
-  secret: 'portfolio-secret-key-2025',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: false, httpOnly: true, maxAge: 24 * 60 * 60 * 1000 }
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// cookie-session stores auth in the cookie itself â works on Vercel serverless
+app.use(cookieSession({
+  name: 'session',
+  keys: [process.env.SESSION_SECRET || 'noibedya-secret-key-2025'],
+  maxAge: 8 * 60 * 60 * 1000,
+  sameSite: 'lax',
+  secure: false
 }));
 
-// Static files
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/uploads', express.static(UPLOADS_DIR));
-
-// Admin route
 app.get('/admin', (_req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
 
-// --- AUTH ---
+app.use('/uploads', (req, res, next) => {
+  const filePath = path.join(UPLOADS_DIR, req.path.replace(/^\//, ''));
+  if (fs.existsSync(filePath)) res.sendFile(filePath);
+  else next();
+});
+
 const requireAuth = (req, res, next) => {
-  if (req.session && req.session.authenticated) return next();
+  if (req.session && req.session.isAdmin) return next();
   res.status(401).json({ error: 'Unauthorized' });
 };
+
+app.get('/api/projects', (_req, res) => {
+  const projects = readProjects().filter(p => p.published);
+  res.json(projects.sort((a, b) => (a.order - b.order) || (new Date(b.createdAt) - new Date(a.createdAt))));
+});
 
 app.post('/api/admin/login', (req, res) => {
   const { password } = req.body;
   if (password === ADMIN_PASSWORD) {
-    req.session.authenticated = true;
+    req.session.isAdmin = true;
     res.json({ success: true });
   } else {
-    res.status(401).json({ error: 'Invalid password' });
+    res.status(401).json({ error: 'Wrong password' });
   }
 });
 
 app.post('/api/admin/logout', (req, res) => {
-  req.session.destroy();
+  req.session = null;
   res.json({ success: true });
 });
 
 app.get('/api/admin/check', (req, res) => {
-  res.json({ authenticated: !!(req.session && req.session.authenticated) });
+  res.json({ authenticated: !!(req.session && req.session.isAdmin) });
 });
 
-// --- CLOUDINARY SIGN ---
 app.post('/api/admin/cloudinary-sign', requireAuth, (req, res) => {
   const cloud  = process.env.CLOUDINARY_CLOUD_NAME;
   const key    = process.env.CLOUDINARY_API_KEY;
@@ -102,143 +109,144 @@ app.post('/api/admin/cloudinary-sign', requireAuth, (req, res) => {
   }
   const timestamp = Math.round(Date.now() / 1000);
   const folder    = 'portfolio';
-  const str = `folder=${folder}&timestamp=${timestamp}${secret}`;
+  const str       = `folder=${folder}&timestamp=${timestamp}${secret}`;
   const signature = crypto.createHash('sha1').update(str).digest('hex');
   res.json({ timestamp, signature, apiKey: key, cloudName: cloud, folder });
 });
 
-// --- PROJECTS API ---
-app.get('/api/projects', (_req, res) => {
-  try {
-    res.json(readProjects());
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
+app.get('/api/admin/projects', requireAuth, (_req, res) => {
+  res.json(readProjects().sort((a, b) => (a.order - b.order) || (new Date(b.createdAt) - new Date(a.createdAt))));
 });
 
-app.post('/api/admin/projects', requireAuth, upload.fields([
-  { name: 'cover', maxCount: 1 },
-  { name: 'images', maxCount: 20 }
-]), (req, res) => {
-  try {
+app.post('/api/admin/projects',
+  requireAuth,
+  upload.fields([{ name: 'cover', maxCount: 1 }, { name: 'images', maxCount: 20 }]),
+  (req, res) => {
     const projects = readProjects();
-    const { title, slug, category, description, longDescription,
-            tools, year, link, featured, coverUrl, imageUrls } = req.body;
+    const { title, category, description, summary, tags, tools, role, duration, link, published, featured, order } = req.body;
 
-    const coverFile  = req.files && req.files['cover']  ? req.files['cover'][0]  : null;
-    const imageFiles = req.files && req.files['images'] ? req.files['images']    : [];
-
-    let cover = coverUrl || '';
-    if (coverFile) cover = `/uploads/${coverFile.filename}`;
-
-    let images = [];
-    if (imageUrls) {
-      images = Array.isArray(imageUrls) ? imageUrls : [imageUrls];
-    }
-    imageFiles.forEach(f => images.push(`/uploads/${f.filename}`));
+    const coverUrl  = req.body.coverUrl || null;
+    const cover     = req.files?.cover?.[0]?.filename || coverUrl || null;
+    const imageUrls = req.body.imageUrls ? (Array.isArray(req.body.imageUrls) ? req.body.imageUrls : [req.body.imageUrls]) : [];
+    const localImgs = (req.files?.images || []).map(f => f.filename);
+    const images    = [...imageUrls, ...localImgs];
 
     const project = {
       id: uuidv4(),
-      title: title || '',
-      slug: slug || (title ? title.toLowerCase().replace(/\s+/g, '-') : ''),
+      title: title || 'Untitled',
       category: category || '',
+      summary: summary || '',
       description: description || '',
-      longDescription: longDescription || '',
-      tools: tools ? (typeof tools === 'string' ? tools.split(',').map(t => t.trim()) : tools) : [],
-      year: year || new Date().getFullYear().toString(),
+      tags:  tags  ? tags.split(',').map(t => t.trim()).filter(Boolean)  : [],
+      tools: tools ? tools.split(',').map(t => t.trim()).filter(Boolean) : [],
+      role: role || '',
+      duration: duration || '',
       link: link || '',
-      featured: featured === 'true' || featured === true,
       cover,
       images,
-      createdAt: new Date().toISOString()
+      published: published === 'true' || published === true,
+      featured:  featured  === 'true' || featured  === true,
+      order: parseInt(order) || projects.length,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     };
 
     projects.push(project);
     writeProjects(projects);
-    res.json(project);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+    res.status(201).json(project);
   }
-});
+);
 
-app.put('/api/admin/projects/:id', requireAuth, upload.fields([
-  { name: 'cover', maxCount: 1 },
-  { name: 'images', maxCount: 20 }
-]), (req, res) => {
-  try {
+app.put('/api/admin/projects/:id',
+  requireAuth,
+  upload.fields([{ name: 'cover', maxCount: 1 }, { name: 'images', maxCount: 20 }]),
+  (req, res) => {
     const projects = readProjects();
     const idx = projects.findIndex(p => p.id === req.params.id);
     if (idx === -1) return res.status(404).json({ error: 'Not found' });
 
-    const { title, slug, category, description, longDescription,
-            tools, year, link, featured, coverUrl, imageUrls, removedImages } = req.body;
+    const existing = projects[idx];
+    const { title, category, description, summary, tags, tools, role, duration, link, published, featured, order, removeImages } = req.body;
 
-    const coverFile  = req.files && req.files['cover']  ? req.files['cover'][0]  : null;
-    const imageFiles = req.files && req.files['images'] ? req.files['images']    : [];
-    const existing   = projects[idx];
-
-    let cover = existing.cover;
-    if (coverUrl)  cover = coverUrl;
-    if (coverFile) cover = `/uploads/${coverFile.filename}`;
-
-    let images = existing.images || [];
-    if (removedImages) {
-      const removed = Array.isArray(removedImages) ? removedImages : [removedImages];
-      images = images.filter(img => !removed.includes(img));
+    let currentImages = [...(existing.images || [])];
+    if (removeImages) {
+      const toRemove = Array.isArray(removeImages) ? removeImages : [removeImages];
+      toRemove.forEach(filename => {
+        if (!filename.startsWith('http')) {
+          const filePath = path.join(UPLOADS_DIR, filename);
+          if (fs.existsSync(filePath)) fs.unlinkSync(filePath);
+        }
+        currentImages = currentImages.filter(f => f !== filename);
+      });
     }
-    if (imageUrls) {
-      const newUrls = Array.isArray(imageUrls) ? imageUrls : [imageUrls];
-      images = [...images, ...newUrls];
-    }
-    imageFiles.forEach(f => images.push(`/uploads/${f.filename}`));
 
-    projects[idx] = {
+    const coverUrl      = req.body.coverUrl || null;
+    const newLocalCover = req.files?.cover?.[0]?.filename || null;
+    const newCover      = newLocalCover || coverUrl || null;
+    if (newCover && existing.cover && !existing.cover.startsWith('http')) {
+      const oldPath = path.join(UPLOADS_DIR, existing.cover);
+      if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
+    }
+
+    const imageUrls = req.body.imageUrls ? (Array.isArray(req.body.imageUrls) ? req.body.imageUrls : [req.body.imageUrls]) : [];
+    const localImgs = (req.files?.images || []).map(f => f.filename);
+
+    const updated = {
       ...existing,
-      title:           title           !== undefined ? title           : existing.title,
-      slug:            slug            !== undefined ? slug            : existing.slug,
-      category:        category        !== undefined ? category        : existing.category,
-      description:     description     !== undefined ? description     : existing.description,
-      longDescription: longDescription !== undefined ? longDescription : existing.longDescription,
-      tools: tools ? (typeof tools === 'string' ? tools.split(',').map(t => t.trim()) : tools) : existing.tools,
-      year:     year     !== undefined ? year     : existing.year,
-      link:     link     !== undefined ? link     : existing.link,
-      featured: featured !== undefined ? (featured === 'true' || featured === true) : existing.featured,
-      cover,
-      images,
+      title:       title       ?? existing.title,
+      category:    category    ?? existing.category,
+      summary:     summary     ?? existing.summary,
+      description: description ?? existing.description,
+      tags:  tags  ? tags.split(',').map(t => t.trim()).filter(Boolean)  : existing.tags,
+      tools: tools ? tools.split(',').map(t => t.trim()).filter(Boolean) : existing.tools,
+      role:     role     ?? existing.role,
+      duration: duration ?? existing.duration,
+      link:     link     ?? existing.link,
+      cover: newCover || existing.cover,
+      images: [...currentImages, ...imageUrls, ...localImgs],
+      published: published !== undefined ? (published === 'true' || published === true) : existing.published,
+      featured:  featured  !== undefined ? (featured  === 'true' || featured  === true) : existing.featured,
+      order: order !== undefined ? (parseInt(order) || 0) : existing.order,
       updatedAt: new Date().toISOString()
     };
 
+    projects[idx] = updated;
     writeProjects(projects);
-    res.json(projects[idx]);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+    res.json(updated);
   }
-});
+);
 
 app.delete('/api/admin/projects/:id', requireAuth, (req, res) => {
-  try {
-    const projects = readProjects();
-    const idx = projects.findIndex(p => p.id === req.params.id);
-    if (idx === -1) return res.status(404).json({ error: 'Not found' });
-
-    const project = projects[idx];
-    const filesToDelete = [project.cover, ...(project.images || [])].filter(Boolean);
-    filesToDelete.forEach(f => {
-      if (!f.startsWith('http')) {
-        const fp = path.join(__dirname, 'public', f);
-        if (fs.existsSync(fp)) { try { fs.unlinkSync(fp); } catch (_) {} }
-      }
-    });
-
-    projects.splice(idx, 1);
-    writeProjects(projects);
-    res.json({ success: true });
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
+  const projects = readProjects();
+  const idx = projects.findIndex(p => p.id === req.params.id);
+  if (idx === -1) return res.status(404).json({ error: 'Not found' });
+  const [removed] = projects.splice(idx, 1);
+  [removed.cover, ...(removed.images || [])].filter(Boolean).forEach(f => {
+    if (!f.startsWith('http')) {
+      const fp = path.join(UPLOADS_DIR, f);
+      if (fs.existsSync(fp)) fs.unlinkSync(fp);
+    }
+  });
+  writeProjects(projects);
+  res.json({ ok: true });
 });
 
-// --- START ---
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.post('/api/admin/projects/reorder', requireAuth, (req, res) => {
+  const { orderedIds } = req.body;
+  if (!Array.isArray(orderedIds)) return res.status(400).json({ error: 'orderedIds must be array' });
+  const projects = readProjects();
+  const map = Object.fromEntries(projects.map(p => [p.id, p]));
+  const reordered = orderedIds.map((id, i) => ({ ...map[id], order: i })).filter(Boolean);
+  writeProjects(reordered);
+  res.json({ ok: true });
+});
+
+if (!IS_VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`\nâ Portfolio server running at http://localhost:${PORT}`);
+    console.log(`â Admin panel:      http://localhost:${PORT}/admin`);
+    console.log(`â API endpoints:    http://localhost:${PORT}/api/projects\n`);
+  });
+}
 
 module.exports = app;
