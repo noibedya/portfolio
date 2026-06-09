@@ -657,6 +657,12 @@ nav { top: 16px; }
 section { padding: 56px 20px; }
 footer { padding: 20px; }
 }
+    .nav-contact-link { display: none; }
+    @media (max-width: 768px) {
+      .nav-contact { display: none; }
+      .nav-contact-link { display: inline-flex !important; background: var(--gold) !important; color: var(--white) !important; padding: 8px 16px !important; }
+      .nav-contact-link:hover { background: var(--dark) !important; color: var(--white) !important; }
+    }
 </style>
 </head>
 <body>
@@ -669,6 +675,7 @@ footer { padding: 20px; }
 <a href="#hero" data-section="hero">Home</a>
 <a href="#work" data-section="work">Work</a>
 <a href="#about" data-section="about">About</a>
+<a href="#contact" class="nav-contact-link" data-section="contact">Contact</a>
 </nav>
 <div class="nav-contact">
 <a href="#contact" class="btn-contact">Contact</a>
