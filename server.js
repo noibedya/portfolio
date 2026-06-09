@@ -15,7 +15,7 @@ const ADMIN_PASSWORD = 'portfolio2025';
 // ── PATHS (Vercel uses /tmp for writable storage) ───────────────────────────
 const IS_VERCEL   = !!process.env.VERCEL;
 const DATA_FILE   = IS_VERCEL ? '/tmp/projects.json'  : path.join(__dirname, 'data', 'projects.json');
-const UPLOADS_DIR = IS_VERCEL ? '/tmp/uploads'        : path.join(__dirname, 'public', 'uploads');h
+const UPLOADS_DIR = IS_VERCEL ? '/tmp/uploads'        : path.join(__dirname, 'public', 'uploads');
 
 // Ensure directories exist
 [IS_VERCEL ? '/tmp' : path.join(__dirname, 'data'), UPLOADS_DIR].forEach(dir => {
