@@ -126,6 +126,12 @@ app.get('/api/projects', (_req, res) => {
   res.json(projects.sort((a, b) => a.order - b.order || new Date(b.createdAt) - new Date(a.createdAt)));
 });
 
+app.get('/api/projects/:id', (req, res) => {
+    const project = readProjects().find(p => p.id === req.params.id && p.published);
+    if (!project) return res.status(404).json({ error: 'Not found' });
+    res.json(project);
+});
+
 // ── ADMIN AUTH ───────────────────────────────────────────────────────────────
 app.post('/api/admin/login', (req, res) => {
   const { password } = req.body;
