@@ -7,91 +7,45 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#141413;--surface:#1e1e1c;--surface2:#252523;--border:#2e2e2b;
-  --gold:#c9a96e;--gold2:#b8935a;--text:#f0efe9;--muted:#888;--red:#e05555;
-  --green:#4caf7d;--radius:10px;--sidebar:280px;
+--bg:#141413;--surface:#1e1e1c;--surface2:#252523;--border:#2e2e2b;
+--gold:#c9a96e;--gold2:#b8935a;--text:#f0efe9;--muted:#888;--red:#e05555;
+--green:#4caf7d;--radius:10px;--sidebar:280px;
 }
 html,body{height:100%;overflow:hidden;}
 body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:14px;}
-
-/* ===== LOGIN ===== */
-#loginScreen{
-  display:flex;align-items:center;justify-content:center;
-  min-height:100vh;padding:1.5rem;
-}
-.login-card{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:16px;padding:2.5rem 2rem;
-  width:100%;max-width:420px;text-align:center;
-}
-.login-icon{
-  width:56px;height:56px;background:var(--surface2);border-radius:12px;
-  display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:1.6rem;
-}
+#loginScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:1.5rem;}
+.login-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2.5rem 2rem;width:100%;max-width:420px;text-align:center;}
+.login-icon{width:56px;height:56px;background:var(--surface2);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;font-size:1.6rem;}
 .login-card h2{font-size:1.3rem;font-weight:600;margin-bottom:.4rem;}
 .login-card p{color:var(--muted);margin-bottom:1.75rem;font-size:.875rem;}
 .field-label{display:block;text-align:left;font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;}
-.login-input{
-  width:100%;padding:.75rem 1rem;background:var(--surface2);border:1px solid var(--border);
-  border-radius:8px;color:var(--text);font-size:.9rem;outline:none;transition:border .2s;
-}
+.login-input{width:100%;padding:.75rem 1rem;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.9rem;outline:none;transition:border .2s;}
 .login-input:focus{border-color:var(--gold);}
-.btn-primary{
-  width:100%;margin-top:1rem;padding:.8rem;background:var(--gold);color:#1a1a18;
-  border:none;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s;
-}
+.btn-primary{width:100%;margin-top:1rem;padding:.8rem;background:var(--gold);color:#1a1a18;border:none;border-radius:8px;font-size:.9rem;font-weight:600;cursor:pointer;transition:background .2s;}
 .btn-primary:hover{background:var(--gold2);}
 #loginError{color:var(--red);font-size:.8rem;margin-top:.75rem;display:none;}
-
-/* ===== APP LAYOUT ===== */
 #appScreen{display:none;height:100vh;overflow:hidden;}
 .app{display:grid;grid-template-columns:var(--sidebar) 1fr;height:100vh;}
-
-/* ===== MOBILE TOPBAR ===== */
-.mobile-bar{
-  display:none;align-items:center;justify-content:space-between;
-  padding:.75rem 1rem;background:var(--surface);border-bottom:1px solid var(--border);
-  position:sticky;top:0;z-index:50;
-}
+.mobile-bar{display:none;align-items:center;justify-content:space-between;padding:.75rem 1rem;background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;}
 .mobile-bar-title{font-weight:600;font-size:.95rem;}
-.hamburger{
-  background:none;border:none;color:var(--text);cursor:pointer;
-  padding:.35rem;display:flex;flex-direction:column;gap:4px;
-}
+.hamburger{background:none;border:none;color:var(--text);cursor:pointer;padding:.35rem;display:flex;flex-direction:column;gap:4px;}
 .hamburger span{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;transition:.3s;}
 .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(4px,4px);}
 .hamburger.open span:nth-child(2){opacity:0;}
 .hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(4px,-4px);}
-
-/* ===== SIDEBAR ===== */
-.sidebar{
-  background:var(--surface);border-right:1px solid var(--border);
-  display:flex;flex-direction:column;height:100vh;overflow:hidden;
-}
-.sidebar-head{
-  padding:1rem;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
-}
+.sidebar{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;height:100vh;overflow:hidden;}
+.sidebar-head{padding:1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .sidebar-brand{font-weight:700;font-size:.9rem;display:flex;align-items:center;gap:.5rem;}
 .sidebar-brand span{color:var(--gold);}
-.btn-new{
-  background:var(--gold);color:#1a1a18;border:none;border-radius:6px;
-  padding:.4rem .75rem;font-size:.78rem;font-weight:600;cursor:pointer;transition:background .2s;
-}
+.btn-new{background:var(--gold);color:#1a1a18;border:none;border-radius:6px;padding:.4rem .75rem;font-size:.78rem;font-weight:600;cursor:pointer;transition:background .2s;}
 .btn-new:hover{background:var(--gold2);}
 .sidebar-search{padding:.75rem 1rem;border-bottom:1px solid var(--border);flex-shrink:0;}
-.search-input{
-  width:100%;padding:.5rem .75rem;background:var(--surface2);border:1px solid var(--border);
-  border-radius:6px;color:var(--text);font-size:.82rem;outline:none;
-}
+.search-input{width:100%;padding:.5rem .75rem;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.82rem;outline:none;}
 .search-input:focus{border-color:var(--gold);}
 .project-list{flex:1;overflow-y:auto;padding:.5rem;}
 .project-list::-webkit-scrollbar{width:4px;}
 .project-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
-.proj-item{
-  padding:.65rem .75rem;border-radius:8px;cursor:pointer;transition:background .15s;
-  display:flex;align-items:center;gap:.5rem;margin-bottom:2px;
-}
+.proj-item{padding:.65rem .75rem;border-radius:8px;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:.5rem;margin-bottom:2px;}
 .proj-item:hover{background:var(--surface2);}
 .proj-item.active{background:rgba(201,169,110,.12);border-left:2px solid var(--gold);}
 .proj-thumb{width:36px;height:36px;border-radius:6px;object-fit:cover;flex-shrink:0;background:var(--surface2);}
@@ -102,34 +56,21 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .badge{display:inline-block;padding:1px 6px;border-radius:4px;font-size:.65rem;font-weight:600;}
 .badge-pub{background:rgba(76,175,125,.2);color:var(--green);}
 .badge-draft{background:rgba(136,136,136,.15);color:var(--muted);}
-.sidebar-foot{
-  padding:.75rem 1rem;border-top:1px solid var(--border);flex-shrink:0;
-  display:flex;align-items:center;justify-content:space-between;
-}
+.sidebar-foot{padding:.75rem 1rem;border-top:1px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:space-between;}
 .sidebar-foot a{font-size:.8rem;color:var(--muted);text-decoration:none;}
 .sidebar-foot a:hover{color:var(--text);}
 .btn-logout{background:none;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:.3rem .7rem;font-size:.78rem;cursor:pointer;transition:.2s;}
 .btn-logout:hover{border-color:var(--red);color:var(--red);}
-
-/* ===== OVERLAY (mobile) ===== */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:90;}
 .overlay.show{display:block;}
-
-/* ===== MAIN PANEL ===== */
 .main{display:flex;flex-direction:column;height:100vh;overflow:hidden;}
-.empty-state{
-  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:1rem;color:var(--muted);
-}
+.empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;color:var(--muted);}
 .empty-state .icon{font-size:3rem;opacity:.3;}
 .empty-state p{font-size:.95rem;}
-.btn-ghost{
-  background:none;border:1px solid var(--border);color:var(--text);border-radius:8px;
-  padding:.55rem 1.1rem;font-size:.82rem;cursor:pointer;transition:.2s;
-}
+.btn-ghost{background:none;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.55rem 1.1rem;font-size:.82rem;cursor:pointer;transition:.2s;}
 .btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
-
-/* ===== FORM ===== */
+/* FIX: flex styles in CSS â display:none in HTML attr actually hides the panel */
+#formPanel{flex-direction:column;height:100%;overflow:hidden;}
 .form-wrap{flex:1;overflow-y:auto;padding:1.5rem;}
 .form-wrap::-webkit-scrollbar{width:4px;}
 .form-wrap::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
@@ -142,11 +83,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .form-group{display:flex;flex-direction:column;gap:.4rem;}
 .form-group.full{grid-column:1/-1;}
 .form-label{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
-.form-input,.form-textarea,.form-select{
-  background:var(--surface2);border:1px solid var(--border);border-radius:8px;
-  color:var(--text);font-size:.875rem;padding:.6rem .85rem;outline:none;transition:border .2s;
-  font-family:inherit;width:100%;
-}
+.form-input,.form-textarea,.form-select{background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.875rem;padding:.6rem .85rem;outline:none;transition:border .2s;font-family:inherit;width:100%;}
 .form-input:focus,.form-textarea:focus,.form-select:focus{border-color:var(--gold);}
 .form-textarea{resize:vertical;min-height:80px;}
 .form-select option{background:var(--surface2);}
@@ -158,725 +95,347 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 .slider::before{content:'';position:absolute;width:16px;height:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s;}
 .toggle input:checked + .slider{background:var(--gold);}
 .toggle input:checked + .slider::before{transform:translateX(18px);}
-
-/* ===== UPLOAD ZONES ===== */
-.upload-zone{
-  border:2px dashed var(--border);border-radius:10px;padding:1.25rem;
-  text-align:center;cursor:pointer;transition:.2s;Position:relative;
-}
+.upload-zone{border:2px dashed var(--border);border-radius:10px;padding:1.25rem;text-align:center;cursor:pointer;transition:.2s;position:relative;}
 .upload-zone:hover,.upload-zone.drag{border-color:var(--gold);background:rgba(201,169,110,.05);}
 .upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
 .upload-zone-text{color:var(--muted);font-size:.82rem;}
 .upload-zone-text strong{color:var(--gold);}
 .upload-accept{font-size:.7rem;color:var(--muted);margin-top:.25rem;}
-
-/* Progress bar */
 .upload-progress{display:none;margin-top:.75rem;}
 .progress-bar-wrap{background:var(--border);border-radius:4px;height:4px;overflow:hidden;}
 .progress-bar{height:100%;background:var(--gold);width:0%;transition:width .3s;}
 .progress-text{font-size:.72rem;color:var(--muted);margin-top:.35rem;}
-
-/* Cover preview */
 .cover-preview{margin-top:.75rem;display:none;}
 .cover-preview img,.cover-preview video{max-width:100%;max-height:200px;border-radius:8px;display:block;}
-.cover-preview iframe{width:100%;height:200px;border-radius:8px;border:none;}
 .cover-preview .file-name{font-size:.72rem;color:var(--muted);margin-top:.35rem;}
-.remove-cover{
-  margin-top:.4rem;background:none;border:none;color:var(--red);font-size:.75rem;cursor:pointer;
-}
-
-/* Gallery grid */
+.remove-cover{margin-top:.4rem;background:none;border:none;color:var(--red);font-size:.75rem;cursor:pointer;}
 .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:.5rem;margin-top:.75rem;}
 .gallery-item{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1;}
 .gallery-item img,.gallery-item video{width:100%;height:100%;object-fit:cover;}
 .gallery-item .pdf-thumb{width:100%;height:100%;background:var(--surface2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;color:var(--muted);}
 .gallery-item .pdf-thumb span{font-size:.6rem;text-align:center;padding:0 .25rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%;}
-.gallery-item .rm-btn{
-  position:absolute;top:3px;right:3px;background:rgba(0,0,0,.7);border:none;
-  color:#fff;border-radius:50%;width:20px;height:20px;font-size:.7rem;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-}
-
-/* ===== SAVE BAR ===== */
-.save-bar{
-  position:sticky;bottom:0;padding:1rem 1.5rem;
-  background:var(--surface);border-top:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-shrink:0;
-}
-.save-btn{
-  background:var(--gold);color:#1a1a18;border:none;border-radius:8px;
-  padding:.65rem 1.5rem;font-size:.875rem;font-weight:600;cursor:pointer;transition:background .2s;
-}
-.save-btn:hover{background:var(--gold2);}
-.save-btn:disabled{opacity:.5;cursor:not-allowed;}
+.gallery-item .rm-btn{position:absolute;top:3px;right:3px;background:rgba(0,0,0,.7);border:none;color:#fff;border-radius:50%;width:20px;height:20px;font-size:.7rem;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+/* Save bar with Draft + Publish */
+.save-bar{position:sticky;bottom:0;padding:1rem 1.5rem;background:var(--surface);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-shrink:0;}
+.save-actions{display:flex;gap:.6rem;}
+.btn-draft{background:none;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:.65rem 1.25rem;font-size:.875rem;font-weight:500;cursor:pointer;transition:.2s;}
+.btn-draft:hover{border-color:var(--gold);color:var(--gold);}
+.btn-draft:disabled{opacity:.5;cursor:not-allowed;}
+.btn-publish{background:var(--green);color:#fff;border:none;border-radius:8px;padding:.65rem 1.5rem;font-size:.875rem;font-weight:600;cursor:pointer;transition:background .2s;}
+.btn-publish:hover{background:#3a9e6b;}
+.btn-publish:disabled{opacity:.5;cursor:not-allowed;}
 .save-status{font-size:.78rem;color:var(--muted);}
-
-/* ===== TOAST ===== */
-#toast{
-  position:fixed;bottom:1.5rem;right:1.5rem;background:var(--surface);
-  border:1px solid var(--border);border-radius:10px;padding:.75rem 1rem;
-  font-size:.82rem;display:none;z-index:999;max-width:280px;
-  box-shadow:0 8px 24px rgba(0,0,0,.4);
-}
-#toast.success{border-color:var(--green);color:var(--green);}
+#toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.75rem 1rem;font-size:.82rem;display:none;z-index:999;max-width:280px;box-shadow:0 8px 24px rgba(0,0,0,.4);}
+"toast.success{border-color:var(--green);color:var(--green);}
 #toast.error{border-color:var(--red);color:var(--red);}
-
-/* ===== CLOUDINARY SETUP NOTICE ===== */
-.cloud-notice{
-  background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.25);
-  border-radius:8px;padding:.75rem 1rem;font-size:.78rem;color:var(--gold);
-  margin-bottom:1rem;display:none;
-}
-
-/* ===== RESPONSIVE ===== */
+.cloud-notice{background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.25);border-radius:8px;padding:.75rem 1rem;font-size:.78rem;color:var(--gold);margin-bottom:1rem;display:none;}
 @media(max-width:768px){
-  .app{grid-template-columns:1fr;}
-  .mobile-bar{display:flex;}
-  .sidebar{
-    position:fixed;top:0;left:0;height:100%;width:var(--sidebar);z-index:100;
-    transform:translateX(-100%);transition:transform .3s ease;
-  }
-  .sidebar.open{transform:translateX(0);}
-  .main{height:calc(100vh - 49px);}
-  .form-grid{grid-template-columns:1fr;}
-  .form-wrap{padding:1rem;}
-  .btn-back{display:inline-flex;}
-  .save-bar{padding:.75rem 1rem;}
+.app{grid-template-columns:1fr;}
+.mobile-bar{display:flex;}
+.sidebar{position:fixed;top:0;left:0;height:100%;width:var(--sidebar);z-index:100;transform:translateX(-100%);transition:transform .3s ease;}
+.sidebar.open{transform:translateX(0);}
+.main{height:calc(100vh - 49px);}
+.form-grid{grid-template-columns:1fr;}
+.form-wrap{padding:1rem;}
+.btn-back{display:inline-flex;}
+.save-bar{padding:.75rem 1rem;}
 }
-@media(max-width:480px){
-  :root{--sidebar:85vw;}
-  .form-head{flex-direction:column;align-items:flex-start;}
-}
+@media(max-width:480px){:root{--sidebar:85vw;}.form-head{flex-direction:column;align-items:flex-start;}.save-actions{flex-direction:column;width:100%;}.btn-draft,.btn-publish{width:100%;}}
 </style>
 </head>
 <body>
-
-<!-- LOGIN -->
 <div id="loginScreen">
-  <div class="login-card">
-    <div class="login-icon">&#128274;</div>
-    <h2>Admin Access</h2>
-    <p>Enter your password to manage portfolio content</p>
-    <label class="field-label" for="pwdInput">Password</label>
-    <input class="login-input" id="pwdInput" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password">
-    <button class="btn-primary" onclick="doLogin()">Sign in</button>
-    <div id="loginError">Wrong password. Try again.</div>
-  </div>
+<div class="login-card">
+<div class="login-icon">&#128274;</div>
+<h2>Admin Access</h2>
+<p>Enter your password to manage portfolio content</p>
+<label class="field-label" for="pwdInput">Password</label>
+<input class="login-input" id="pwdInput" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password">
+<button class="btn-primary" onclick="doLogin()">Sign in</button>
+<div id="loginError">Wrong password. Try again.</div>
 </div>
-
-<!-- APP -->
+</div>
 <div id="appScreen">
-  <!-- Mobile top bar -->
-  <div class="mobile-bar">
-    <span class="mobile-bar-title">Portfolio CMS</span>
-    <button class="hamburger" id="hamburger" onclick="toggleSidebar()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
-
-  <div class="app">
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-head">
-        <div class="sidebar-brand">&#9679; <span>Portfolio CMS</span></div>
-        <button class="btn-new" onclick="newProject()">+ New</button>
-      </div>
-      <div class="sidebar-search">
-        <input class="search-input" id="searchInput" type="text" placeholder="Search projects..." oninput="filterProjects()">
-      </div>
-      <div class="project-list" id="projectList"></div>
-      <div class="sidebar-foot">
-        <a href="/" target="_blank">View site &rarr;</a>
-        <button class="btn-logout" onclick="logout()">Log out</button>
-      </div>
-    </aside>
-
-    <!-- MAIN -->
-    <main class="main" id="main">
-      <div class="empty-state" id="emptyState">
-        <div class="icon">&#128196;</div>
-        <p>Select a project or create a new one</p>
-        <button class="btn-ghost" onclick="newProject()">+ New Project</button>
-      </div>
-
-      <!-- FORM -->
-      <div id="formPanel" style="display:none;display:flex;flex-direction:column;height:100%;overflow:hidden;">
-        <div class="form-wrap">
-          <div class="form-head">
-            <div class="form-head-left">
-              <button class="btn-back" onclick="closeSidebar()" title="Back">&#8592;</button>
-              <h2 id="formTitle" style="font-size:1rem;font-weight:600;">New Project</h2>
-            </div>
-            <button class="btn-delete" id="deleteBtn" onclick="deleteProject()" style="display:none;">Delete</button>
-          </div>
-
-          <div id="cloudNotice" class="cloud-notice">
-            &#9888; Cloudinary not configured &mdash; uploads limited to ~4 MB. Add CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET to Vercel env vars for unlimited uploads.
-          </div>
-
-          <div class="form-grid">
-            <div class="form-group full">
-              <label class="form-label">Title</label>
-              <input class="form-input" id="fTitle" type="text" placeholder="Project title">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Category</label>
-              <select class="form-select" id="fCategory">
-                <option value="">Select category</option>
-                <option>UX Design</option>
-                <option>Product Design</option>
-                <option>UI Design</option>
-                <option>Branding</option>
-                <option>Research</option>
-                <option>Case Study</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Role</label>
-              <input class="form-input" id="fRole" type="text" placeholder="e.g. Lead Designer">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Duration</label>
-              <input class="form-input" id="fDuration" type="text" placeholder="e.g. 3 months">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Link</label>
-              <input class="form-input" id="fLink" type="url" placeholder="https://...">
-            </div>
-            <div class="form-group full">
-              <label class="form-label">Summary (short)</label>
-              <input class="form-input" id="fSummary" type="text" placeholder="One-line description">
-            </div>
-            <div class="form-group full">
-              <label class="form-label">Description</label>
-              <textarea class="form-textarea" id="fDesc" rows="4" placeholder="Full project description..."></textarea>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Tags (comma separated)</label>
-              <input class="form-input" id="fTags" type="text" placeholder="UX, Mobile, Figma">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Tools (comma separated)</label>
-              <input class="form-input" id="fTools" type="text" placeholder="Figma, Miro, Notion">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Display Order</label>
-              <input class="form-input" id="fOrder" type="number" placeholder="0" min="0">
-            </div>
-
-            <!-- Toggles -->
-            <div class="form-group">
-              <label class="form-label">Status</label>
-              <div class="toggle-row">
-                <span class="toggle-label">Published</span>
-                <label class="toggle"><input type="checkbox" id="fPublished"><span class="slider"></span></label>
-              </div>
-            </div>
-            <div class="form-group full">
-              <div class="toggle-row">
-                <span class="toggle-label">Featured on homepage</span>
-                <label class="toggle"><input type="checkbox" id="fFeatured"><span class="slider"></span></label>
-              </div>
-            </div>
-
-            <!-- Cover upload -->
-            <div class="form-group full">
-              <label class="form-,abel">Cover Image / Video / PDF</label>
-              <div class="upload-zone" id="coverZone">
-                <input type="file" id="coverInput" accept="image/*,video/*,.pdf,application/pdf" onchange="handleCoverSelect(this)">
-                <div class="upload-zone-text"><strong>Click to upload</strong> or drag &amp; drop</div>
-                <div class="upload-accept">Images, videos (MP4, WebM), PDFs &mdash; any size with Cloudinary</div>
-              </div>
-              <div class="upload-progress" id="coverProgress">
-                <div class="progress-bar-wrap"><div class="progress-bar" id="coverProgressBar"></div></div>
-                <div class="progress-text" id="coverProgressText">Uploading...</div>
-              </div>
-              <div class="cover-preview" id="coverPreview"></div>
-            </div>
-
-            <!-- Gallery upload -->
-            <div class="form-group full">
-              <label class="form-label">Gallery (images / videos / PDFs)</label>
-              <div class="upload-zone" id="galleryZone">
-                <input type="file" id="galleryInput" accept="image/*,video/*,.pdf,application/pdf" multiple onchange="handleGallerySelect(this)">
-                <div class="upload-zone-text"><strong>Click to upload</strong> or drag &amp; drop</div>
-                <div class="upload-accept">Multiple files supported &mdash; images, videos, PDFs</div>
-              </div>
-              <div class="upload-progress" id="galleryProgress">
-                <div class="progress-bar-wrap"><div class="progress-bar" id="galleryProgressBar"></div></div>
-                <div class="progress-text" id="galleryProgressText">Uploading...</div>
-              </div>
-              <div class="gallery-grid" id="galleryGrid"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Save bar -->
-        <div class="save-bar">
-          <span class="save-status" id="saveStatus"></span>
-          <button class="save-btn" id="saveBtn" onclick="saveProject()">Save Project</button>
-        </div>
-      </div>
-    </main>
-  </div>
+<div class="mobile-bar">
+<span class="mobile-bar-title">Portfolio CMS</span>
+<button class="hamburger" id="hamburger" onclick="toggleSidebar()" aria-label="Menu"><span></span><span></span><span></span></button>
 </div>
-
+<div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+<div class="sidebar-head">
+<div class="sidebar-brand">&#9679; <span>Portfolio CMS</span></div>
+<button class="btn-new" onclick="newProject()">+ New</button>
+</div>
+<div class="sidebar-search">
+<input class="search-input" id="searchInput" type="text" placeholder="Search projects..." oninput="filterProjects()">
+</div>
+<div class="project-list" id="projectList"></div>
+<div class="sidebar-foot">
+<a href="/" target="_blank">View site &rarr;</a>
+<button class="btn-logout" onclick="logout()">Log out</button>
+</div>
+</aside>
+<main class="main" id="main">
+<div class="empty-state" id="emptyState">
+<div class="icon">&#128196;</div>
+<p>Select a project or create a new one</p>
+<button class="btn-ghost" onclick="newProject()">+ New Project</button>
+</div>
+<!-- FIX: display:none here, showForm() sets display:flex -->
+<div id="formPanel" style="display:none;">
+<div class="form-wrap">
+<div class="form-head">
+<div class="form-head-left">
+<button class="btn-back" onclick="closeSidebar()" title="Back">&#8592;</button>
+<h2 id="formTitle" style="font-size:1rem;font-weight:600;">New Project</h2>
+</div>
+<button class="btn-delete" id="deleteBtn" onclick="deleteProject()" style="display:none;">Delete</button>
+</div>
+<div id="cloudNotice" class="cloud-notice">&#9888; Cloudinary not configured &mdash; uploads limited to ~4 MB. Add CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET to Vercel env vars for unlimited uploads.</div>
+<div class="form-grid">
+<div class="form-group full"><label class="form-label">Title</label><input class="form-input" id="fTitle" type="text" placeholder="Project title"></div>
+<div class="form-group"><label class="form-label">Category</label>
+<select class="form-select" id="fCategory">
+<option value="">Select category</option>
+<option>UX Design</option><option>Product Design</option><option>UI Design</option>
+<option>Branding</option><option>Research</option><option>Case Study</option><option>Other</option>
+</select></div>
+<div class="form-group"><label class="form-label">Role</label><input class="form-input" id="fRole" type="text" placeholder="e.g. Lead Designer"></div>
+<div class="form-group"><label class="form-label">Duration</label><input class="form-input" id="fDuration" type="text" placeholder="e.g. 3 months"></div>
+<div class="form-group"><label class="form-label">Link</label><input class="form-input" id="fLink" type="url" placeholder="https://..."></div>
+<div class="form-group full"><label class="form-label">Summary (short)</label><input class="form-input" id="fSummary" type="text" placeholder="One-line description"></div>
+<div class="form-group full"><label class="form-label">Description</label><textarea class="form-textarea" id="fDesc" rows="4" placeholder="Full project description..."></textarea></div>
+<div class="form-group"><label class="form-label">Tags (comma separated)</label><input class="form-input" id="fTags" type="text" placeholder="UX, Mobile, Figma"></div>
+<div class="form-group"><label class="form-label">Tools (comma separated)</label><input class="form-input" id="fTools" type="text" placeholder="Figma, Miro, Notion"></div>
+<div class="form-group"><label class="form-label">Display Order</label><input class="form-input" id="fOrder" type="number" placeholder="0" min="0"></div>
+<div class="form-group"><label class="form-label">Featured on homepage</label>
+<div class="toggle-row"><span class="toggle-label">Featured</span><label class="toggle"><input type="checkbox" id="fFeatured"><span class="slider"></span></label></div></div>
+<div class="form-group full"><label class="form-label">Cover Image / Video / PDF</label>
+<div class="upload-zone" id="coverZone">
+<input type="file" id="coverInput" accept="image/*,video/*,.pdf,application/pdf" onchange="handleCoverSelect(this)">
+<div class="upload-zone-text"><strong>Click to upload</strong> or drag &amp; drop</div>
+<div class="upload-accept">Images, videos (MP4, WebM), PDFs &mdash; any size with Cloudinary</div>
+</div>
+<div class="upload-progress" id="coverProgress"><div class="progress-bar-wrap"><div class="progress-bar" id="coverProgressBar"></div></div><div class="progress-text" id="coverProgressText">Uploading...</div></div>
+<div class="cover-preview" id="coverPreview"></div></div>
+<div class="form-group full"><label class="form-label">Gallery (images / videos / PDFs)</label>
+<div class="upload-zone" id="galleryZone">
+<input type="file" id="galleryInput" accept="image/*,video/*,.pdf,application/pdf" multiple onchange="handleGallerySelect(this)">
+<div class="upload-zone-text"><strong>Click to upload</strong> or drag &amp; drop</div>
+<div class="upload-accept">Multiple files supported &mdash; images, videos, PDFs &mdash; any size with Cloudinary</div>
+</div>
+<div class="upload-progress" id="galleryProgress"><div class="progress-bar-wrap"><div class="progress-bar" id="galleryProgressBar"></div></div><div class="progress-text" id="galleryProgressText">Uploading...</div></div>
+<div class="gallery-grid" id="galleryGrid"></div></div>
+</div>
+</div>
+<div class="save-bar">
+<span class="save-status" id="saveStatus"></span>
+<div class="save-actions">
+<button class="btn-draft" id="draftBtn" onclick="saveProject(false)">Save Draft</button>
+<button class="btn-publish" id="publishBtn" onclick="saveProject(true)">&#9654; Publish</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
 <div id="toast"></div>
-
 <script>
-// ===== STATE =====
-let projects = [];
-let currentId = null;
-let isNew = false;
-let coverFile = null;
-let coverUrl = null;
-let galleryFiles = [];
-let galleryUrls = [];
-let removedImages = [];
-let cloudinaryEnabled = false;
+let projects=[],currentId=null,isNew=false,coverFile=null,coverUrl=null;
+let galleryFiles=[],galleryUrls=[],removedImages=[],cloudinaryEnabled=false;
 
-// ===== AUTH =====
-async function checkAuth() {
-  try {
-    const r = await fetch('/api/admin/check');
-    if (r.ok) showApp();
-  } catch(e) {}
+// FIX 1: check data.authenticated â /api/admin/check always returns HTTP 200
+async function checkAuth(){
+  try{const r=await fetch('/api/admin/check');const d=await r.json();if(d.authenticated)showApp();}catch(e){}
+}
+async function doLogin(){
+  const pwd=document.getElementById('pwdInput').value;
+  const err=document.getElementById('loginError');err.style.display='none';
+  try{
+    const r=await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd})});
+    if(r.ok){showApp();}else{err.style.display='block';}
+  }catch(e){err.textContent='Connection error.';err.style.display='block';}
+}
+async function logout(){await fetch('/api/admin/logout',{method:'POST'});location.reload();}
+function showApp(){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('appScreen').style.display='block';
+  checkCloudinary();loadSidebar();
 }
 
-async function doLogin() {
-  const pwd = document.getElementById('pwdInput').value;
-  const err = document.getElementById('loginError');
-  err.style.display = 'none';
-  try {
-    const r = await fetch('/api/admin/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password: pwd })
-    });
-    if (r.ok) { showApp(); }
-    else { err.style.display = 'block'; }
-  } catch(e) { err.textContent = 'Connection error.'; err.style.display = 'block'; }
+async function checkCloudinary(){
+  try{const r=await fetch('/api/admin/cloudinary-sign',{method:'POST'});cloudinaryEnabled=r.ok;if(!cloudinaryEnabled)document.getElementById('cloudNotice').style.display='block';}
+  catch(e){cloudinaryEnabled=false;}
 }
-
-async function logout() {
-  await fetch('/api/admin/logout', { method: 'POST' });
-  location.reload();
-}
-
-function showApp() {
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('appScreen').style.display = 'block';
-  checkCloudinary();
-  loadSidebar();
-}
-
-// ===== CLOUDINARY =====
-async function checkCloudinary() {
-  try {
-    const r = await fetch('/api/admin/cloudinary-sign', { method: 'POST' });
-    cloudinaryEnabled = r.ok;
-    if (!cloudinaryEnabled) {
-      document.getElementById('cloudNotice').style.display = 'block';
-    }
-  } catch(e) { cloudinaryEnabled = false; }
-}
-
-async function uploadToCloudinary(file, onProgress) {
-  const signRes = await fetch('/api/admin/cloudinary-sign', { method: 'POST' });
-  if (!signRes.ok) return null;
-  const { timestamp, signature, apiKey, cloudName, folder } = await signRes.json();
-
-  const resourceType = file.type.startsWith('video/') ? 'video'
-    : file.type === 'application/pdf' ? 'raw' : 'image';
-
-  const fd = new FormData();
-  fd.append('file', file);
-  fd.append('api_key', apiKey);
-  fd.append('timestamp', timestamp);
-  fd.append('signature', signature);
-  fd.append('folder', folder);
-
-  return new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.upload.onprogress = (e) => {
-      if (e.lengthComputable && onProgress) onProgress(Math.round(e.loaded / e.total * 100));
-    };
-    xhr.onload = () => {
-      try {
-        const data = JSON.parse(xhr.responseText);
-        resolve(data.secure_url || null);
-      } catch(e) { resolve(null); }
-    };
-    xhr.onerror = () => reject(new Error('Upload failed'));
-    xhr.open('POST', `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`);
-    xhr.send(fd);
+async function uploadToCloudinary(file,onProgress){
+  const sr=await fetch('/api/admin/cloudinary-sign',{method:'POST'});if(!sr.ok)return null;
+  const{timestamp,signature,apiKey,cloudName,folder}=await sr.json();
+  const rt=file.type.startsWith('video/')?'video':file.type==='application/pdf'?'raw':'image';
+  const fd=new FormData();fd.append('file',file);fd.append('api_key',apiKey);fd.append('timestamp',timestamp);fd.append('signature',signature);fd.append('folder',folder);
+  return new Promise((res,rej)=>{
+    const x=new XMLHttpRequest();
+    x.upload.onprogress=(e)=>{if(e.lengthComputable&&onProgress)onProgress(Math.round(e.loaded/e.total*100));};
+    x.onload=()=>{try{const d=JSON.parse(x.responseText);res(d.secure_url||null);}catch(e){res(null);}};
+    x.onerror=()=>rej(new Error('Upload failed'));
+    x.open('POST',`https://api.cloudinary.com/v1_1/${cloudName}/${rt}/upload`);x.send(fd);
   });
 }
 
-// ===== SIDEBAR =====
-async function loadSidebar() {
-  try {
-    const r = await fetch('/api/admin/projects');
-    projects = await r.json();
-    renderList(projects);
-  } catch(e) { showToast('Failed to load projects', 'error'); }
+async function loadSidebar(){
+  try{const r=await fetch('/api/admin/projects');if(!r.ok)return;projects=await r.json();renderList(projects);}
+  catch(e){showToast('Failed to load projects','error');}
 }
-
-function renderList(list) {
-  const el = document.getElementById('projectList');
-  if (!list.length) {
-    el.innerHTML = '<div style="padding:1rem;color:var(--muted);font-size:.8rem;text-align:center;">No projects yet</div>';
-    return;
-  }
-  el.innerHTML = list.map(p => {
-    const thumb = p.cover
-      ? (p.cover.startsWith('http')
-          ? (p.cover.includes('/video/') || p.cover.match(/\.(mp4|webm|mov)$/i)
-              ? `<div class="proj-thumb-ph">&#127916;</div>`
-              : (p.cover.match(/\.pdf$/i) || p.cover.includes('/raw/'))
-                ? `<div class="proj-thumb-ph">&#128196;</div>`
-                : `<img class="proj-thumb" src="${p.cover}" loading="lazy" alt="">`)
-          : `<img class="proj-thumb" src="/uploads/${p.cover}" loading="lazy" alt="">`)
-      : `<div class="proj-thumb-ph">&#128196;</div>`;
+function renderList(list){
+  const el=document.getElementById('projectList');
+  if(!list.length){el.innerHTML='<div style="padding:1rem;color:var(--muted);font-size:.8rem;text-align:center;">No projects yet</div>';return;}
+  el.innerHTML=list.map(p=>{
+    const thumb=p.cover?(p.cover.startsWith('http')?(p.cover.includes('/video/')||p.cover.match(/\.(mp4|webm|mov)$/i)?'<div class="proj-thumb-ph">&#127916;</div>':(p.cover.match(/\.pdf$/i)||p.cover.includes('/raw/'))?'<div class="proj-thumb-ph">&#128196;</div>':`<img class="proj-thumb" src="${p.cover}" loading="lazy" alt="">`):`<img class="proj-thumb" src="/uploads/${p.cover}" loading="lazy" alt="">`):'<div class="proj-thumb-ph">&#128196;</div>';
     return `<div class="proj-item${p.id===currentId?' active':''}" onclick="openProject('${p.id}')">
-      ${thumb}
-      <div class="proj-info">
-        <div class="proj-title">${esc(p.title||'Untitled')}</div>
-        <div class="proj-meta">
-          <span class="badge ${p.published?'badge-pub':'badge-draft'}">${p.published?'Live':'Draft'}</span>
-          ${p.category?`<span>${esc(p.category)}</span>`:''}
-        </div>
-      </div>
-    </div>`;
+      ${thumb}<div class="proj-info">
+      <div class="proj-title">${esc(p.title||'Untitled')}</div>
+      <div class="proj-meta"><span class="badge ${p.published?'badge-pub':'badge-draft'}">${p.published?'Live':'Draft'}</span>${p.category?`<span>${esc(p.category)}</span>`:''}</div>
+      </div></div>`;
   }).join('');
 }
+function filterProjects(){const q=document.getElementById('searchInput').value.toLowerCase();renderList(q?projects.filter(p=>(p.title||'').toLowerCase().includes(q)):projects);}
 
-function filterProjects() {
-  const q = document.getElementById('searchInput').value.toLowerCase();
-  renderList(q ? projects.filter(p => (p.title||'').toLowerCase().includes(q)) : projects);
+function newProject(){
+  currentId=null;isNew=true;coverFile=null;coverUrl=null;galleryFiles=[];galleryUrls=[];removedImages=[];
+  resetForm();document.getElementById('formTitle').textContent='New Project';
+  document.getElementById('deleteBtn').style.display='none';showForm();closeSidebar();
+}
+function openProject(id){
+  const p=projects.find(x=>x.id===id);if(!p)return;
+  currentId=id;isNew=false;coverFile=null;coverUrl=null;galleryFiles=[];galleryUrls=[];removedImages=[];
+  document.getElementById('formTitle').textContent=p.title||'Untitled';
+  document.getElementById('deleteBtn').style.display='inline-block';
+  document.getElementById('fTitle').value=p.title||'';document.getElementById('fCategory').value=p.category||'';
+  document.getElementById('fRole').value=p.role||'';document.getElementById('fDuration').value=p.duration||'';
+  document.getElementById('fLink').value=p.link||'';document.getElementById('fSummary').value=p.summary||'';
+  document.getElementById('fDesc').value=p.description||'';document.getElementById('fTags').value=(p.tags||[]).join(', ');
+  document.getElementById('fTools').value=(p.tools||[]).join(', ');document.getElementById('fOrder').value=p.order??0;
+  document.getElementById('fFeatured').checked=!!p.featured;
+  const cp=document.getElementById('coverPreview');cp.style.display=p.cover?'block':'none';
+  if(p.cover){const url=p.cover.startsWith('http')?p.cover:`/uploads/${p.cover}`;cp.innerHTML=renderMediaPreview(url,p.cover);}
+  const gg=document.getElementById('galleryGrid');gg.innerHTML='';
+  (p.images||[]).forEach(f=>{const url=f.startsWith('http')?f:`/uploads/${f}`;addGalleryItem(url,f,true);});
+  renderList(projects);showForm();closeSidebar();
+}
+function renderMediaPreview(url,filename){
+  const isV=url.match(/\.(mp4|webm|mov|avi)$/i)||url.includes('/video/');
+  const isP=url.match(/\.pdf$/i)||url.includes('/raw/');
+  if(isV)return`<video controls src="${url}" style="max-width:100%;max-height:200px;border-radius:8px;display:block;"></video><div class="file-name">${filename.split('/').pop()}</div>`;
+  if(isP)return`<div style="background:var(--surface2);border-radius:8px;padding:1.5rem;text-align:center;color:var(--muted);"><div style="font-size:2rem;">&#128196;</div><div style="font-size:.75rem;margin-top:.4rem;">${filename.split('/').pop()}</div><a href="${url}" target="_blank" style="color:var(--gold);font-size:.78rem;text-decoration:none;">Open PDF &rarr;</a></div>`;
+  return`<img src="${url}" style="max-width:100%;max-height:200px;border-radius:8px;display:block;" alt="Cover"><div class="file-name">${filename.split('/').pop()}</div>`;
+}
+function showForm(){document.getElementById('emptyState').style.display='none';document.getElementById('formPanel').style.display='flex';}
+function resetForm(){
+  ['fTitle','fRole','fDuration','fLink','fSummary','fDesc','fTags','fTools'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fCategory').value='';document.getElementById('fOrder').value='0';
+  document.getElementById('fFeatured').checked=false;
+  document.getElementById('coverPreview').style.display='none';document.getElementById('coverPreview').innerHTML='';
+  document.getElementById('galleryGrid').innerHTML='';document.getElementById('coverInput').value='';document.getElementById('galleryInput').value='';
 }
 
-// ===== PROJECT FORM =====
-function newProject() {
-  currentId = null;
-  isNew = true;
-  coverFile = null; coverUrl = null;
-  galleryFiles = []; galleryUrls = []; removedImages = [];
-  resetForm();
-  document.getElementById('formTitle').textContent = 'New Project';
-  document.getElementById('deleteBtn').style.display = 'none';
-  showForm();
-  closeSidebar();
+async function handleCoverSelect(input){
+  const file=input.files[0];if(!file)return;coverFile=file;coverUrl=null;
+  const prog=document.getElementById('coverProgress'),bar=document.getElementById('coverProgressBar'),txt=document.getElementById('coverProgressText'),cp=document.getElementById('coverPreview');
+  if(cloudinaryEnabled){
+    prog.style.display='block';bar.style.width='0%';txt.textContent='Uploading to cloud...';
+    try{
+      const url=await uploadToCloudinary(file,pct=>{bar.style.width=pct+'%';txt.textContent=`Uploading... ${pct}%`;});
+      prog.style.display='none';
+      if(url){coverUrl=url;coverFile=null;cp.style.display='block';cp.innerHTML=renderMediaPreview(url,file.name)+'<button class="remove-cover" onclick="removeCover()">Remove</button>';showToast('Cover uploaded','success');}
+      else showToast('Cloudinary upload failed','error');
+    }catch(e){prog.style.display='none';showToast('Upload error: '+e.message,'error');}
+  }else{const url=URL.createObjectURL(file);cp.style.display='block';cp.innerHTML=renderMediaPreview(url,file.name)+'<button class="remove-cover" onclick="removeCover()">Remove</button>';}
 }
+function removeCover(){coverFile=null;coverUrl=null;document.getElementById('coverPreview').style.display='none';document.getElementById('coverPreview').innerHTML='';document.getElementById('coverInput').value='';}
 
-function openProject(id) {
-  const p = projects.find(x => x.id === id);
-  if (!p) return;
-  currentId = id;
-  isNew = false;
-  coverFile = null; coverUrl = null;
-  galleryFiles = []; galleryUrls = []; removedImages = [];
-
-  document.getElementById('formTitle').textContent = p.title || 'Untitled';
-  document.getElementById('deleteBtn').style.display = 'inline-block';
-  document.getElementById('fTitle').value = p.title || '';
-  document.getElementById('fCategory').value = p.category || '';
-  document.getElementById('fRole').value = p.role || '';
-  document.getElementById('fDuration').value = p.duration || '';
-  document.getElementById('fLink').value = p.link || '';
-  document.getElementById('fSummary').value = p.summary || '';
-  document.getElementById('fDesc').value = p.description || '';
-  document.getElementById('fTags').value = (p.tags||[]).join(', ');
-  document.getElementById('fTools').value = (p.tools||[]).join(', ');
-  document.getElementById('fOrder').value = p.order ?? 0;
-  document.getElementById('fPublished').checked = !!p.published;
-  document.getElementById('fFeatured').checked = !!p.featured;
-
-  // Cover preview
-  const cp = document.getElementById('coverPreview');
-  cp.style.display = p.cover ? 'block' : 'none';
-  if (p.cover) {
-    const url = p.cover.startsWith('http') ? p.cover : `/uploads/${p.cover}`;
-    cp.innerHTML = renderMediaPreview(url, p.cover);
-  }
-
-  // Gallery
-  const gg = document.getElementById('galleryGrid');
-  gg.innerHTML = '';
-  (p.images||[]).forEach(f => {
-    const url = f.startsWith('http') ? f : `/uploads/${f}`;
-    addGalleryItem(url, f, true);
-  });
-
-  renderList(projects);
-  showForm();
-  closeSidebar();
-}
-
-function renderMediaPreview(url, filename) {
-  const isVideo = url.match(/\.(mp4|webm|mov|avi)$/i) || url.includes('/video/');
-  const isPdf = url.match(/\.pdf$/i) || url.includes('/raw/');
-  if (isVideo) return `<video controls src="${url}" style="max-width:100%;max-height:200px;border-radius:8px;display:block;"></video><div class="file-name">${filename.split('/').pop()}</div>`;
-  if (isPdf) return `<div style="background:var(--surface2);border-radius:8px;padding:1.5rem;text-align:center;color:var(--muted);"><div style="font-size:2rem;">&#128196;</div><div style="font-size:.75rem;margin-top:.4rem;">${filename.split('/').pop()}</div><a href="${url}" target="_blank" style="color:var(--gold);font-size:.78rem;text-decoration:none;">Open PDF &rarr;</a></div>`;
-  return `<img src="${url}" style="max-width:100%;max-height:200px;border-radius:8px;display:block;" alt="Cover"><div class="file-name">${filename.split('/').pop()}</div>`;
-}
-
-function showForm() {
-  document.getElementById('emptyState').style.display = 'none';
-  const fp = document.getElementById('formPanel');
-  fp.style.display = 'flex';
-}
-
-function resetForm() {
-  ['fTitle','fRole','fDuration','fLink','fSummary','fDesc','fTags','fTools'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('fCategory').value = '';
-  document.getElementById('fOrder').value = '0';
-  document.getElementById('fPublished').checked = false;
-  document.getElementById('fFeatured').checked = false;
-  document.getElementById('coverPreview').style.display = 'none';
-  document.getElementById('coverPreview').innerHTML = '';
-  document.getElementById('galleryGrid').innerHTML = '';
-  document.getElementById('coverInput').value = '';
-  document.getElementById('galleryInput').value = '';
-}
-
-// ===== COVER UPLOAD =====
-async function handleCoverSelect(input) {
-  const file = input.files[0];
-  if (!file) return;
-  coverFile = file;
-  coverUrl = null;
-
-  const prog = document.getElementById('coverProgress');
-  const bar = document.getElementById('coverProgressBar');
-  const txt = document.getElementById('coverProgressText');
-  const cp = document.getElementById('coverPreview');
-
-  if (cloudinaryEnabled) {
-    prog.style.display = 'block';
-    bar.style.width = '0%';
-    txt.textContent = 'Uploading to cloud...';
-    try {
-      const url = await uploadToCloudinary(file, pct => {
-        bar.style.width = pct + '%';
-        txt.textContent = `Uploading... ${pct}%`;
-      });
-      prog.style.display = 'none';
-      if (url) {
-        coverUrl = url;
-        coverFile = null;
-        cp.style.display = 'block';
-        cp.innerHTML = renderMediaPreview(url, file.name) + `<button class="remove-cover" onclick="removeCover()">Remove</button>`;
-        showToast('Cover uploaded', 'success');
-      } else {
-        showToast('Cloudinary upload failed', 'error');
-      }
-    } catch(e) {
-      prog.style.display = 'none';
-      showToast('Upload error: ' + e.message, 'error');
+async function handleGallerySelect(input){
+  const files=Array.from(input.files);if(!files.length)return;
+  const prog=document.getElementById('galleryProgress'),bar=document.getElementById('galleryProgressBar'),txt=document.getElementById('galleryProgressText');
+  if(cloudinaryEnabled){
+    prog.style.display='block';bar.style.width='0%';txt.textContent=`Uploading 0 / ${files.length}...`;
+    for(let i=0;i<files.length;i++){
+      try{
+        const url=await uploadToCloudinary(files[i],pct=>{const o=Math.round(((i+pct/100)/files.length)*100);bar.style.width=o+'%';txt.textContent=`Uploading ${i+1} / ${files.length} (${pct}%)...`;});
+        if(url){galleryUrls.push(url);addGalleryItem(url,files[i].name,false);}
+      }catch(e){showToast(`Failed: ${files[i].name}`,'error');}
     }
-  } else {
-    // Local preview only (will be sent via FormData)
-    const url = URL.createObjectURL(file);
-    cp.style.display = 'block';
-    cp.innerHTML = renderMediaPreview(url, file.name) + `<button class="remove-cover" onclick="removeCover()">Remove</button>`;
+    prog.style.display='none';showToast(`${files.length} file(s) uploaded`,'success');
+  }else{
+    files.forEach(file=>{galleryFiles.push(file);const url=URL.createObjectURL(file);addGalleryItem(url,file.name,false);});
   }
+  input.value='';
 }
-
-function removeCover() {
-  coverFile = null; coverUrl = null;
-  document.getElementById('coverPreview').style.display = 'none';
-  document.getElementById('coverPreview').innerHTML = '';
-  document.getElementById('coverInput').value = '';
-}
-
-// ===== GALLERY UPLOAD =====
-async function handleGallerySelect(input) {
-  const files = Array.from(input.files);
-  if (!files.length) return;
-
-  const prog = document.getElementById('galleryProgress');
-  const bar = document.getElementById('galleryProgressBar');
-  const txt = document.getElementById('galleryProgressText');
-
-  if (cloudinaryEnabled) {
-    prog.style.display = 'block';
-    bar.style.width = '0%';
-    txt.textContent = `Uploading 0 / ${files.length}...`;
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      try {
-        const url = await uploadToCloudinary(file, pct => {
-          const overall = Math.round(((i + pct/100) / files.length) * 100);
-          bar.style.width = overall + '%';
-          txt.textContent = `Uploading ${i+1} / ${files.length} (${pct}%)...`;
-        });
-        if (url) {
-          galleryUrls.push(url);
-          addGalleryItem(url, file.name, false);
-        }
-      } catch(e) {
-        showToast(`Failed: ${file.name}`, 'error');
-      }
-    }
-    prog.style.display = 'none';
-    showToast(`${files.length} file(s) uploaded`, 'success');
-  } else {
-    files.forEach(file => {
-      galleryFiles.push(file);
-      const url = URL.createObjectURL(file);
-      addGalleryItem(url, file.name, false, galleryFiles.length - 1);
-    });
-  }
-  input.value = '';
-}
-
-function addGalleryItem(url, filename, isExisting, localIdx) {
-  const grid = document.getElementById('galleryGrid');
-  const div = document.createElement('div');
-  div.className = 'gallery-item';
-  const isVideo = url.match(/\.(mp4|webm|mov|avi)$/i) || url.includes('/video/');
-  const isPdf = url.match(/\.pdf$/i) || url.includes('/raw/');
-  const key = isExisting ? filename : url;
-  div.dataset.key = key;
-
-  let inner = '';
-  if (isVideo) inner = `<video src="${url}" muted playsinline style="width:100%;height:100%;object-fit:cover;"></video>`;
-  else if (isPdf) inner = `<div class="pdf-thumb"><span>&#128196;</span><span>${filename.split('/').pop().slice(0,12)}</span></div>`;
-  else inner = `<img src="${url}" alt="" loading="lazy">`;
-
-  div.innerHTML = inner + `<button class="rm-btn" onclick="removeGalleryItem('${key}',${!!isExisting})" title="Remove">&times;</button>`;
+function addGalleryItem(url,filename,isExisting){
+  const grid=document.getElementById('galleryGrid'),div=document.createElement('div');div.className='gallery-item';
+  const isV=url.match(/\.(mp4|webm|mov|avi)$/i)||url.includes('/video/');
+  const isP=url.match(/\.pdf$/i)||url.includes('/raw/');
+  const key=isExisting?filename:url;div.dataset.key=key;
+  let inner=isV?`<video src="${url}" muted playsinline style="width:100%;height:100%;object-fit:cover;"></video>`:isP?`<div class="pdf-thumb"><span>&#128196;</span><span>${filename.split('/').pop().slice(0,12)}</span></div>`:`<img src="${url}" alt="" loading="lazy">`;
+  div.innerHTML=inner+`<button class="rm-btn" onclick="removeGalleryItem('${key}',${!!isExisting})" title="Remove">&times;</button>`;
   grid.appendChild(div);
 }
-
-function removeGalleryItem(key, isExisting) {
-  if (isExisting) {
-    removedImages.push(key);
-  } else {
-    // Remove from galleryFiles or galleryUrls
-    galleryUrls = galleryUrls.filter(u => u !== key);
-    const idx = galleryFiles.findIndex(f => URL.createObjectURL(f) === key);
-    if (idx > -1) galleryFiles.splice(idx, 1);
-  }
-  const item = document.querySelector(`.gallery-item[data-key="${CSS.escape(key)}"]`);
-  if (item) item.remove();
+function removeGalleryItem(key,isExisting){
+  if(isExisting){removedImages.push(key);}else{galleryUrls=galleryUrls.filter(u=>u!==key);const i=galleryFiles.findIndex(f=>URL.createObjectURL(f)===key);if(i>-1)galleryFiles.splice(i,1);}
+  const item=document.querySelector(`.gallery-item[data-key="${CSS.escape(key)}"]`);if(item)item.remove();
 }
 
-// ===== SAVE =====
-async function saveProject() {
-  const btn = document.getElementById('saveBtn');
-  const status = document.getElementById('saveStatus');
-  btn.disabled = true;
-  status.textContent = 'Saving...';
-
-  try {
-    const fd = new FormData();
-    fd.append('title',       document.getElementById('fTitle').value.trim());
-    fd.append('category',    document.getElementById('fCategory').value);
-    fd.append('role',        document.getElementById('fRole').value.trim());
-    fd.append('duration',    document.getElementById('fDuration').value.trim());
-    fd.append('link',        document.getElementById('fLink').value.trim());
-    fd.append('summary',     document.getElementById('fSummary').value.trim());
-    fd.append('description', document.getElementById('fDesc').value.trim());
-    fd.append('tags',        document.getElementById('fTags').value.trim());
-    fd.append('tools',       document.getElementById('fTools').value.trim());
-    fd.append('order',       document.getElementById('fOrder').value || '0');
-    fd.append('published',   document.getElementById('fPublished').checked);
-    fd.append('featured',    document.getElementById('fFeatured').checked);
-
-    // Cover: Cloudinary URL or local file
-    if (coverUrl) fd.append('coverUrl', coverUrl);
-    else if (coverFile) fd.append('cover', coverFile);
-
-    // Gallery: Cloudinary URLs
-    galleryUrls.forEach(u => fd.append('imageUrls', u));
-    // Gallery: local files
-    galleryFiles.forEach(f => fd.append('images', f));
-    // Removed images
-    removedImages.forEach(f => fd.append('removeImages', f));
-
-    const url = isNew ? '/api/admin/projects' : `/api/admin/projects/${currentId}`;
-    const method = isNew ? 'POST' : 'PUT';
-    const r = await fetch(url, { method, body: fd });
-    if (!r.ok) throw new Error(await r.text());
-    const saved = await r.json();
-
-    if (isNew) {
-      isNew = false;
-      currentId = saved.id;
-      document.getElementById('deleteBtn').style.display = 'inline-block';
-    }
-    document.getElementById('formTitle').textContent = saved.title || 'Untitled';
-    status.textContent = 'Saved ' + new Date().toLocaleTimeString();
-    showToast('Project saved!', 'success');
-    await loadSidebar();
-    renderList(projects);
-  } catch(e) {
-    status.textContent = '';
-    showToast('Save failed: ' + e.message, 'error');
-  } finally {
-    btn.disabled = false;
-  }
+// FIX 2+3: use isCreating=(isNew||!currentId), publish param controls published flag
+async function saveProject(publish){
+  const draftBtn=document.getElementById('draftBtn'),publishBtn=document.getElementById('publishBtn'),status=document.getElementById('saveStatus');
+  draftBtn.disabled=true;publishBtn.disabled=true;status.textContent='Saving...';
+  try{
+    const fd=new FormData();
+    fd.append('title',document.getElementById('fTitle').value.trim());
+    fd.append('category',document.getElementById('fCategory').value);
+    fd.append('role',document.getElementById('fRole').value.trim());
+    fd.append('duration',document.getElementById('fDuration').value.trim());
+    fd.append('link',document.getElementById('fLink').value.trim());
+    fd.append('summary',document.getElementById('fSummary').value.trim());
+    fd.append('description',document.getElementById('fDesc').value.trim());
+    fd.append('tags',document.getElementById('fTags').value.trim());
+    fd.append('tools',document.getElementById('fTools').value.trim());
+    fd.append('order',document.getElementById('fOrder').value||'0');
+    fd.append('published',publish);
+    fd.append('featured',document.getElementById('fFeatured').checked);
+    if(coverUrl)fd.append('coverUrl',coverUrl);else if(coverFile)fd.append('cover',coverFile);
+    galleryUrls.forEach(u=>fd.append('imageUrls',u));
+    galleryFiles.forEach(f=>fd.append('images',f));
+    removedImages.forEach(f=>fd.append('removeImages',f));
+    const creating=isNew||!currentId;
+    const url=creating?'/api/admin/projects':`/api/admin/projects/${currentId}`;
+    const method=creating?'POST':'PUT';
+    const r=await fetch(url,{method,body:fd});
+    if(!r.ok)throw new Error(await r.text());
+    const saved=await r.json();
+    if(creating){isNew=false;currentId=saved.id;document.getElementById('deleteBtn').style.display='inline-block';}
+    document.getElementById('formTitle').textContent=saved.title||'Untitled';
+    status.textContent=(publish?'Published':'Saved as draft')+' '+new Date().toLocaleTimeString();
+    showToast(publish?'Project published! â':'Saved as draft','success');
+    removedImages=[];galleryFiles=[];galleryUrls=[];
+    await loadSidebar();renderList(projects);
+  }catch(e){status.textContent='';showToast('Save failed: '+e.message,'error');}
+  finally{draftBtn.disabled=false;publishBtn.disabled=false;}
 }
 
-// ===== DELETE =====
-async function deleteProject() {
-  if (!currentId) return;
-  if (!confirm('Delete this project? This cannot be undone.')) return;
-  try {
-    const r = await fetch(`/api/admin/projects/${currentId}`, { method: 'DELETE' });
-    if (!r.ok) throw new Error();
-    currentId = null;
-    document.getElementById('formPanel').style.display = 'none';
-    document.getElementById('emptyState').style.display = 'flex';
-    showToast('Project deleted', 'success');
-    await loadSidebar();
-  } catch(e) {
-    showToast('Delete failed', 'error');
-  }
+async function deleteProject(){
+  if(!currentId)return;if(!confirm('Delete this project? This cannot be undone.'))return;
+  try{
+    const r=await fetch(`/api/admin/projects/${currentId}`,{method:'DELETE'});if(!r.ok)throw new Error();
+    currentId=null;document.getElementById('formPanel').style.display='none';document.getElementById('emptyState').style.display='flex';
+    showToast('Project deleted','success');await loadSidebar();
+  }catch(e){showToast('Delete failed','error');}
 }
-
-// ===== MOBILE SIDEBAR =====
-function toggleSidebar() {
-  const sb = document.getElementById('sidebar');
-  const hb = document.getElementById('hamburger');
-  const ov = document.getElementById('overlay');
-  const open = sb.classList.toggle('open');
-  hb.classList.toggle('open', open);
-  ov.classList.toggle('show', open);
-}
-
-function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('open');
-  document.getElementById('overlay').classList.remove('show');
-}
-
-// ===== TOAST =====
-function showToast(msg, type) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = type;
-  t.style.display = 'block';
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.style.display = 'none', 3000);
-}
-
-// ===== HELPERS =====
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-// Enter key on login
-document.getElementById('pwdInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') doLogin();
-});
-
-// Init
+function toggleSidebar(){const sb=document.getElementById('sidebar'),hb=document.getElementById('hamburger'),ov=document.getElementById('overlay'),open=sb.classList.toggle('open');hb.classList.toggle('open',open);ov.classList.toggle('show',open);}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('hamburger').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
+function showToast(msg,type){const t=document.getElementById('toast');t.textContent=msg;t.className=type;t.style.display='block';clearTimeout(t._timer);t._timer=setTimeout(()=>t.style.display='none',3000);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+document.getElementById('pwdInput').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 checkAuth();
- </script>
+</script>
 </body>
 </html>
