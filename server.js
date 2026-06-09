@@ -5,6 +5,7 @@ const session = require('express-session');
 const path    = require('path');
 const fs      = require('fs');
 const { v4: uuidv4 } = require('uuid');
+const crypto  = require('crypto');
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
@@ -150,6 +151,15 @@ app.post('/api/admin/logout', (req, res) => {
 
 app.get('/api/admin/check', (req, res) => {
   res.json({ authenticated: !!(req.session && req.session.isAdmin) });
+});
+
+app.post('/api/admin/cloudinary-sign', requireAuth, (req, res) => {
+    const { CLOUDINARY_CLOUD_NAME: cloudName, CLOUDINARY_API_KEY: apiKey, CLOUDINARY_API_SECRET: apiSecret } = process.env;
+    if (!cloudName || !apiKey || !apiSecret) return res.status(503).json({ error: 'Cloudinary not configured' });
+    const timestamp = Math.floor(Date.now() / 1000);
+    const folder = 'portfolio';
+    const signature = crypto.createHash('sha1').update(`folder=${folder}&timestamp=${timestamp}${apiSecret}`).digest('hex');
+    res.json({ timestamp, signature, apiKey, cloudName, folder });
 });
 
 // ── ADMIN PROJECT API ────────────────────────────────────────────────────────
