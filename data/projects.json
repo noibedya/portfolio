@@ -1,1 +1,40 @@
-[]
+[
+  {
+    "id": "44111776-86a7-43bd-ac2c-9f8985c11be8",
+    "title": "AI Health Link Canada",
+    "category": "Case Study",
+    "summary": "AI Health Link Canada is a responsive healthcare platform designed to help users quickly assess symptoms, monitor vital signs, and connect with the appropriate medical care.",
+    "description": "AI Health Link Canada is a responsive healthcare platform designed to help users quickly assess symptoms, monitor vital signs, and connect with the appropriate medical care. The app combines AI-driven triage, real-time health monitoring, and localized healthcare navigation to reduce uncertainty during medical situations. This case study explores the UX process, information architecture, usability testing, and responsive design decisions used to create a safe, accessible, and user-centered digital health experience.",
+    "tags": ["UX", "Case study", "Mobile", "Product Design"],
+    "tools": ["Figma"],
+    "role": "Lead Designer",
+    "duration": "3 Months",
+    "link": "",
+    "cover": "https://res.cloudinary.com/druhr415f/image/upload/v1781022420/portfolio/mqirto3roewgipuavgvn.png",
+    "images": [],
+    "published": true,
+    "featured": false,
+    "order": 0,
+    "createdAt": "2026-06-09T16:30:05.613Z",
+    "updatedAt": "2026-06-09T16:30:08.262Z"
+  },
+  {
+    "id": "8c18b22d-fc4d-4b4d-a964-20beb41ace25",
+    "title": "ECO Track App Design",
+    "category": "Product Design",
+    "summary": "ECO Track is a sustainable fintech application that transforms dry financial data into a tangible environmental narrative.",
+    "description": "ECO Track is a sustainable fintech application that transforms dry financial data into a tangible environmental narrative. By bridging the Trust Barrier through privacy-first onboarding and simplifying Data Complexity with an intuitive ECO-Rating system, the platform empowers users to monitor their carbon footprint through daily spending.",
+    "tags": ["UX", "Mobile", "B2C"],
+    "tools": ["Figma"],
+    "role": "Lead Designer",
+    "duration": "3 Week",
+    "link": "",
+    "cover": "https://res.cloudinary.com/druhr415f/image/upload/v1781022661/portfolio/km8302d6bkn2w2zfslkf.png",
+    "images": ["https://res.cloudinary.com/druhr415f/image/upload/v1781022645/portfolio/gieslhjz0yrn20i3aa13.png"],
+    "published": true,
+    "featured": false,
+    "order": 1,
+    "createdAt": "2026-06-09T16:32:35.016Z",
+    "updatedAt": "2026-06-09T16:32:35.016Z"
+  }
+]
