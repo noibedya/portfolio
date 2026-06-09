@@ -18,12 +18,14 @@
     "duration": "3 Months",
     "link": "",
     "cover": "https://res.cloudinary.com/druhr415f/image/upload/v1781022420/portfolio/mqirto3roewgipuavgvn.png",
-    "images": [],
+    "images": [
+      "https://res.cloudinary.com/druhr415f/image/upload/v1781035317/portfolio/bnbnj4rkqvpzadrdapjh.jpg"
+    ],
     "published": true,
     "featured": false,
     "order": 0,
     "createdAt": "2026-06-09T16:30:05.613Z",
-    "updatedAt": "2026-06-09T19:01:10.004Z"
+    "updatedAt": "2026-06-09T20:02:02.524Z"
   },
   {
     "id": "8c18b22d-fc4d-4b4d-a964-20beb41ace25",
