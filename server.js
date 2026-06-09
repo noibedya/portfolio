@@ -173,8 +173,8 @@ app.post('/api/admin/projects',
   (req, res) => {
     const projects = readProjects();
     const { title, category, description, summary, tags, tools, role, duration, link, published, featured, order } = req.body;
-    const cover  = req.files?.cover?.[0]?.filename || null;
-    const images = (req.files?.images || []).map(f => f.filename);
+    const cover  = req.body.coverUrl || req.files?.cover?.[0]?.filename || null;
+    const images = [...(req.body.imageUrls ? [].concat(req.body.imageUrls) : []), ...(req.files?.images || []).map(f => f.filename)];
 
     const project = {
       id: uuidv4(), title: title || 'Untitled', category: category || '',
@@ -217,7 +217,7 @@ app.put('/api/admin/projects/:id',
       });
     }
 
-    const newCover = req.files?.cover?.[0]?.filename || null;
+    const newCover = req.body.coverUrl || req.files?.cover?.[0]?.filename || null;
     if (newCover && existing.cover) {
       const oldPath = path.join(UPLOADS_DIR, existing.cover);
       if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
@@ -231,7 +231,7 @@ app.put('/api/admin/projects/:id',
       tools: tools ? tools.split(',').map(t => t.trim()).filter(Boolean) : existing.tools,
       role: role ?? existing.role, duration: duration ?? existing.duration, link: link ?? existing.link,
       cover: newCover || existing.cover,
-      images: [...currentImages, ...(req.files?.images || []).map(f => f.filename)],
+      images: [...currentImages, ...(req.body.imageUrls ? [].concat(req.body.imageUrls) : []), ...(req.files?.images || []).map(f => f.filename)],
       published: published !== undefined ? (published === 'true' || published === true) : existing.published,
       featured:  featured  !== undefined ? (featured  === 'true' || featured  === true) : existing.featured,
       order: order !== undefined ? (parseInt(order) || 0) : existing.order,
