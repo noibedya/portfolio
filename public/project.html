@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project &mdash; Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+--gold:#c9a96e;--dark:#1a1a18;--mid:#6b6b64;--light:#f5f4f0;--white:#ffffff;
+--border:rgba(0,0,0,0.08);--shadow-md:0 8px 32px rgba(0,0,0,0.10);--shadow-lg:0 20px 60px rgba(0,0,0,0.14);
+}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--light);color:var(--dark);line-height:1.6;overflow-x:hidden;}
+
+/* NAV */
+.top-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:rgba(245,244,240,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-back{display:inline-flex;align-items:center;gap:.5rem;color:var(--mid);text-decoration:none;font-size:.875rem;font-weight:500;transition:.2s;}
+.nav-back:hover{color:var(--dark);}
+.nav-back svg{width:16px;height:16px;}
+.nav-title{font-size:.875rem;font-weight:500;color:var(--dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:50vw;}
+.nav-link{display:inline-flex;align-items:center;gap:.4rem;color:var(--gold);text-decoration:none;font-size:.8rem;font-weight:600;padding:.5rem 1rem;border:1px solid var(--gold);border-radius:100px;transition:.2s;}
+.nav-link:hover{background:var(--gold);color:#fff;}
+
+/* HERO */
+.project-hero{padding-top:72px;}
+.hero-cover{width:100%;max-height:70vh;overflow:hidden;background:#e8e7e2;display:flex;align-items:center;justify-content:center;}
+.hero-cover img{width:100%;max-height:70vh;object-fit:cover;display:block;}
+.hero-cover video{width:100%;max-height:70vh;object-fit:cover;display:block;}
+.hero-cover .pdf-cover{width:100%;height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;color:var(--mid);}
+.hero-cover .pdf-cover .icon{font-size:4rem;opacity:.4;}
+.hero-cover-ph{width:100%;height:400px;display:flex;align-items:center;justify-content:center;background:#e8e7e2;}
+
+/* PROJECT META */
+.project-meta{max-width:900px;margin:0 auto;padding:3rem 2rem 2rem;}
+.meta-category{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;}
+.meta-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);line-height:1.1;letter-spacing:-.02em;color:var(--dark);margin-bottom:1.5rem;}
+.meta-row{display:flex;flex-wrap:wrap;gap:2rem;padding:1.5rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:2rem;}
+.meta-item{}
+.meta-label{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.25rem;}
+.meta-value{font-size:.9rem;color:var(--dark);font-weight:500;}
+.meta-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem;}
+.tag{font-size:.78rem;font-weight:500;color:var(--mid);border:1px solid var(--border);padding:5px 12px;border-radius:100px;background:var(--white);}
+.meta-desc{font-size:1rem;color:var(--mid);line-height:1.8;max-width:720px;}
+.meta-link{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.5rem;color:var(--gold);text-decoration:none;font-weight:600;font-size:.9rem;border-bottom:2px solid transparent;transition:.2s;}
+.meta-link:hover{border-color:var(--gold);}
+
+/* GALLERY â Behance-style sequential full-width */
+.gallery-section{background:var(--dark);padding:0;}
+.gallery-label{text-align:center;padding:3rem 2rem 2rem;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.gallery-items{}
+.gallery-block{width:100%;line-height:0;position:relative;}
+/* Images: full width, natural height â supports 1920x25217 and any tall format */
+.gallery-block img{
+  width:100%;
+  height:auto;         /* natural height â never cropped */
+  display:block;
+  cursor:zoom-in;
+  transition:opacity .2s;
+}
+.gallery-block img:hover{opacity:.95;}
+.gallery-block video{width:100%;display:block;}
+.gallery-block .pdf-block{
+  background:#1e1e1c;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1rem;padding:4rem 2rem;color:rgba(255,255,255,.4);text-align:center;
+}
+.gallery-block .pdf-block .pdf-icon{font-size:3rem;opacity:.5;}
+.gallery-block .pdf-block .pdf-name{font-size:.9rem;max-width:300px;word-break:break-all;}
+.gallery-block .pdf-block a{display:inline-flex;align-items:center;gap:.5rem;color:var(--gold);text-decoration:none;font-weight:600;padding:.75rem 1.5rem;border:1px solid var(--gold);border-radius:100px;transition:.2s;font-size:.875rem;}
+.gallery-block .pdf-block a:hover{background:var(--gold);color:#1a1a18;}
+.gallery-spacer{height:2px;background:#141413;}
+
+/* LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:200;align-items:center;justify-content:center;}
+.lightbox.active{display:flex;}
+.lightbox-inner{position:relative;max-width:95vw;max-height:95vh;display:flex;align-items:center;justify-content:center;}
+.lightbox-inner img{
+  max-width:95vw;
+  max-height:95vh;
+  object-fit:contain;
+  display:block;
+}
+.lightbox-inner video{max-width:95vw;max-height:95vh;}
+.lb-close{position:fixed;top:1.5rem;right:1.5rem;background:rgba(255,255,255,.1);border:none;color:#fff;width:40px;height:40px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;z-index:201;}
+.lb-close:hover{background:rgba(255,255,255,.2);}
+.lb-prev,.lb-next{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:none;color:#fff;width:48px;height:48px;border-radius:50%;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;z-index:201;}
+.lb-prev{left:1.5rem;}
+.lb-next{right:1.5rem;}
+.lb-prev:hover,.lb-next:hover{background:rgba(255,255,255,.18);}
+.lb-count{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.5);font-size:.82rem;z-index:201;}
+
+/* MORE WORK */
+.more-section{background:var(--light);padding:5rem 2rem;text-align:center;}
+.more-label{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem;}
+.btn-back-home{display:inline-flex;align-items:center;gap:.6rem;background:var(--dark);color:var(--white);text-decoration:none;font-size:.9rem;font-weight:600;padding:14px 28px;border-radius:100px;transition:.2s;}
+.btn-back-home:hover{background:var(--gold);transform:translateY(-2px);}
+
+/* LOADING + ERROR */
+.loading-screen,.error-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:1rem;color:var(--mid);}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+@media(max-width:768px){
+.top-nav{padding:.75rem 1rem;}
+.project-meta{padding:2rem 1rem 1.5rem;}
+.meta-row{gap:1rem;}
+.lb-prev{left:.5rem;}
+.lb-next{right:.5rem;}
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+<a href="/" class="nav-back"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>Back to portfolio</a>
+<span class="nav-title" id="navTitle"></span>
+<a id="navLink" class="nav-link" style="display:none;" target="_blank" rel="noopener"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6m0 0v6m0-6L10 14"/></svg>View live</a>
+</nav>
+
+<div id="loadingScreen" class="loading-screen">
+<div class="spinner"></div>
+<p>Loading project...</p>
+</div>
+
+<div id="errorScreen" class="error-screen" style="display:none;">
+<div style="font-size:3rem;opacity:.3;">&#128683;</div>
+<p>Project not found or not published.</p>
+<a href="/" style="color:var(--gold);text-decoration:none;font-weight:500;">Back to portfolio &rarr;</a>
+</div>
+
+<div id="projectContent" style="display:none;">
+<div class="project-hero">
+<div class="hero-cover" id="heroCover"></div>
+</div>
+<div class="project-meta">
+<p class="meta-category" id="metaCategory"></p>
+<h1 class="meta-title" id="metaTitle"></h1>
+<div class="meta-row" id="metaRow"></div>
+<div class="meta-tags" id="metaTags"></div>
+<p class="meta-desc" id="metaDesc"></p>
+<a id="metaLink" class="meta-link" target="_blank" rel="noopener" style="display:none;"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6m0 0v6m0-6L10 14"/></svg>View project live</a>
+</div>
+<div class="gallery-section" id="gallerySection" style="display:none;">
+<p class="gallery-label">Gallery</p>
+<div id="galleryItems"></div>
+</div>
+<div class="more-section">
+<p class="more-label">Done looking?</p>
+<a href="/" class="btn-back-home"><svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7 7M5 12l7-7"/></svg>Back to all work</a>
+</div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+<div class="lightbox-inner" id="lbInner"></div>
+<button class="lb-close" onclick="closeLightbox()">&times;</button>
+<button class="lb-prev" onclick="lbNav(-1)">&#8592;</button>
+<button class="lb-next" onclick="lbNav(1)">&#8594;</button>
+<span class="lb-count" id="lbCount"></span>
+</div>
+
+<script>
+const params = new URLSearchParams(location.search);
+const projectId = params.get('id');
+let lightboxImages = [], lbIndex = 0;
+
+function resolveUrl(f) {
+  if (!f) return null;
+  return f.startsWith('http') ? f : `/uploads/${f}`;
+}
+function isVideo(url) { return url && (url.match(/\.(mp4|webm|mov|avi)$/i) || url.includes('/video/')); }
+function isPdf(url)   { return url && (url.match(/\.pdf$/i) || url.includes('/raw/')); }
+
+function renderHero(p) {
+  const el = document.getElementById('heroCover');
+  if (!p.cover) { el.innerHTML = ''; el.style.display = 'none'; return; }
+  const url = resolveUrl(p.cover);
+  if (isVideo(url)) {
+    el.innerHTML = `<video src="${url}" autoplay muted loop playsinline></video>`;
+  } else if (isPdf(url)) {
+    el.innerHTML = `<div class="pdf-cover"><div class="icon">&#128196;</div><p>${p.cover.split('/').pop()}</p></div>`;
+  } else {
+    el.innerHTML = `<img src="${url}" alt="${p.title}" loading="eager">`;
+  }
+}
+
+function renderMeta(p) {
+  document.title = `${p.title} â Portfolio`;
+  document.getElementById('navTitle').textContent = p.title || '';
+  document.getElementById('metaCategory').textContent = p.category || '';
+  document.getElementById('metaTitle').textContent = p.title || '';
+
+  const rowItems = [];
+  if (p.role)     rowItems.push({ label: 'Role',     value: p.role });
+  if (p.duration) rowItems.push({ label: 'Duration',  value: p.duration });
+  if (p.category) rowItems.push({ label: 'Category',  value: p.category });
+  const row = document.getElementById('metaRow');
+  row.innerHTML = rowItems.map(r => `<div class="meta-item"><div class="meta-label">${r.label}</div><div class="meta-value">${r.value}</div></div>`).join('');
+
+  const tags = [...(p.tags||[]), ...(p.tools||[])];
+  document.getElementById('metaTags').innerHTML = tags.map(t => `<span class="tag">${t}</span>`).join('');
+
+  document.getElementById('metaDesc').textContent = p.description || p.summary || '';
+
+  if (p.link) {
+    const lnk = document.getElementById('metaLink');
+    lnk.href = p.link; lnk.style.display = 'inline-flex';
+    const navLnk = document.getElementById('navLink');
+    navLnk.href = p.link; navLnk.style.display = 'inline-flex';
+  }
+}
+
+function renderGallery(p) {
+  // Collect all gallery images (excluding cover)
+  const items = [];
+  // Add cover to gallery lightbox too
+  if (p.cover) { const cu = resolveUrl(p.cover); if (!isVideo(cu) && !isPdf(cu)) lightboxImages.push(cu); }
+
+  const galleryUrls = (p.images || []).map(resolveUrl).filter(Boolean);
+  if (!galleryUrls.length) return;
+
+  document.getElementById('gallerySection').style.display = 'block';
+  const container = document.getElementById('galleryItems');
+  let imgIndex = lightboxImages.length; // start index for gallery images in lightbox
+
+  container.innerHTML = galleryUrls.map((url, i) => {
+    const spacer = i < galleryUrls.length - 1 ? '<div class="gallery-spacer"></div>' : '';
+    if (isVideo(url)) {
+      return `<div class="gallery-block"><video src="${url}" controls playsinline style="width:100%;display:block;"></video></div>${spacer}`;
+    } else if (isPdf(url)) {
+      const name = url.split('/').pop();
+      return `<div class="gallery-block"><div class="pdf-block"><div class="pdf-icon">&#128196;</div><div class="pdf-name">${name}</div><a href="${url}" target="_blank" rel="noopener"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6m0 0v6m0-6L10 14"/></svg>Open PDF</a></div></div>${spacer}`;
+    } else {
+      const li = lightboxImages.length;
+      lightboxImages.push(url);
+      return `<div class="gallery-block"><img src="${url}" alt="Gallery image ${i+1}" loading="lazy" onclick="openLightbox(${li})"></div>${spacer}`;
+    }
+  }).join('');
+}
+
+function openLightbox(idx) {
+  lbIndex = idx;
+  showLightboxImage();
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+  if (e && e.target !== e.currentTarget && e.target.id !== 'lightbox') return;
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function showLightboxImage() {
+  const url = lightboxImages[lbIndex];
+  const inner = document.getElementById('lbInner');
+  inner.innerHTML = `<img src="${url}" alt="" style="max-width:95vw;max-height:95vh;object-fit:contain;display:block;">`;
+  document.getElementById('lbCount').textContent = `${lbIndex+1} / ${lightboxImages.length}`;
+  document.querySelector('.lb-prev').style.display = lightboxImages.length > 1 ? 'flex' : 'none';
+  document.querySelector('.lb-next').style.display = lightboxImages.length > 1 ? 'flex' : 'none';
+}
+function lbNav(dir) {
+  lbIndex = (lbIndex + dir + lightboxImages.length) % lightboxImages.length;
+  showLightboxImage();
+}
+document.addEventListener('keydown', e => {
+  if (document.getElementById('lightbox').classList.contains('active')) {
+    if (e.key === 'Escape') closeLightbox({target:document.getElementById('lightbox'),currentTarget:document.getElementById('lightbox')});
+    if (e.key === 'ArrowLeft') lbNav(-1);
+    if (e.key === 'ArrowRight') lbNav(1);
+  }
+});
+
+async function loadProject() {
+  if (!projectId) { showError(); return; }
+  try {
+    const r = await fetch(`/api/projects/${projectId}`);
+    if (!r.ok) { showError(); return; }
+    const p = await r.json();
+    renderHero(p);
+    renderMeta(p);
+    renderGallery(p);
+    document.getElementById('loadingScreen').style.display = 'none';
+    document.getElementById('projectContent').style.display = 'block';
+  } catch(e) {
+    showError();
+  }
+}
+function showError() {
+  document.getElementById('loadingScreen').style.display = 'none';
+  document.getElementById('errorScreen').style.display = 'flex';
+}
+loadProject();
+</script>
+</body>
+</html>
