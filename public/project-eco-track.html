@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ECO Track &mdash; Case Study &mdash; Noibedya Narayan Ray</title>
+  <meta name="description" content="Case study: a three-week design sprint on showing people the carbon footprint of their spending without guilt-tripping them." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">Noibedya Ray</a>
+    <ul class="nav-links">
+      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <!-- HERO -->
+    <section class="cs-hero">
+      <a class="back-link" href="index.html#work">&larr; All work</a>
+      <p class="section-label">Case study &middot; Fintech</p>
+      <h1 class="cs-title">ECO Track</h1>
+      <p class="cs-sub">
+        A three-week sprint on a question I kept circling back to: can an app
+        show people the environmental cost of their spending without making them
+        feel so guilty they delete it by Thursday?
+      </p>
+      <div class="meta-row">
+        <div class="meta-item"><label>Role</label><span>Sole designer</span></div>
+        <div class="meta-item"><label>Duration</label><span>3 weeks</span></div>
+        <div class="meta-item"><label>Tools</label><span>Figma</span></div>
+        <div class="meta-item"><label>Type</label><span class="todo" title="Be honest: 'Concept sprint', 'Hackathon project', 'Client exploration' — whatever it really was.">[Concept sprint / hackathon / client exploration &mdash; say which]</span></div>
+      </div>
+      <figure class="cs-cover">
+        <img src="https://res.cloudinary.com/druhr415f/image/upload/v1781022661/portfolio/km8302d6bkn2w2zfslkf.png" alt="ECO Track &mdash; final app screens" />
+      </figure>
+      <p class="img-caption">Final screens: spending feed with ECO-Rating, footprint overview, onboarding.</p>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="text-col">
+      <p class="section-label">The problem</p>
+      <h2>Carbon data has a motivation problem</h2>
+      <p>
+        Most carbon-tracking apps fail the same way: they tell you everything you
+        do is bad. Your groceries are bad, your commute is bad, your one flight a
+        year is catastrophic. People don&rsquo;t change behaviour under a constant
+        stream of bad news &mdash; they stop looking.
+      </p>
+      <p>
+        Spending data is a genuinely good proxy for footprint, and it&rsquo;s already
+        being collected. The design question wasn&rsquo;t <em>can we compute a number</em> &mdash;
+        it was <em>can we frame that number so people come back to it.</em>
+      </p>
+      <p>
+        The second problem was trust. To work, the app needs your transaction
+        history &mdash; which means asking for the most sensitive data a person has,
+        on first launch, before you&rsquo;ve earned anything.
+      </p>
+    </section>
+
+    <!-- APPROACH -->
+    <section class="text-col">
+      <p class="section-label">Design decisions</p>
+      <h2>Two bets: a rating, not a lecture &mdash; and privacy up front</h2>
+      <h3>The ECO-Rating</h3>
+      <p>
+        Instead of showing raw kilograms of CO&sup2; (meaningless to most people), I
+        designed a simple per-purchase rating. The goal was glanceability: you
+        should understand your week in two seconds, the way a credit score works
+        without you understanding the formula.
+      </p>
+      <p>
+        <span class="todo" title="Explain the real design of the rating: scale, how it's displayed, what trade-offs you debated (e.g. letter grades felt judgmental? colors?). What alternatives did you sketch first?">[Explain how the rating actually works in your design, and what you tried
+        first. Did letter grades feel too much like being graded? Did red/green
+        coding fight the &ldquo;no guilt&rdquo; goal? Trade-offs are the interesting part.]</span>
+      </p>
+      <h3>Privacy-first onboarding</h3>
+      <p>
+        <span class="todo" title="Describe the actual onboarding flow: what you show before asking for bank access, what you promise about data, how many steps. Why this order?">[Describe the real onboarding flow: what the user sees before being asked to
+        connect an account, what the app promises about their data, and why you
+        ordered it that way.]</span>
+      </p>
+
+      <h3>What didn&rsquo;t work</h3>
+      <p>
+        <span class="todo" title="At least one real dead end from the sprint — a framing, screen, or feature you cut. Three weeks always contains at least one wrong turn; show it.">[At least one real dead end. A three-week sprint always has a wrong turn &mdash;
+        a framing that tested badly, a dashboard you scrapped, a gamification idea
+        that felt manipulative once you mocked it up. Show it.]</span>
+      </p>
+    </section>
+
+    <!-- VALIDATION -->
+    <section class="text-col">
+      <p class="section-label">Validation</p>
+      <h2>How I checked my assumptions</h2>
+      <p>
+        <span class="todo" title="What feedback did you get, from whom, and what changed because of it? Even 'I showed it to 4 people and 3 misread the rating scale' is valuable.">[What feedback you gathered and what changed because of it. Even informal:
+        &ldquo;I showed the prototype to four people; three misread the rating scale as
+        a price indicator, so I&hellip;&rdquo; &mdash; that one sentence does more work than any
+        amount of polished UI.]</span>
+      </p>
+      <figure class="cs-cover">
+        <img src="https://res.cloudinary.com/druhr415f/image/upload/v1781022645/portfolio/gieslhjz0yrn20i3aa13.png" alt="ECO Track &mdash; design process and screens" />
+      </figure>
+      <p class="img-caption">
+        <span class="todo" title="Caption honestly: what stage is this from?">[Caption this honestly: iteration, exploration, or final?]</span>
+      </p>
+    </section>
+
+    <!-- OUTCOME -->
+    <section class="text-col">
+      <p class="section-label">Outcome</p>
+      <h2>Where it landed</h2>
+      <p>
+        <span class="todo" title="Honest outcome: what the sprint produced, what you validated, what's unproven. No invented metrics.">[The honest outcome of the sprint: what it produced, which of the two bets
+you&rsquo;d now call validated, and what you&rsquo;d need to test next to know if the
+        ECO-Rating actually changes behaviour. An open question stated plainly
+        reads as senior; an invented metric reads as fiction.]</span>
+      </p>
+
+      <h3>What I&rsquo;d do differently</h3>
+      <ul class="fact-list">
+        <li><span class="marker">&rarr;</span><span><span class="todo" title="One genuine self-criticism.">[One real thing you&rsquo;d change about how you ran the sprint.]</span></span></li>
+        <li><span class="marker">&rarr;</span><span><span class="todo" title="One genuine self-criticism about the design.">[One real thing you&rsquo;d rethink in the design itself.]</span></span></li>
+      </ul>
+    </section>
+
+    <a class="next-project" href="project-ai-health-link.html">
+      <p class="np-label">Next case study</p>
+      <p class="np-title">AI Health Link Canada &rarr;</p>
+    </a>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>&copy; 2026 Noibedya Narayan Ray</span>
+    <span>
+      <a href="mailto:nnr1011@outlook.com">Email</a>
+      <a href="#" class="todo" title="Replace with your real LinkedIn profile URL">LinkedIn</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>
