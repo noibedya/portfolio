@@ -53,5 +53,34 @@
     "order": 1,
     "createdAt": "2026-06-09T16:32:35.016Z",
     "updatedAt": "2026-06-09T16:32:35.016Z"
+  },
+  {
+    "id": "114b8f22-0969-492d-a07d-13fc046be01c",
+    "title": "Creative Asset & Video Workflow Manager",
+    "category": "Case Study",
+    "summary": "Streamlining the Video Production Lifecycle This case study explores the design of a centralized B2B SaaS platform specifically engineered to solve the fragmented communication and feedback loops in professional video production.",
+    "description": "Streamlining the Video Production Lifecycle This case study explores the design of a centralized B2B SaaS platform specifically engineered to solve the fragmented communication and feedback loops in professional video production. The Problem: Video teams often struggle with scattered feedback across emails and chat apps, lack of version control, and opaque project statuses. The Solution: A unified Kanban-based dashboard that integrates frame-accurate feedback, automated versioning, and real-time collaboration tools.",
+    "tags": [
+      "UX",
+      "B2B",
+      "Product Design"
+    ],
+    "tools": [
+      "Figma"
+    ],
+    "role": "Lead Designer",
+    "duration": "3 weeks",
+    "link": "",
+    "cover": "https://res.cloudinary.com/druhr415f/image/upload/v1781069786/portfolio/wwsoaglp2axu3wsqqu7o.jpg",
+    "images": [
+      "https://res.cloudinary.com/druhr415f/image/upload/v1781069793/portfolio/wozohwcmfds6nugdzm5p.jpg",
+      "https://res.cloudinary.com/druhr415f/video/upload/v1781069805/portfolio/lnbwtmvrw1zvyl1jwefj.mp4",
+      "https://res.cloudinary.com/druhr415f/image/upload/v1781069821/portfolio/akecshdhzxt7noe4snnt.jpg"
+    ],
+    "published": false,
+    "featured": false,
+    "order": 0,
+    "createdAt": "2026-06-10T05:37:05.844Z",
+    "updatedAt": "2026-06-10T05:40:04.442Z"
   }
 ]
