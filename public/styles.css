@@ -58,7 +58,7 @@ header.site-nav { position: sticky; top: 0; z-index: 50; background: rgba(31, 43
 .nav-links a.active { color: var(--accent-light); font-weight: 700; }
 .nav-links a.active::before { content: ""; position: absolute; left: 50%; bottom: -10px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent-light); transform: translateX(-50%); }
 @media (max-width: 540px) { .nav-links { gap: 1rem; } .nav-links a { font-size: .8rem; } .brand { font-size: .95rem; } }
-#work, #about, #contact { scroll-margin-top: 74px; }
+#top, #work, #about, #contact { scroll-margin-top: 74px; }
 .dark { background: #1f2b40; color: var(--cream); }
 .dark .muted,.dark .hero-sub,.dark .contact-sub,.dark .hero-eyebrow { color: var(--cream-muted); }
 .dark .section-label,.dark h1 em { color: var(--accent-light); }
