@@ -1,1 +1,7 @@
-{"version":2,"outputDirectory":"public","cleanUrls":true}
+{
+  "version": 2,
+  "buildCommand": "",
+  "installCommand": "",
+  "outputDirectory": "public",
+  "cleanUrls": true
+}
