@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="color-scheme" content="only light">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HelpAfterAccident.com — Onboarding Case Study — Noibedya Narayan Ray</title>
+<meta name="description" content="Case study: designing multi-persona onboarding and intake flows for HelpAfterAccident.com during a two-week design internship at GoMAXPAIN." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#3c5b8f; --navy-dark:#1f2b40; --pink:#3c5b8f; --ink:#1a1a2e;
+    --grey:#6b7280; --bg:#ffffff; --soft:#f6f7fb; --line:#e5e7ef;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7}
+  .wrap{max-width:880px;margin:0 auto;padding:0 28px}
+  /* HERO */
+  header{background:linear-gradient(135deg,var(--navy-dark) 0%,var(--navy) 70%,#2a3f8f 100%);color:#fff;padding:96px 0 72px}
+  .tag{display:inline-block;background:var(--pink);color:#fff;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:24px}
+  h1{font-size:clamp(32px,5vw,52px);line-height:1.15;font-weight:800;letter-spacing:-.02em;margin-bottom:18px}
+  .sub{font-size:19px;color:#c7cdea;max-width:620px}
+  .meta{display:flex;flex-wrap:wrap;gap:36px;margin-top:48px;padding-top:32px;border-top:1px solid rgba(255,255,255,.18)}
+  .meta div span{display:block}
+  .meta .k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9aa4d6;margin-bottom:4px}
+  .meta .v{font-size:15px;font-weight:600}
+  /* STATS BAND */
+  .stats{background:var(--soft);border-bottom:1px solid var(--line)}
+  .stats .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;padding-top:36px;padding-bottom:36px}
+  .stat{text-align:center;flex:1;min-width:120px}
+  .stat b{display:block;font-size:34px;font-weight:800;color:var(--navy)}
+  .stat span{font-size:13px;color:var(--grey)}
+  /* SECTIONS */
+  section{padding:72px 0}
+  section+section{border-top:1px solid var(--line)}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);margin-bottom:10px}
+  h2{font-size:30px;font-weight:800;letter-spacing:-.01em;margin-bottom:22px;color:var(--navy-dark)}
+  h3{font-size:19px;font-weight:700;margin:34px 0 10px;color:var(--navy-dark)}
+  p{margin-bottom:16px;color:#374151;font-size:16.5px}
+  p.lead{font-size:19px;color:var(--ink)}
+  /* CALLOUTS & CARDS */
+  .callout{background:var(--soft);border-left:4px solid var(--pink);border-radius:0 10px 10px 0;padding:22px 26px;margin:28px 0}
+  .callout p{margin:0;font-size:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:28px 0}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px}
+  .card h4{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
+  .card p{font-size:14.5px;margin:0;color:var(--grey)}
+  .num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;background:var(--navy);color:#fff;font-weight:700;font-size:14px;margin-bottom:12px}
+  /* IMAGE PLACEHOLDERS */
+  figure{margin:32px 0}
+  .img-slot{background:repeating-linear-gradient(45deg,#eef0f7,#eef0f7 12px,#f6f7fb 12px,#f6f7fb 24px);border:2px dashed #c3c9e0;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#8a93bd;font-size:14px;font-weight:600;text-align:center;padding:20px}
+  .h-tall{min-height:420px}.h-mid{min-height:300px}.h-short{min-height:220px}
+  figcaption{font-size:13.5px;color:var(--grey);margin-top:10px;text-align:center}
+  /* PERSONA CHIPS */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 8px}
+  .chip{border:1.5px solid var(--navy);color:var(--navy);font-size:13.5px;font-weight:600;padding:7px 16px;border-radius:999px}
+  .chip.hot{background:var(--navy);color:#fff}
+  /* PROCESS TIMELINE */
+  .timeline{margin:30px 0;border-left:2px solid var(--line);padding-left:28px}
+  .t-item{position:relative;padding-bottom:28px}
+  .t-item:last-child{padding-bottom:0}
+  .t-item::before{content:"";position:absolute;left:-35px;top:6px;width:12px;height:12px;border-radius:999px;background:var(--pink)}
+  .t-item b{display:block;font-size:15px;color:var(--navy-dark)}
+  .t-item span{font-size:14.5px;color:var(--grey)}
+  /* QUOTE */
+  blockquote{font-size:22px;font-weight:600;line-height:1.5;color:var(--navy-dark);border-left:4px solid var(--pink);padding-left:24px;margin:40px 0}
+  /* FOOTER */
+  footer{background:#ffffff;color:var(--grey);padding:56px 0;text-align:center;font-size:15px;border-top:1px solid var(--line)}
+  footer b{color:var(--navy-dark)}
+  footer a{color:var(--pink);text-decoration:none;font-weight:600}
+  ul.clean{list-style:none;margin:18px 0}
+  ul.clean li{padding-left:28px;position:relative;margin-bottom:12px;color:#374151;font-size:16px}
+  ul.clean li::before{content:"→";position:absolute;left:0;color:var(--pink);font-weight:700}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}.meta{gap:20py}}
+
+  /* ── site chrome (matches portfolio-v2/styles.css) ── */
+  h1,h2,.tag,.site-nav .brand{font-family:'Newsreader',Georgia,serif}
+  .site-nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .site-nav .nav-inner{max-width:880px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between}
+  .site-nav .brand{font-weight:600;font-size:1.05rem;color:var(--ink);text-decoration:none;letter-spacing:-.01em;transition:color .15s ease}
+  .site-nav .brand:hover{color:var(--navy)}
+  .site-nav .nav-links{display:flex;gap:1.75rem;list-style:none}
+  .site-nav .nav-links a{position:relative;font-size:.88rem;color:var(--grey);text-decoration:none;transition:color .15s ease}
+  .site-nav .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:1px;background:var(--navy);transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+  .site-nav .nav-links a:hover{color:var(--ink)}
+  .site-nav .nav-links a:hover::after{transform:scaleX(1)}
+  .site-nav .nav-links a:active{color:var(--navy);font-weight:700}
+  .site-nav .nav-links a.active{color:var(--navy);font-weight:700}
+  .site-nav .nav-links a.active::after{transform:scaleX(1)}
+  .back-link{display:inline-block;font-size:.88rem;color:var(--grey);text-decoration:none;margin-bottom:1.5rem}
+  .back-link:hover{color:var(--ink)}
+  .site-footer{border-top:1px solid var(--line);padding:2rem 0 2.5rem;background:#fff}
+  .site-footer .footer-inner{max-width:880px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;font-size:.85rem;color:var(--grey)}
+  .site-footer .footer-inner a{color:var(--grey);margin-left:1.25rem;text-decoration:none}
+  .site-footer .footer-inner a:hover{color:var(--ink)}
+  .todo{background:#fdf3c7;outline:1px dashed #c9a227;border-radius:4px;padding:0 .35em;font-style:normal}
+  .next-project{display:block;text-decoration:none;border:2px solid #000;border-radius:12px;background:#fff;padding:1.75rem 2rem;margin:3rem 0 1rem;color:var(--ink);transition:border-color .15s ease}
+  .next-project:hover{border-color:var(--pink)}
+  .next-project .np-label{font-size:.74rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--grey);margin-bottom:.rem}
+  .next-project .np-title{font-family:'Newsreader',Georgia,serif;font-size:1.35rem;font-weight:600;color:var(--navy-dark)}
+
+/* site nav / footer / next-project (added for site-wide consistency) */
+.site-nav{border-bottom:1px solid var(--line);background:var(--bg)}
+.site-nav .nav-inner{max-width:880px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.site-nav .brand{font-family:"Newsreader",serif;font-weight:600;font-size:1.05rem;color:var(--ink);text-decoration:none;letter-spacing:-.01em;transition:color .15s ease}
+.site-nav .brand:hover{color:var(--navy)}
+.site-nav .nav-links{display:flex;gap:1.75rem;list-style:none;margin:0;padding:0}
+.site-nav .nav-links a{position:relative;font-size:.88rem;color:var(--grey);text-decoration:none;transition:color .15s ease}
+.site-nav .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:1px;background:var(--navy);transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+.site-nav .nav-links a:hover{color:var(--ink)}
+.site-nav .nav-links a:hover::after{transform:scaleX(1)}
+.site-nav .nav-links a:active{color:var(--navy);font-weight:700}
+.site-nav .nav-links a.active{color:var(--navy);font-weight:700}
+.site-nav .nav-links a.active::before{content:"";position:absolute;left:50%;bottom:-10px;width:5px;height:5px;border-radius:50%;background:var(--navy);transform:translateX(-50%)}
+.next-project{display:block;text-decoration:none;border:2px solid #000;border-radius:12px;background:var(--bg);padding:1.75rem 2rem;margin:3rem 0 1rem;color:var(--ink);transition:border-color .15s ease}
+.next-project:hover{border-color:var(--pink)}
+.next-project .np-label{font-size:.74rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--grey);margin-bottom:.rem}
+.next-project .np-title{font-family:"Newsreader",serif;font-size:1.35rem;font-weight:600}
+.site-footer{border-top:1px solid var(--line);padding:2rem 0 2.5rem}
+.site-footer .footer-inner{max-width:880px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;font-size:.85rem;color:var(--grey)}
+.site-footer .footer-inner a{color:var(--grey);margin-left:1.25rem;text-decoration:none}
+.site-footer .footer-inner a:hover{color:var(--ink)}
+.back-link{display:inline-block;font-size:.88rem;color:var(--grey);text-decoration:none;margin-bottom:1rem}
+.back-link:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+<header class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">Noibedya Ray</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#work" class="active">Work</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="resume.html">Resume</a></li>
+    </ul>
+  </div>
+</header>
+<header>
+  <div class="wrap">
+    <a class="back-link" href="index.html#work" style="color:#c7cdea">← All work</a>
+    <span class="tag">UX / Product Design Case Study</span>
+    <h1>Onboarding five very different users onto one accident-recovery platform</h1>
+    <p class="sub">Signup and intake flows for HelpAfterAccident.com: doctors, lawyers, patients, marketers, and influencers. Designed in a two-week internship sprint at GoMAXPAIN.</p>
+    <div class="meta">
+      <div><span class="k">Role</span><span class="v">Product Design Intern</span></div>
+      <div><span class="k">Team</span><span class="v">Me + Senior Designer (mentor)</span></div>
+      <div><span class="k">Timeline</span><span class="v">2 weeks</span></div>
+      <div><span class="k">Platform</span><span class="v">iOS + Desktop Web</span></div>
+      <div><span class="k">Tools</span><span class="v">Figma</span></div>
+    </div>
+  </div>
+</header>
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><b>5</b><span>User personas</span></div>
+    <div class="stat"><b>100+</b><span>Screens designed</span></div>
+    <div class="stat"><b>2</b><span>Platforms (mobile + laptop)</span></div>
+    <div class="stat"><b>4</b><span>Intake models explored</span></div>
+    <div class="stat"><b>2 wks</b><span>Concept → handoff-ready</span></div>
+  </div>
+</div>
+<section>
+  <div class="wrap">
+    <div class="kicker">The Context</div>
+    <h2>One platform, five front doors</h2>
+    <p class="lead">HelpAfterAccident.com connects people injured in accidents with verified doctors and lawyers nearby, and gives those professionals a steady stream of matched patient leads.</p>
+    <p>The product only works if both sides of the marketplace show up. A doctor abandoning signup at step 6 isn't a lost user; it's a hole in the supply that patients feel. My internship project at GoMAXPAIN was to design the onboarding experience for every user type the platform serves:</p>
+    <div class="chips">
+      <span class="chip hot">Doctor</span>
+      <span class="chip hot">Lawyer</span>
+      <span class="chip hot">Patient</span>
+      <span class="chip">Marketing Pro</span>
+      <span class="chip">Influencer</span>
+    </div>
+    <p>Each persona needed a flow that felt personal. Underneath, the system had to stay shared (same auth pattern, same components, same visual language) so engineering could build once and branch.</p>
+    <div class="callout"><p><b>My role:</b> design intern, working under a senior product designer who set the strategy and reviewed every round. I executed the flows myself, wireframes through high-fidelity states, and owned the screen-level decisions. Every checkpoint meant presenting the work and defending it in critique.</p></div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="kicker">The Problem</div>
+    <h2>Professionals don't finish long signups</h2>
+    <p>Doctors and lawyers are hard to onboard. They're busy, they're skeptical, and we were asking for a lot: credentials, practice details, clinic hours, team members, payment preferences. Long professional signups bleed users at every screen.</p>
+    <p>The brief broke into three questions:</p>
+    <div class="grid2">
+      <div class="card"><span class="num">1</span><h4>How short can "complete" feel?</h4><p>A practice profile needs about ten steps of input no matter what. We couldn't cut steps, so they had to feel light.</p></div>
+      <div class="card"><span class="num">2</span><h4>How do five personas share one system?</h4><p>A doctor sets clinic hours; a lawyer doesn't. Flows had to diverge after a shared trunk without forking the design system.</p></div>
+      <div class="card"><span class="num">3</span><h4>How do patients in crisis get through intake?</h4><p>Patients arrive right after an accident, often hurt and rattled. Intake had to flex to whatever they could manage.</p></div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="kicker">The Process</div>
+    <h2>Two weeks, four checkpoints</h2>
+    <div class="timeline">
+      <div class="t-item"><b>Days 1-3 · Flow mapping & trunk design</b><span>Mapped the shared signup trunk: phone-first auth → OTP → profession select → identity <i=→</i> practice details. Phone-first (with Google/Apple fallback) because professionals respond faster to SMS than email, and the platform's match alerts are SMS-driven anyway.</span></div>
+      <div class="t-item"><b>Days 4-7 · Mobile iterations per persona</b><span>Built the iPhone flows for doctor and lawyer first, since they're the most valuable users and the most likely to drop off. Every screen got an empty and a filled state, plus enabled and disabled CTA logic.</span></div>
+      <div class="t-item"><b>Days 8-10 · Desktop adaptation + patient intake</b><span>Adapted the flows to a split-screen laptop layout, then designed four patient intake models in parallel: one-click intake, self intake, digital intake with instructions, and phone intake conducted by a specialist.</span></div>
+      <div class="t-item"><b>Days 11-14 · Critique loops, V5 → V6, dashboard</b><span>Two full revision rounds with my senior. We marked the rejected directions and kept them on the canvas for comparison. Closed with the professional's post-signup dashboard, the day-one experience after going live.</span></div>
+    </div>
+    <figure>
+      <img src="assets/inline/haa-00.jpg" alt="" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <figcaption>One persona end to end: the lawyer onboarding flow, with every step in filled and empty states.</figcaption>
+    </figure>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="kicker">Key Decisions</div>
+    <h2>The design calls that shaped the flow</h2>
+    <h3>1 · One question per screen, momentum over density</h3>
+    <p>Rather than cram the practice profile into three dense forms, I split it into single-purpose screens ("What's your name?", "Where is your practice?", "Set your clinic hours"), each with one CTA. A "Take 2 minutes or less" promise up front sets the contract. The headlines also talk back: once Jane picks Doctor, the next screen greets her with "Hello, Dr. Jane." Small thing, but it makes ten steps feel like a conversation instead of a form.</p>
+    <figure>
+      <img src="assets/inline/haa-01.jpg" alt="" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <figcaption>The shared signup trunk. Every screen exists in empty + filled + disabled/enabled CTA states.</figcaption>
+    </figure>
+    <h3>2 · Clinic hours: the iteration I'm proudest of</h3>
+    <p>My first clinic-hours screen used a dropdown row per day. It worked, but it was cramped and fiddly on a phone. In critique my senior asked a simple question: how many clinics actually keep different hours every day? Almost none. The revised pattern uses tappable day chips, Mon to Fri pre-selected, with one opens/closes control. The common case now takes two taps. The odd schedule still works.</p>
+    <figure>
+      <img src="assets/inline/haa-02.jpg" alt="" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <figcaption>Initial iteration (left) vs. revised pattern (right). Designing for the common case first.</figcaption>
+    </figure>
+    <h3>3 · Patient intake that flexes to capacity</h3>
+    <p>Someone who was just in a car accident might manage a form. They might only manage a phone call. So instead of one intake flow there are four: one-click intake, self intake, digital intake with guided instructions, and phone intake run by a specialist, where the patient's only job is to pick up. The platform routes people by what they can handle that day.</p>
+    <figure>
+      <img src="assets/inline/haa-03.jpg" alt="" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <figcaption>Four intake models for four levels of patient capacity.</figcaption>
+    </figure>
+    <h3>4 · Trust signals where skepticism peaks</h3>
+    <p>Skepticism peaks at three moments. The first screen answers it with "Connect with over 5,000+ verified lawyers and doctors nationwide." Password creation answers it with rule checkmarks that tick live as you type. And before going live, a full "Review and finish" summary lets you edit any section. The final screen reads "You're live. Patients and clients in your area can now find you." Signup ends on a payoff rather than a dead end.</p>
+    <figure>
+      <img src="assets/inline/haa-04.jpg" alt="" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <figcaption>Ending on the payoff: the moment the professional's practice goes live.</figcaption>
+    </figure>
+    <h3>5 · Desktop gets the same care</h3>
+    <p>Professionals often sign up from the front-desk computer, so every mobile step has a laptop counterpart. The split layout keeps the brand illustration on the left and a focused form column on the right, and the two platforms read as one product.</p>
+    <figure>
+      <img src="assets/inline/haa-05.jpg" alt="" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <figcaption>Full mobile/desktop parity across the signup trunk.</figcaption>
+    </figure>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="kicker">The Outcome</div>
+    <h2>Handoff-ready in two weeks</h2>
+    <ul class="clean">
+      <li>Complete onboarding for <b>5 personas across mobile and desktop</b>: 100+ screens with empty, filled, and disabled states, delivered inside the two-week window.</li>
+      <li>Designed <b>4 patient intake models</b> that gave the business a way to route patients by capacity.</li>
+      <li>Set the onboarding visual language (navy and pink palette, conversational tone, illustrated layouts) that the later persona flows adopted.</li>
+      <li>My senior designer and the GoMAXPAIN team approved the work for the HelpAfterAccident.com build.</li>
+    </ul>
+    <figure><img src="assets/inline/haa-06.jpg" alt="" style="width:100%;max-width:560px;display:block;margin:0 auto;border-radius:14px;border:1px solid var(--line)"><figcaption>Beyond onboarding: the professional's day-one dashboard with urgent matches and the patient queue.</figcaption></figure>
+    <blockquote>What this project taught me: how to ship a coherent system at speed, and when to defend a decision in critique versus when to let it go.</blockquote>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="kicker">Mentor's Evaluation</div>
+    <h2>From my internship performance review</h2>
+    <blockquote>"Noibedya operates far beyond the typical baseline expected of an intern. Their workflow is characterized by professional rigor, technical compliance, and a strong eye for visual balance."</blockquote>
+    <div class="grid2">
+      <div class="card"><h4>On systems thinking</h4><p>"They don't just place pretty buttons; they analyze the structural dependencies of a workflow. They map out the <i>why</i> behind a layout before executing the <i>what</i>."</p></div>
+      <div class="card"><h4>On designing for stressed users</h4><p>"Instead of overwhelming a high-stress user base with walls of inputs, Noibedya utilized a progressive disclosure model... lowering cognitive load and preventing user dropout."</p></div>
+      <div class="card"><h4>On developer handoff</h4><p>"By structuring high-fidelity interactive flows complete with edge cases, empty states, and dynamic form validations, they minimized engineering friction and accelerated the development sprint cycles."</p></div>
+      <div class="card"><h4>On autonomy</h4><p>"They routinely anticipated edge-cases in the registration and intake funnels, presenting alternative flow layouts to management before bottlenecks could arise."</p></div>
+    </div>
+    <p style="font-size:14px;color:var(--grey)">Senior Product Designer, GoMAXPAIN · internship performance evaluation</p>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="kicker">Reflection</div>
+    <h2>What I'd do differently</h2>
+    <p>Looking back at the file now, the two-week pace left real debt. Naming it is part of the lesson:</p>
+    <div class="grid2">
+      <div class="card"><h4>Tokens-first, from day one</h4><p>I kept shared element sheets as the source of truth. Next time I'd formalize them into Figma variables and component sets before screen production starts; that would have caught the small state drifts before critique did.</p></div>
+      <div class="card"><h4>Bake in accessibility earlier</h4><p>Some pink-on-white and grey disabled states need a WCAG contrast pass, and several touch targets run small. These are cheap to fix at the component level and expensive at the screen level.</p></div>
+      <div class="card"><h4>Add progress indication</h4><p>The one-question-per-screen pattern needs a stepper so users know how far is left. It's the first thing I'd test.</p></div>
+      <div class="card"><h4>Archive with discipline</h4><p>Rejected iterations lived next to live work. A clean archive page with a changelog would have made the file self-explanatory for engineers.</p></div>
+    </div>
+    <p>That self-audit habit, reviewing my own file the way a design lead would, is now how I close every project.</p>
+  </div>
+</section>
+<footer>
+  <div class="wrap">
+    <p><b>HelpAfterAccident.com</b> · Onboarding & Intake Design · GoMAXPAIN Internship, 2026</p>
+    <p style="margin-top:10px">Designed by <b>Noibedya Narayan Ray</b> · <a href="mailto:nnr1011@outlook.com">nnr1011@outlook.com</a></p>
+  </div>
+</footer>
+<div class="wrap">
+  <a class="next-project" href="project-cavw.html">
+    <p class="np-label">Next case study</p>
+    <p class="np-title">Creative Asset & Video Workflow →</p>
+  </a>
+</div>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© 2026 Noibedya Narayan Ray</span>
+    <span>
+      <a href="mailto:nnr1011@outlook.com">Email</a>
+      <a href="https://www.linkedin.com/in/noibedya" target="_blank" rel="noopener">LinkedIn</a>
+    </span>
+  </div>
+</footer>
+</body>
+</html>

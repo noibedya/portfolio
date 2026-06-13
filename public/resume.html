@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume — Noibedya Narayan Ray</title>
+  <meta name="description" content="Resume for Noibedya Narayan Ray, product designer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=4" />
+  <style>
+    .resume-bar { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 0; }
+    .resume-bar h1 { font-size: 1.4rem; margin: 0; }
+    .resume-viewer { width: 100%; border: 1px solid var(--line); border-radius: 12px; margin-bottom: 2rem; padding: 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; background: var(--soft); }
+    .resume-viewer canvas { max-width: 100%; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+    .resume-viewer .resume-loading { padding: 4rem 0; color: var(--grey); }
+  </style>
+</head>
+<body><header class="site-nav"><div class="nav-inner"><a class="brand" href="index.html">Noibedya Ray</a><ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="index.html#work">Work</a></li><li><a href="index.html#about">About</a></li><li><a href="index.html#contact">Contact</a></li><li><a href="resume.html" class="active">Resume</a></li></ul></div></header><div class="container"><div class="resume-bar"><h1>Resume</h1><a class="btn btn-primary" href="resume.pdf" download>Download PDF</a></div><div class="resume-viewer" id="resume-viewer"><p class="resume-loading">Loading resume…</p></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script><script>pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";const viewer=document.getElementById("resume-viewer");fetch("cv-data.dat").then(r=>r.arrayBuffer()).then(d=>pdfjsLib.getDocument({data:d}).promise).then(p=>{viewer.innerHTML="";for(let i=1;i<=p.numPages;i++)p.getPage(i).then(pg=>{const s=Math.min(2,"viewer.clientWidth||800/pg.getViewport({scale:1}).width);const v=pg.getViewport({scale:s});const c=document.createElement("canvas");c.width=v.width;c.height=v.height;viewer.appendChild(c);pg.render({canvasContext:c.getContext("2d"),viewport:v});});}).catch(()=>{viewer.innerHTML='<p class="resume-loading">Couldn\'t load preview. <a href="resume.pdf" download>Download</a>.</p>';});</script><footer><div class="footer-inner"><span>© 2026 Noibedya Narayan Ray</span><span><a href="mailto:nnr1011@outlook.com">Email</a><a href="https://www.linkedin.com/in/noibedya" target="_blank" rel="noopener">LinkedIn</a></span></div></footer></body></html>

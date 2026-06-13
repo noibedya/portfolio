@@ -1,169 +1,324 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Health Link Canada &mdash; Case Study &mdash; Noibedya Narayan Ray</title>
-  <meta name="description" content="Case study: designing a symptom-triage and care-navigation app for the Canadian healthcare system." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Health Link Canada — Case Study — Noibedya Narayan Ray</title>
+<meta name="description" content="Case study: designing AI HealthLink, a concept app for AI symptom triage, a digital health vault, and care navigation in the Canadian healthcare system." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#3c5b8f; --navy-dark:#1f2b40; --pink:#3c5b8f; --ink:#1a1a2e;
+    --grey:#6b7280; --bg:#ffffff; --soft:#f6f7fb; --line:#e5e7ef;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7}
+  .wrap{max-width:880px;margin:0 auto;padding:0 28px}
+  /* HERO */
+  header{background:linear-gradient(135deg,#9c2b2d 0%,#d63d3f 55%,#ff6264 100%);color:#fff;padding:96px 0 72px}
+  .tag{display:inline-block;background:#fff;color:#d63d3f;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:24px}
+  h1{font-size:clamp(32px,5vw,52px);line-height:1.15;font-weight:800;letter-spacing:-.02em;margin-bottom:18px}
+  .sub{font-size:19px;color:#ffe3e3;max-width:640px}
+  .meta{display:flex;flex-wrap:wrap;gap:36px;margin-top:48px;padding-top:32px;border-top:1px solid rgba(255,255,255,.18)}
+  .meta div span{display:block}
+  .meta .k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#ffc9c9;margin-bottom:4px}
+  .meta .v{font-size:15px;font-weight:600}
+  /* STATS BAND */
+  .stats{background:var(--soft);border-bottom:1px solid var(--line)}
+  .stats .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;padding-top:36px;padding-bottom:36px}
+  .stat{text-align:center;flex:1;min-width:120px}
+  .stat b{display:block;font-size:34px;font-weight:800;color:var(--navy)}
+  .stat span{font-size:13px;color:var(--grey)}
+  /* SECTIONS */
+  section{padding:72px 0}
+  section+section{border-top:1px solid var(--line)}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);margin-bottom:10px}
+  h2{font-size:30px;font-weight:800;letter-spacing:-.01em;margin-bottom:22px;color:var(--navy-dark)}
+  h3{font-size:19px;font-weight:700;margin:34px 0 10px;color:var(--navy-dark)}
+  p{margin-bottom:16px;color:#374151;font-size:16.5px}
+  p.lead{font-size:19px;color:var(--ink)}
+  /* CALLOUTS & CARDS */
+  .callout{background:var(--soft);border-left:4px solid var(--pink);border-radius:0 10px 10px 0;padding:22px 26px;margin:28px 0}
+  .callout p{margin:0;font-size:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:28px 0}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px}
+  .card h4{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
+  .card p{font-size:14.5px;margin:0;color:var(--grey)}
+  .num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;background:var(--navy);color:#fff;font-weight:700;font-size:14px;margin-bottom:12px}
+  /* FIGURES */
+  figure{margin:32px 0}
+  figure img{width:100%;border-radius:14px;border:1px solid var(--line)}
+  figcaption{font-size:13.5px;color:var(--grey);margin-top:10px;text-align:center}
+  /* CHIPS */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 8px}
+  .chip{border:1.5px solid var(--navy);color:var(--navy);font-size:13.5px;font-weight:600;padding:7px 16px;border-radius:999px}
+  .chip.hot{background:var(--navy);color:#fff}
+  /* PROCESS TIMELINE */
+  .timeline{margin:30px 0;border-left:2px solid var(--line);padding-left:28px}
+  .t-item{position:relative;padding-bottom:28px}
+  .t-item:last-child{padding-bottom:0}
+  .t-item::before{content:"";position:absolute;left:-35px;top:6px;width:12px;height:12px;border-radius:999px;background:var(--pink)}
+  .t-item b{display:block;font-size:15px;color:var(--navy-dark)}
+  .t-item span{font-size:14.5px;color:var(--grey)}
+  /* QUOTE */
+  blockquote{font-size:22px;font-weight:600;line-height:1.5;color:var(--navy-dark);border-left:4px solid var(--pink);padding-left:24px;margin:40px 0}
+  /* FOOTER */
+  footer{background:#ffffff;color:var(--grey);padding:56px 0;text-align:center;font-size:14.5px;border-top:1px solid var(--line)}
+  footer p{color:var(--grey)}
+  footer b{color:var(--navy-dark)}
+  footer a{color:var(--pink);text-decoration:none;font-weight:600}
+  ul.clean{list-style:none;margin:18px 0}
+  ul.clean li{padding-left:28px;position:relative;margin-bottom:12px;color:#374151;font-size:16px}
+  ul.clean li::before{content:"→";position:absolute;left:0;color:var(--pink);font-weight:700}
+  /* HERO ART */
+  .hero-wrap{max-width:1100px}
+  .hero-flex{display:flex;align-items:center;gap:48px}
+  .hero-copy{flex:1.1;min-width:0}
+  .hero-art{flex:.9;min-width:0}
+  .hero-art img{width:100%;height:auto;display:block;filter:drop-shadow(0 24px 48px rgba(0,0,0,.35))}
+  @media(max-width:760px){.hero-flex{flex-direction:column}.hero-art{max-width:420px}}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}.meta{gap:20px}}
+
+/* site nav / footer / next-project (added for site-wide consistency) */
+.site-nav{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);background:rgba(255,255,255,.92);backdrop-filter:blur(10px)}
+.site-nav .nav-inner{max-width:880px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.site-nav .brand{font-family:"Newsreader",serif;font-weight:600;font-size:1.05rem;color:var(--ink);text-decoration:none;letter-spacing:-.01em;transition:color .15s ease}
+.site-nav .brand:hover{color:var(--navy)}
+.site-nav .nav-links{display:flex;gap:1.75rem;list-style:none;margin:0;padding:0}
+.site-nav .nav-links a{position:relative;font-size:.88rem;color:var(--grey);text-decoration:none;transition:color .15s ease}
+.site-nav .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:1px;background:var(--navy);transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+.site-nav .nav-links a:hover{color:var(--ink)}
+.site-nav .nav-links a:hover::after{transform:scaleX(1)}
+.site-nav .nav-links a:active{color:var(--navy);font-weight:700}
+.site-nav .nav-links a.active{color:var(--navy);font-weight:700}
+.site-nav .nav-links a.active::before{content:"";position:absolute;left:50%;bottom:-10px;width:5px;height:5px;border-radius:50%;background:var(--navy);transform:translateX(-50%)}
+.next-project{display:block;text-decoration:none;border:2px solid #000;border-radius:12px;background:var(--bg);padding:1.75rem 2rem;margin:3rem 0 1rem;color:var(--ink);transition:border-color .15s ease}
+.next-project:hover{border-color:var(--pink)}
+.next-project .np-label{font-size:.74rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--grey);margin-bottom:.rem}
+.next-project .np-title{font-family:"Newsreader",serif;font-size:1.35rem;font-weight:600}
+.site-footer{border-top:1px solid var(--line);padding:2rem 0 2.5rem;background:#fff}
+.site-footer .footer-inner{max-width:880px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;font-size:.85rem;color:var(--grey)}
+.site-footer .footer-inner a{color:var(--grey);margin-left:1.25rem;text-decoration:none}
+.site-footer .footer-inner a:hover{color:var(--ink)}
+.back-link{display:inline-block;font-size:.88rem;color:var(--grey);text-decoration:none;margin-bottom:1rem}
+.back-link:hover{color:var(--ink)}
+</style>
 </head>
-<body>
+<bady>
 
 <header class="site-nav">
   <div class="nav-inner">
     <a class="brand" href="index.html">Noibedya Ray</a>
     <ul class="nav-links">
-      <li><a href="index.html#work">Work</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#work" class="active">Work</a></li>
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="resume.html">Resume</a></li>
     </ul>
   </div>
 </header>
 
-<main>
-  <div class="container">
 
-    <!-- HERO -->
-    <section class="cs-hero">
-      <a class="back-link" href="index.html#work">&larr; All work</a>
-      <p class="section-label">Case study &middot; Healthcare</p>
-      <h1 class="cs-title">AI Health Link Canada</h1>
-      <p class="cs-sub">
-        A responsive app that helps people figure out what to do when they feel
-        unwell: assess symptoms, keep an eye on vitals, and find the right level
-        of care in the Canadian system &mdash; without pretending to be a doctor.
-      </p>
-      <div class="meta-row">
-        <div class="meta-item"><label>Role</label><span>Sole designer, end to end</span></div>
-        <div class="meta-item"><label>Duration</label><span>3 months</span></div>
-        <div class="meta-item"><label>Tools</label><span>Figma</span></div>
-        <div class="meta-item"><label>Type</label><span class="todo" title="Be honest here: 'Concept project', 'Client project for X', 'Course capstone' — whatever it really was.">[Concept project / client work / capstone &mdash; say which]</span></div>
-      </div>
-      <figure class="cs-cover">
-        <img src="https://res.cloudinary.com/druhr415f/image/upload/v1781022420/portfolio/mqirto3roewgipuavgvn.png" alt="AI Health Link Canada &mdash; final app screens" />
-      </figure>
-      <p class="img-caption">Final screens: symptom check, vitals dashboard, and care navigation.</p>
-    </section>
-
-    <!-- PROBLEM -->
-    <section class="text-col">
-      <p class="section-label">The problem</p>
-      <h2>&ldquo;Is this an emergency, a clinic visit, or nothing?&rdquo;</h2>
-      <p>
-        Getting medical help in Canada usually starts with uncertainty. Walk-in
-        clinics have long waits, ERs are overloaded, and telehealth lines vary by
-        province. When something feels wrong, most people&rsquo;s first move is a search
-        engine &mdash; which either tells them they&rsquo;re fine or that they&rsquo;re dying.
-      </p>
-      <p>
-        I wanted to design something that sits in that gap: a tool that helps you
-        understand your symptoms, tracks the vitals you can measure at home, and
-        points you to the right door &mdash; pharmacy, clinic, telehealth, or ER.
-      </p>
-      <div class="aside-note">
-        <p>
-          The hardest constraint wasn&rsquo;t visual. It was that <strong>a triage app that&rsquo;s
-          wrong in the reassuring direction can hurt someone.</strong> Every design
-          decision below was shaped by that.
-        </p>
-      </div>
-    </section>
-
-    <!-- RESEARCH -->
-    <section class="text-col">
-      <p class="section-label">Research</p>
-      <h2>What I did before opening Figma</h2>
-      <p>
-        <span class="todo" title="Fill in the real specifics: how many people you talked to, who they were, how you recruited them, what you asked. If your research was informal (friends/family, online communities, secondary research), say so — honest and small beats vague and inflated.">[Describe your actual research here: how many people you spoke to, who they
-        were, and how you ran it. If it was informal &mdash; conversations with friends,
-        Reddit threads, published studies on triage behaviour &mdash; say exactly that.
-        Small and honest reads better than vague and grand.]</span>
-      </p>
-      <h3>What I learned</h3>
-      <ul class="fact-list">
-        <li><span class="marker">01</span><span><span class="todo" title="Replace with a real finding from your research, ideally with a number or a quote.">[A real finding &mdash; ideally with a number or a direct quote from someone you talked to.]</span></span></li>
-        <li><span class="marker">02</span><span><span class="todo" title="Replace with a real finding.">[A second finding &mdash; what surprised you?]</span></span></li>
-        <li><span class="marker">03</span><span><span class="todo" title="Replace with a real finding.">[A third finding &mdash; what did people do today instead, and where did it fail them?]</span></span></li>
-      </ul>
-    </section>
-
-    <!-- IA / DESIGN DECISIONS -->
-    <section class="text-col">
-      <p class="section-label">Design decisions</p>
-      <h2>Structuring the app around urgency, not features</h2>
-      <p>
-        The information architecture went through several versions. The obvious
-        structure &mdash; tabs for Symptoms, Vitals, Doctors &mdash; organized the app the way
-        the <em>system</em> thinks, not the way a worried person thinks. A worried
-        person has one question: <em>how serious is this?</em>
-      </p>
-      <p>
-        <span class="todo" title="Describe the IA decision you actually made and why. What did the first version look like? What changed it?">[Describe what your final structure was and what made you change it from the
-        first version. If usability testing drove the change, say what you saw in
-        testing that forced it.]</span>
-      </p>
-
-      <h3>What didn&rsquo;t work</h3>
-      <p>
-        <span class="todo" title="This section matters more than any other. Describe at least one real dead end: a flow that confused testers, a screen you scrapped, a feature you cut. Be specific.">[The most credible section of any case study. Describe at least one real dead
-        end &mdash; a flow testers stumbled on, a screen you threw away, a feature you
-        cut because it didn&rsquo;t earn its place. What did it look like, and how did
-        you know it was wrong?]</span>
-      </p>
-    </section>
-
-    <!-- TESTING -->
-    <section class="text-col">
-      <p class="section-label">Usability testing</p>
-      <h2>Putting it in front of people</h2>
-      <p>
-        <span class="todo" title="Real numbers only: how many testers, what tasks, what failed, what you changed between rounds. '5 people, 3 couldn't find X, so I moved it' is gold.">[How many people tested it, what tasks you gave them, and what broke.
-        Numbers like &ldquo;4 of 6 testers missed the emergency option on the results
-        screen, so I moved it above the fold and made it persistent&rdquo; are exactly
-        what a hiring manager wants to read.]</span>
-      </p>
-      <figure class="cs-cover">
-        <img src="https://res.cloudinary.com/druhr415f/image/upload/v1781035317/portfolio/bnbnj4rkqvpzadrdapjh.jpg" alt="AI Health Link Canada &mdash; design process and screens" />
-      </figure>
-      <p class="img-caption">
-        <span class="todo" title="Caption this honestly — what stage of the process is this image from?">[Caption this image honestly: iteration, wireframe stage, final UI?]</span>
-      </p>
-    </section>
-
-    <!-- OUTCOME -->
-    <section class="text-col">
-      <p class="section-label">Outcome</p>
-      <h2>Where it landed</h2>
-      <p>
-        <span class="todo" title="If this was a concept project, the honest outcome is what you validated and what remains unproven — that's a fine outcome, state it plainly. If it shipped, give real results.">[State the honest outcome. If this is a concept project: what did you
-        validate, and what remains an open question you&rsquo;d test next? That is a
-        legitimate outcome &mdash; claim it plainly instead of inventing launch metrics.]</span>
-      </p>
-
-      <h3>What I&rsquo;d do differently</h3>
-      <ul class="fact-list">
-        <li><span class="marker">&rarr;</span><span><span class="todo" title="One genuine self-criticism about process or scope.">[One real regret about process &mdash; e.g. &ldquo;I spent too long polishing visuals before testing the core flow.&rdquo;]</span></span></li>
-        <li><span class="marker">&rarr;</span><span><span class="todo" title="One genuine self-criticism about the design itself.">[One real regret about the design itself &mdash; something you&rsquo;d rethink with more time.]</span></span></li>
-      </ul>
-    </section>
-
-    <a class="next-project" href="project-eco-track.html">
-      <p class="np-label">Next case study</p>
-      <p class="np-title">ECO Track &rarr;</p>
-    </a>
-
+<header>
+  <div class="wrap hero-wrap">
+    <div class="hero-flex">
+    <div class="hero-copy">
+    <a class="back-link" href="index.html#work">← All work</a>
+    <span class="tag">UX / UI Case Study · Personal Project</span>
+    <h1>An AI health companion that triages symptoms before you ever reach a doctor</h1>
+    <p class="sub">AI HealthLink is a concept app for Canadian healthcare: AI symptom triage, a digital health vault, and booking for virtual or walk-in care. I designed it end to end, on mobile and tablet, as a solo project.</p>
+    </div>
+    <div class="hero-art"><img src="assets/inline/ail-00.png" alt="Three phones fanned out showing the Dashboard, My Health, and Consult screens"></div>
+    </div>
+    <div class="meta">
+      <div><span class="k">Role</span><span class="v">Solo Product Designer</span></div>
+      <div><span class="k">Type</span><span class="v">Personal concept project</span></div>
+      <div><span class="k">Timeline</span><span class="v">4 weeks</span></div>
+      <div><span class="k">Platform</span><span class="v">iOS Mobile + Tablet</span></div>
+      <div><span class="k">Tools</span><span class="v">Figma</span></div>
+    </div>
   </div>
-</main>
+</header>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><b>17</b><span>Screens designed</span></div>
+    <div class="stat"><b>8</b><span>Steps in the AI triage flow</span></div>
+    <div class="stat"><b>3</b><span>Risk levels communicated</span></div>
+    <div class="stat"><b>2</b><span>Form factors (mobile + tablet)</span></div>
+    <div class="stat"><b>4 wks</b><span>Research → full UI kit</span></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The Vision</div>
+    <h2>Turning a high-stress process into a calm one</h2>
+    <p class="lead">To bridge the gap between complex medical logistics and patient-centric care by creating a unified digital health ecosystem.</p>
+    <p>Getting care in Canada usually means phone tag, a paper health card, and a waiting room. The idea here is to put the boring logistics in one place so the stressful part gets calmer: check a symptom with AI, keep your provincial health card and records in one vault, and book whichever kind of care the situation actually needs.</p>
+    <div class="chips">
+      <span class="chip hot">AI Symptom Triage</span>
+      <span class="chip hot">Digital Health Vault</span>
+      <span class="chip hot">Virtual & Walk-in Consults</span>
+      <span class="chip">Wearable Integration</span>
+      <span class="chip">Tablet Adaptation</span>
+    </div>
+    <div class="callout"><p><b>My role:</b> everything. Research framing, flows, wireframes, the high-fidelity UI, the component sheet, the tablet study. On a personal project no decision is inherited, so every pattern here had to earn its place.</p></div>
+    <figure>
+      <img src="assets/inline/ail-01.jpg" alt="Two phones showing the Consult screen and the Dashboard">
+      <figcaption>Consults and the dashboard, the two screens that carry most of the product's weight.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The Challenges</div>
+    <h2>Three problems that don't forgive sloppy design</h2>
+    <p>Health apps fail differently than other apps: the cost of a confusing screen isn't churn, it's a delayed diagnosis. I framed the project around three challenges before drawing anything:</p>
+    <div class="grid2">
+      <div class="card"><span class="num">1</span><h4>Ensuring reliable AI medical guidance</h4><p>The app relies on AI for symptom triage and possible diagnoses. The hard part is accuracy without a physical examination. A wrong suggestion could delay critical care and create real legal liability.</p></div>
+      <div class="card"><span class="num">2</span><h4>Integrating complex health data systems</h4><p>The platform must connect with hospital wait-time databases and wearable health devices. Real-time, accurate synchronization across fragmented healthcare infrastructure is a major technical constraint that shapes the UI.</p></div>
+      <div class="card"><span class="num">3</span><h4>Designing for safety, privacy, and distress</h4><p>People may open this app while they are scared or in pain, so the UX has to be simple and hard to get wrong. It also has to handle sensitive health data under PIPEDA the whole time.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The Process</div>
+    <h2>Four weeks, research to UI kit</h2>
+    <div class="timeline">
+      <div class="t-item"><b>Week 1 · Research & framing</b><span>Wrote the vision and the three challenges above. Studied existing symptom checkers and telehealth apps, clustered what I found into affinity notes, and sketched the personas the product serves.</span></div>
+      <div class="t-item"><b>Week 2 · Architecture & flows</b><span>Designed the user flows: the AI triage funnel, the booking paths (virtual vs. walk-in), and the health vault. Wireframed the core screens and locked the four-tab information architecture: Dashboard, My Health, Consults, Settings.</span></div>
+      <div class="t-item"><b>Week 3 · High-fidelity mobile UI</b><span>Built the 15 mobile screens: the triage flow with its emergency gate, the dashboard, the health vault, consults, and booking. Also built the shared component sheet with navigation states and form controls.</span></div>
+      <div class="t-item"><b>Week 4 · Tablet adaptation study</b><span>Adapted the dashboard and health vault to tablet: bottom navigation becomes a persistent left rail, the 'Nearest Care' map expands into an interactive panel, and health records adopt a master-detail pattern that uses the extra width instead of stacking.</span></div>
+    </div>
+    <figure>
+      <img src="assets/inline/ail-02.png" alt="The four core screens: Dashboard, My Health, Consults, Settings">
+      <figcaption>The four-tab core: Dashboard, My Health (the health vault), Consults, and Settings.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Key Decisions</div>
+    <h2>The design calls that shaped the product</h2>
+
+    <h3>1 · An emergency gate before the AI says a word</h3>
+    <p>The first screen of the triage flow doesn't ask about symptoms. It asks "Are you in immediate danger?" and puts a full-width Call 911 button under the question. AI triage is for the ambiguous middle, not emergencies, and the safest place to make that distinction is before the conversation starts. Only after the user opts to continue does the check-up begin.</p>
+
+    <h3>2 · One question per screen, and more than one way to answer</h3>
+    <p>The check-up runs five questions, each on its own screen with a progress bar ("2 of 5 Questions") so the commitment is always visible. Because users may be typing through pain or panic, the symptom description field accepts voice-to-text and photos of visible symptoms, not just typed input. Checkbox questions cover associated symptoms, health history, severity, and duration. Everything past the first question is a tap target rather than an essay.</p>
+    <figure>
+      <img src="assets/inline/ail-03.png" alt="Triage flow: emergency gate, symptom input, symptom checklist, assessment result">
+      <figcaption>The triage spine: emergency gate → free-form symptom input (voice/photo/text) → guided questions → assessment.</figcaption>
+    </figure>
+
+    <h3>3 · AI that shows its work</h3>
+    <p>The assessment ends with a risk level, a plain-language AI insight explaining the reasoning ("Initial assessment suggests a viral infection… we recommend monitoring your temperature and fluid intake"), and three honest exits: book a virtual consult, view home-care instructions, or download a PDF summary for your doctor. The PDF is the one I care about most. It admits the AI is a triage tool rather than a doctor, and it makes handing the case to a real one easy.</p>
+    <figure>
+      <img src="assets/inline/ail-04.jpg" alt="The symptom duration question and the assessment summary screen">
+      <figcaption>The last question explains why it's asking. The result explains what the AI concluded and what to do next.</figcaption>
+    </figure>
+
+    <h3>4 · Triage context follows you into the booking</h3>
+    <p>When an assessment leads to an appointment, the reason travels with it: consult cards read "Reason: Follow-up Infection (AI Triage)". The clinician sees why the patient is coming before the call starts, and the patient never re-explains themselves. Booking itself is filterable by All / Virtual / Walk-in, with provider ratings and one-tap booking.</p>
+    <figure>
+      <img src="assets/inline/ail-05.jpg" alt="Tilted phone showing the Consult screen with the AI triage reason on the appointment card" style="max-width:340px;display:block;margin:0 auto">
+      <figcaption>The consult card carries the AI triage reason, so the patient never re-explains themselves.</figcaption>
+    </figure>
+
+    <h3>5 · A dashboard that leads with the riskiest task</h3>
+    <p>The home screen gives the symptom check the hero slot, because it's the action with the highest stakes and the most hesitation. Below it: live vitals pulled from connected wearables (Apple Watch, Oura Ring), quick links to prescriptions and consults, and a 'Nearest Care' map with real walk-in distances. The health vault holds the provincial health card with a QR code for clinic check-ins, past AI triage reports, and immunization records.</p>
+    <figure>
+      <img src="assets/inline/ail-06.jpg" alt="Phone showing the dashboard with symptom check, vitals, and nearest care map" style="max-width:560px;display:block;margin:0 auto">
+      <figcaption>The dashboard: symptom check on top, live vitals and nearest care below.</figcaption>
+    </figure>
+
+    <h3>6 · Scaling to tablet without stretching the phone</h3>
+    <p>The tablet study reworks the architecture instead of inflating it: bottom navigation becomes a persistent left rail so primary sections stay visible; stacked dashboard cards reflow into a grid; vitals gain historical charts instead of single numbers; and health records move to a master-detail pattern, list on the left and full record on the right, which removes a whole screen per record.</p>
+    <figure>
+      <img src="assets/inline/ail-07.jpg" alt="Tablet adaptation of the dashboard and health vault">
+      <figcaption>Tablet adaptation: nav rail, grid reflow, charted vitals, and master-detail records.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The Outcome</div>
+    <h2>A complete, coherent concept</h2>
+    <ul class="clean">
+      <li><b>17 screens across mobile and tablet</b>: the full triage funnel (emergency gate, five questions, processing, and result states), four core sections, and three booking views.</li>
+      <li>An <b>8-step AI triage flow</b> with a safety gate, multimodal input, transparent reasoning, and a clinical handoff via PDF.</li>
+      <li>A <b>shared component sheet</b> (palette, buttons, form controls, all four navigation states) that keeps the 17 screens consistent.</li>
+      <li>A <b>responsive tablet study</b> that documents the reasoning behind each layout change, not just the redrawn screens.</li>
+    </ul>
+    <figure>
+      <img src="assets/inline/ail-08.jpg" alt="Two phones showing the Dashboard and the appointment booking list">
+      <figcaption>Dashboard to booking, the path most sessions take.</figcaption>
+    </figure>
+    <figure>
+      <img src="assets/inline/ail-09.png" alt="Component sheet with palette, buttons, form controls and navigation states">
+      <figcaption>The component sheet: palette, controls, and the four navigation states behind every screen.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The Self-Audit</div>
+    <h2>I closed the project the way a design lead would</h2>
+    <p>Before calling it done, I audited my own file against usability, consistency, and WCAG criteria, the same way I'd review someone else's work. The honest findings:</p>
+    <div class="grid2">
+      <div class="card"><h4>Red is doing too many jobs</h4><p>The coral brand color also signals emergencies, primary actions, and section headers. In a medical product, severity needs its own color system. The next revision separates brand, action, and alert colors, and moves risk levels onto a green/amber/red scale.</p></div>
+      <div class="card"><h4>Contrast debt on primary buttons</h4><p>White text on the coral primary buttons measures roughly 2.9:1, short of the 4.5:1 WCAG AA requirement. Fixing it at the component level is one change; at the screen level it's seventeen.</p></div>
+      <div class="card"><h4>Copy needs a trust pass</h4><p>Spelling slips ("Provincal," "Mange Prescription") and inconsistent terminology ("Consult" vs. "Consults") would be small issues anywhere else. In a health app they erode the exact trust the AI features depend on.</p></div>
+      <div class="card"><h4>Tokens before screens, next time</h4><p>Colors live as raw hex values rather than Figma variables, and frame heights drift between screens. Formalizing tokens first would have prevented the drift, and it would have made the promised dark mode a real option instead of a settings toggle.</p></div>
+    </div>
+    <blockquote>Auditing your own file stings exactly as much as it should. It's also the fastest design education I've found. Every finding above is now a day-one checklist item for the next project.</blockquote>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Reflection</div>
+    <h2>What I'd do differently</h2>
+    <div class="grid2">
+      <div class="card"><h4>Test the triage flow with real people</h4><p>The one-question-per-screen pattern and the emergency gate are reasoned, not validated. Five usability sessions would confirm whether distressed users actually read the gate or reflexively tap through it.</p></div>
+      <div class="card"><h4>Ground the AI in clinical constraints</h4><p>I'd consult published triage protocols like CTAS so the risk levels and question order map to clinical reality, not just UX logic. That's the difference between a concept and a credible product.</p></div>
+      <div class="card"><h4>Design the failure states</h4><p>What happens when the AI is uncertain, the wearable disconnects, or the wait-time data is stale? The unhappy paths are where a health product earns or loses trust, and they deserve the same fidelity as the happy ones.</p></div>
+      <div class="card"><h4>Prototype the transitions</h4><p>The flow exists as static frames. Prototyping the triage funnel would expose pacing problems, like whether the 'Processing…' moment reads as reassurance or as anxiety.</p></div>
+    </div>
+  </div>
+</section>
 
 <footer>
+  <div class="wrap">
+    <p><b>AI HealthLink</b> · AI-Powered Health Triage Concept · Personal Project, 2026</p>
+    <p style="margin-top:10px">Designed by <b>Noibedya Narayan Ray</b> · <a href="mailto:nnr1011@outlook.com">nnr1011@outlook.com</a></p>
+  </div>
+</footer>
+
+<div class="wrap">
+  <a class="next-project" href="project-help-after-accident.html">
+    <p class="np-label">Next case study</p>
+    <p class="np-title">HelpAfterAccident.com →</p>
+  </a>
+</div>
+
+<footer class="site-footer">
   <div class="footer-inner">
-    <span>&copy; 2026 Noibedya Narayan Ray</span>
+    <span>© 2026 Noibedya Narayan Ray</span>
     <span>
       <a href="mailto:nnr1011@outlook.com">Email</a>
-      <a href="#" class="todo" title="Replace with your real LinkedIn profile URL">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/noibedya" target="_blank" rel="noopener">LinkedIn</a>
     </span>
   </div>
 </footer>

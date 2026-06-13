@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creative Asset & Video Workflow — Case Study — Noibedya Narayan Ray</title>
+<meta name="description" content="Case study: designing CAVW, a B2B SaaS concept that puts video production planning, editing, and client review in one pipeline." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#3c5b8f; --navy-dark:#1f2b40; --pink:#3c5b8f; --ink:#1a1a2e;
+    --grey:#6b7280; --bg:#ffffff; --soft:#f7f6fb; --line:#e7e5f0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7}
+  .wrap{max-width:880px;margin:0 auto;padding:0 28px}
+  /* HERO */
+  header{background:linear-gradient(135deg,#2c2454 0%,#4a3d8c 55%,#6e5dbd 100%);color:#fff;padding:96px 0 72px}
+  .tag{display:inline-block;background:#fff;color:#4a3d8c;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:999px;margin-bottom:24px}
+  h1{font-size:clamp(32px,5vw,52px);line-height:1.15;font-weight:800;letter-spacing:-.02em;margin-bottom:18px}
+  .sub{font-size:19px;color:#e4ddff;max-width:640px}
+  .meta{display:flex;flew-wrap:wrap;gap:36px;margin-top:48px;padding-top:32px;border-top:1px solid rgba(255,255,255,.18)}
+  .meta div span{display:block}
+  .meta .k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#c3b8f0;margin-bottom:4px}
+  .meta .v{font-size:15px;font-weight:600}
+  /* STATS BAND */
+  .stats{background:var(--soft);border-bottom:1px solid var(--line)}
+  .stats .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;padding-top:36px;padding-bottom:36px}
+  .stat{text-align:center;flex:1;min-width:120px}
+  .stat b{display:block;font-size:34px;font-weight:800;color:var(--navy)}
+  .stat span{font-size:13px;color:var(--grey)}
+  /* SECTIONS */
+  section{padding:72px 0}
+  section+section{border-top:1px solid var(--line)}
+  .kicker{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);margin-bottom:10px}
+  h2{font-size:30px;font-weight:800;letter-spacing:-.01em;margin-bottom:22px;color:var(--navy-dark)}
+  h3{font-size:19px;font-weight:700;margin:34px 0 10px;color:var(--navy-dark)}
+  p{margin-bottom:16px;color:#374151;font-size:16.5px}
+  p.lead{font-size:19px;color:var(--ink)}
+  /* CALLOUTS & CARDS */
+  .callout{background:var(--soft);border-left:4px solid var(--pink);border-radius:0 10px 10px 0;padding:22px 26px;margin:28px 0}
+  .callout p{margin:0;font-size:16px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:28px 0}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin:28px 0}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px}
+  .card h4{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
+  .card p{font-size:14.5px;margin:0;color:var(--grey)}
+  .card em{display:block;font-style:italic;color:#4b5563;font-size:14.5px;margin-bottom:10px}
+  .num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:999px;background:var(--navy);color:#fff;font-weight:700;font-size:14px;margin-bottom:12px}
+  /* FIGURES */
+  figure{margin:32px 0}
+  figure img{width:100%;border-radius:14px;border:1px solid var(--line)}
+  figcaption{font-size:13.5px;color:var(--grey);margin-top:10px;text-align:center}
+  /* CHIPS */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 8px}
+  .chip{border:1.5px solid var(--navy);color:var(--navy);font-size:13.5px;font-weight:600;padding:7px 16px;border-radius:999px}
+  .chip.hot{background:var(--navy);color:#fff}
+  /* PROCESS TIMELINE */
+  .timeline{margin:30px 0;border-left:2px solid var(--line);padding-left:28px}
+  .t-item{position:relative;padding-bottom:28px}
+  .t-item:last-child{padding-bottom:0}
+  .t-item::before{content:"";position:absolute;left:-35px;top:6px;width:12px;height:12px;border-radius:999px;background:var(--pink)}
+  .t-item b{display:block;font-size:15px;color:var(--navy-dark)}
+  .t-item span{font-size:14.5px;color:var(--grey)}
+  /* QUOTE */
+  blockquote{font-size:22px;font-weight:600;line-height:1.5;color:var(--navy-dark);border-left:4px solid var(--pink);padding-left:24px;margin:40px 0}
+  /* FOOTER */
+  footer{background:#ffffff;color:var(--grey);padding:56px 0;text-align:center;font-size:14.5px;border-top:1px solid var(--line)}
+  footer p{color:var(--grey);font-size:14.5px;margin:0}
+  footer b{color:var(--navy-dark)}
+  footer a{color:var(--pink);text-decoration:none;font-weight:600}
+  ul.clean{list-style:none;margin:18px 0}
+  ul.clean li{padding-left:28px;position:relative;margin-bottom:12px;color:#374151;font-size:16px}
+  ul.clean li::before{content:"→";position:absolute;left:0;color:var(--pink);font-weight:700}
+  /* FLOW STRIP */
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:26px 0}
+  .flow span{background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 16px;font-size:14px;font-weight:600;color:var(--navy-dark)}
+  .flow i{color:var(--pink);font-style:normal;font-weight:700}
+  /* HERO ART */
+  .hero-wrap{max-width:1100px}
+  .hero-flex{display:flex;align-items:center;gap:48px}
+  .hero-copy{flex:1.1;min-width:0}
+  .hero-art{flex:.9;min-width:0}
+  .hero-art img{width:100%;height:auto;display:block;filter:drop-shadow(0 24px 48px rgba(0,0,0,.35))}
+  @media(max-width:760px){.hero-flex{flex-direction:column}.hero-art{max-width:420px}}
+  @media(max-width:640px){.grid2,.grid3{grid-template-columns:1fr}.meta{gap:20py}}
+
+/* site nav / footer / next-project (added for site-wide consistency) */
+.site-nav{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);background:rgba(255,255,255,.92);backdrop-filter:blur(10px)}
+.site-nav .nav-inner{max-width:880px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.site-nav .brand{font-family:"Newsreader",serif;font-weight:600;font-size:1.05rem;color:var(--ink);text-decoration:none;letter-spacing:-.01em;transition:color .15s ease}
+.site-nav .brand:hover{color:var(--navy)}
+.site-nav .nav-links{display:flex;gap:1.75rem;list-style:none;margin:0;padding:0}
+.site-nav .nav-links a{position:relative;font-size:.88rem;color:var(--grey);text-decoration:none;transition:color .15s ease}
+.site-nav .nav-links a::after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:1px;background:var(--navy);transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+.site-nav .nav-links a:hover{color:var(--ink)}
+.site-nav .nav-links a:hover::after{transform:scaleX(1)}
+.site-nav .nav-links a:active{color:var(--navy);font-weight:700}
+.site-nav .nav-links a.active{color:var(--navy);font-weight:700}
+.site-nav .nav-links a.active::before{content:"";position:absolute;left:50%;bottom:-10px;width:5px;height:5px;border-radius:50%;background:var(--navy);transform:translateX(-50%)}
+.next-project{display:block;text-decoration:none;border:2px solid #000;border-radius:12px;background:var(--bg);padding:1.75rem 2rem;margin:3rem 0 1rem;color:var(--ink);transition:border-color .15s ease}
+.next-project:hover{border-color:var(--pink)}
+.next-project .np-label{font-size:.74rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--grey);margin-bottom:.3rem}
+.next-project .np-title{font-family:"Newsreader",serif;font-size:1.35rem;font-weight:600}
+.site-footer{border-top:1px solid var(--line);padding:2rem 0 2.5rem;background:#fff}
+.site-footer .footer-inner{max-width:880px;margin:0 auto;padding:0 28px;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between;font-size:.85rem;color:var(--grey)}
+.site-footer .footer-inner a{color:var(--grey);margin-left:1.25rem;text-decoration:none}
+.site-footer .footer-inner a:hover{color:var(--ink)}
+.back-link{display:inline-block;font-size:.88rem;color:var(--grey);text-decoration:none;margin-bottom:1rem}
+.back-link:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">Noibedya Ray</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#work" class="active">Work</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="resume.html">Resume</a></li>
+    </ul>
+  </div>
+</header>
+
+
+<header>
+  <div class="wrap hero-wrap">
+    <div class="hero-flex">
+    <div class="hero-copy">
+    <a class="back-link" href="index.html#work" style="color:#d4cdf2">← All work</a>
+    <span class="tag">UX / UI Case Study (· Personal Project</span>
+    <h1>A workflow system that gets video production out of Slack threads</h1>
+    <p class="sub">CAVW (Creative Asset & Video Workflow) is a B2B SaaS concept that puts strategists, editors, and clients in one pipeline: a Kanban production board, smart task cards, and a review room where clients leave timestamped feedback straight from a link.</p>
+    </div>
+    <div class="hero-art"><img src="assets/inline/cavw-00.png" alt="Laptop mockup showing the CAVW review room and Kanban dashboard"></div>
+    </div>
+    <div class="meta">
+      <div><span class="k">Role</span><span class="v">Solo Product Designer</span></div>
+      <div><span class="k">Type</span><span class="v">Concept project · B2B SaaS</span></div>
+      <div><span class="k">Timeline</span><span class="v">4 weeks</span></div>
+      <div><span class="k">Platform</span><span class="v">Desktop web</span></div>
+      <div><span class="k">Tools</span><span class="v">Figma, FigJam, Illustrator, Photoshop</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><b>3</b><span>User roles, one pipeline</span></div>
+    <div class="stat"><b>4</b><span>Workflow stages on the board</span></div>
+    <div class="stat"><b>7</span>Steps in the core flow</div>
+    <div class="stat"><b>30-40%</b><span>Target cut in approval time</span></div>
+    <div class="stat"><b>4 wks</b><span>Research → high-fidelity UI</span></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The Vision</div>
+    <h2>One place where a video goes from brief to approved</h2>
+    <p class="lead">Video production workflows are broken. The tools aren't bad; the work just lives in five of them at once.</p>
+    <p>Teams rely on Slack, email, and cloud storage to deliver a single video, which produces scattered communication, unclear ownership, and slow approval cycles. I've worked in motion graphics and video production, so I've been the editor hunting through a thread for "the feedback from Tuesday." CAVW pulls that whole workflow into one place and connects the three people every video passes through: the strategist who plans it, the editor who makes it, and the client who approves it.</p>
+    <div class="chips">
+      <span class="chip hot">Kanban Workflow Dashboard</span>
+      <span class="chip hot">Smart Task Cards</span>
+      <span class="chip hot">Timestamped Review Room</span>
+      <span class="chip">Contextual Activity Feed</span>
+      <span class="chip">Asset Inspector</span>
+    </div>
+    <div class="callout"><p><b>My role:</b> everything. UX research, product strategy, wireframing, UI design, interaction design. Nothing came from a brief or an existing design system, so every pattern had to earn its place.</p></div>
+    <figure>
+      <img src="assets/inline/cavw-01.jpg" alt="CAVW cover: laptop showing the review room over a blurred dashboard, with B2B SaaS badge">
+      <figcaption>The concept in one image: production board behind, review room in front. Two halves of the same workflow.</figcaption>
+    </figure>
+  </div>
+</section>
+
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The Challenges</div>
+    <h2>Three failures every video team recognizes</h2>
+    <p>Before drawing anything, I framed the project around the three ways the current workflow breaks down:</p>
+    <div class="grid2">
+      <div class="card"><span class="num">1</span><h4>Fragmented communication across tools</h4><p>The brief is in a doc, the cut is in Drive, the feedback is split between Slack and email. Nobody is wrong, but nothing is in one place, and every handoff loses a little context.</p></div>
+      <div class="card"><span class="num">2</span><h4>Unclear ownership of tasks</h4><p>When status lives in people's heads, "who has this right now?" becomes a daily question. Strategists chase updates instead of planning; editors get interrupted to answer them.</p></div>
+      <div class="card"><span class="num">3</span><h4>Delayed approvals from bad feedback loops</h4><p>"Fix the thing around the middle" forces the editor to guess, miss, and resubmit. Vague feedback is the single biggest source of extra revision cycles.</p></div>
+    </div>
+    <blockquote>"I lose track of feedback across emails and Slack, and approvals take days longer than they should."</blockquote>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The Research</div>
+    <h2>Interviews, my own scar tissue, and a competitor teardown</h2>
+    <p>I ran guerrilla interviews with four video editors and two content creators, analyzed my own production workflow from my motion-graphics work, and tore down the tools teams already use. Three insights shaped everything downstream:</p>
+    <ul class="clean">
+      <li>Editors spend a lot of their time interpreting unclear feedback rather than acting on it.</li>
+      <li>Strategists have no single source of truth for where projects actually stand.</li>
+      <li>Clients pick simplicity over features every time. Each extra step costs you their feedback.</li>
+    </ul>
+    <h3>What the existing tools get right, and what they miss</h3>
+    <div class="grid3">
+      <div class="card"><h4>Frame.io</h4><p>Powerful for editors, but too complex for the clients who only need to leave feedback.</p></div>
+      <div class="card"><h4>Vimeo Review</h4><p>Clean interface, but workflow management is limited. Review is a feature there, not a pipeline.</p></div>
+      <div class="card"><h4>Wipster</h4><p>Simple feedback, but lacks support for the full production pipeline around it.</p></div>
+    </div>
+    <div class="callout"><p><b>The opportunity:</b> none of these tools combines workflow management, video review, and client collaboration in one product. Each competitor owns one corner. CAVW connects all three.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The Users</div>
+    <h2>Three roles, three very different definitions of "simple"</h2>
+    <div class="grid3">
+      <div class="card"><h4>The Content Strategist</h4><em>"I need to know where every project stands without asking for updates."</em><p>Needs pipeline visibility at a glance: what's in production, what's blocked, what's shipping this week.</p></div>
+      <div class="card"><h4>The Video Editor</h4><em>"Give me clear feedback and don't make me hunt for files."</em><p>Needs technical clarity: exact timestamps, version history, and assets that stay attached to the task.</p></div>
+      <div class="card"><h4>The Client</h4><em>"I just want to click a link and tell you what to fix."</em><p>Needs zero complexity: a link and a comment box, with no account and nothing to learn.</p></div>
+    </div>
+    <p>The hardest design constraint fell out of this immediately: the same system has to feel powerful to the editor and nearly invisible to the client.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The Process</div>
+    <h2>Four weeks, research to high-fidelity</h2>
+    <div class="timeline">
+      <div class="t-item"><b>Week 1 (· Research & framing</b><span>Interviews, workflow analysis, competitor teardown. Wrote the problem framing, the three challenges, and the success metric: a 30-40% cut in approval time through timestamped feedback.</span></div>
+      <div class="t-item"><b>Week 2 · System thinking</b><span>Mapped the multi-user system: strategist creates and manages tasks, editor produces and updates content, client reviews and approves. Built the system map and the seven-step core flow, with the platform as the central bridge that eliminates external communication tools.</span></div>
+      <div class="t-item"><b>Week 3 · The dashboard</b><span>Wireframed and built the Kanban workflow dashboard with its smart task cards, contextual activity feed, and asset inspector. Annotated every region of the wireframe before committing to high fidelity.</span></div>
+      <div class="t-item"><b>Week 4 · The review room</b><span>Designed the timestamped review experience: numbered markers on the scrubber, threaded feedback at exact timecodes, annotation tools, and the approval action.</span></div>
+    </div>
+    <div class="flow">
+      <span>Strategist creates task</span><i>→</i>
+      <span>Editor uploads V1</span><i>→</i>
+      <span>Client gets secure link</span><i>→</i>
+      <span>Timestamped feedback</span><i>→</i>
+      <span>Editor revises → V2</span><i>→</i>
+      <span>Client approves</span><i>→</i>
+      <span>Ready to Publish</span>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Key Decisions</div>
+    <h2>The design calls that shaped the product</h2>
+
+    <h3>1 (� Why Kanban?</h3>
+    <p>A board gives the whole team a shared mental model of progress that list-based systems never quite deliver. The four columns (To Do, Editing, Client Review, Approved) mirror how video teams already talk about work, so status stops being a question anyone has to ask. Dragging a card updates its state in real time, and that visibility is what lets people stop pinging each other for updates.</p>
+
+    <h3>2 · Why no-login review?</h3>
+    <p>Requiring an account is the fastest way to lose a client's feedback, so the review room works from a secure link with no login. The client clicks, watches, comments, and approves without ever seeing the production machinery behind it.</p>
+
+    <h3>3 · Why timestamped feedback?</h3>
+    <p>Anchoring comments to exact timecodes removes the ambiguity that causes revision cycles. "Color contrast is too high at 0:12" is actionable in a way "fix the colors" never is. Numbered markers on the scrubber map each comment to its moment, and the feedback panel keeps the full conversation threaded next to the player.</p>
+    <figure>
+      <img src="assets/inline/cavw-02.jpg" alt="The timestamped review room: video player with numbered timeline markers and a feedback panel with timecoded comments">
+      <figcaption>The review room: numbered markers on the timeline, timecoded comments on the right, approval one click away.</figcaption>
+    </figure>
+
+    <h3>4 · Cards that carry their own context</h3>
+    <p>Each smart task card carries its video thumbnail, assigned editor, deadline, version history, and comment indicators: enough that a strategist scanning the board never has to open a task to know its state. The activity feed and asset inspector live in a right rail, so checking an asset never takes you away from the pipeline.</p>
+    <figure>
+      <img src="assets/inline/cavw-03.jpg" alt="The Kanban workflow dashboard: four columns from To Do to Approved with smart task cards and the contextual activity rail">
+      <figcaption>The dashboard: four pipeline stages, smart task cards, and the contextual activity & asset inspector rail.</figcaption>
+    </figure>
+
+    <h3>5 · Constraints I set on purpose</h3>
+    <ul class="clean">
+      <li>Balance simplicity for clients with power for editors; neither audience should pay for the other's interface.</li>
+      <li>Avoid overwhelming users: hide production metadata until it's asked for.</li>
+      <li>Ensure the system scales to multiple projects and teams without redesign.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Interaction Design</div>
+    <h2>The board in motion</h2>
+    <p>Static frames can't show the two interactions the whole concept rests on, so I prototyped them: a task card dragged across the pipeline updates its state in real time, and the review room opens as a layer over the board, so reviewing a cut never pulls you out of the work.</p>
+    <figure>
+      <video src="assets/inline/cavw-video-00.mp4" autoplay loop muted playsinline controls style="width:100%;border-radius:14px;border:1px solid var(--line);display:block"></video>
+      <figcaption>Prototype walkthrough: drag-and-drop status change, then the timestamped review room opening over the dashboard.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The Outcome</div>
+    <h2>What this is designed to change</h2>
+    <p class="lead">A scalable, user-centered workflow system designed to simplify video production and improve collaboration across teams.</p>
+    <div class="grid3">
+      <div class="card"><h4>Faster approvals</h4><p>Targeting a 30-40% reduction in approval time by replacing scattered feedback with structured, timestamped review.</p></div>
+      <div class="card"><h4>Fewer revision cycles</h4><p>Precise feedback means the editor fixes the right thing the first time, with fewer guesses and fewer resubmissions.</p></div>
+      <div class="card"><h4>Visible status, calmer teams</h4><p>The board answers "where is it?" so people can stop asking it. Ownership is explicit at every stage.</p></div>
+    </div>
+    <p>These are concept targets, not measured results. CAVW hasn't been tested with real teams yet, and the reflection below is honest about what that would take.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">The Self-Audit</div>
+    <h2>The review I'd give someone else's file</h2>
+    <p>Before writing this case study I audited my own Figma file the way I'd audit a stranger's . It found real problems, and fixing them taught me more than building the screens did:</p>
+    <div class="grid2">
+      <div class="card"><h4>Mock data is part of the craft</h4><p>Early card metadata repeated the same duration and file size everywhere, including a 0.29-second promo video. Implausible placeholder content breaks immersion exactly where the design is trying to build trust.</p></div>
+      <div class="card"><h4>Marker numbers must match the timeline</h4><p>The review room's comment markers were numbered in creation order, not chronological order, so marker 7 sat left of marker 1. The panel and scrubber now need to share one ordering rule: by timestamp.</p></div>
+      <div class="card"><h4>Duplicated copy slips in quietly</h4><p>Two research cards, Opportunity and Differentiation, ended up with identical body text. Nobody duplicates copy on purpose; it happens when sections are cloned and never re-read.</p></div>
+      <div class="card"><h4>File hygiene is a deliverable</h4><p>Frames named "Frame 27," no shared styles or variables despite a clear purple system, repeated cards that should be components. A portfolio file gets opened by recruiters. Its structure is part of the portfolio.</p></div>
+    </div>
+    <blockquote>Auditing my own file was uncomfortable in a useful way. Every problem I found was one I would have spotted in someone else's work within minutes, which tells me exactly where my blind spot lives: in whatever I shipped most recently.</blockquote>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="kicker">Reflection</div>
+    <h2>What I'd do differently</h2>
+    <div class="grid2">
+      <div class="card"><h4>Test with real users</h4><p>The no-login review room and the one-board pipeline make sense on paper, but nobody has tried to break them yet. Usability sessions with a real strategist, editor, and client would show whether the three-role model survives contact with an actual deadline.</p></div>
+      <div class="card"><h4>Refine micro-interactions</h4><p>The prototype covers the headline moves. Marker hover states, drop animations, and the approve confirmation still need real motion design, and that detail work decides whether the interface feels finished.</p></div>
+      <div class="card"><h4>Design the edge cases</h4><p>What happens when a client approves while revision-required comments are still open? Right now, nothing stops them. Gating approval on resolved feedback, or adding a "request changes" path, is the next design problem.</p></div>
+      <div class="card"><h4>Scale to enterprise</h4><p>Multiple projects, multiple teams, permissions, and archives. The system map supports it on paper; the UI hasn't earned it yet.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>CAVW</b> · Creative Asset & Video Workflow Concept · Personal Project, 2026</p>
+    <p style="margin-top:10px">Designed by <b>Noibedya Narayan Ray</b> · <a href="mailto:nnr1011@outlook.com">nnr1011@outlook.com</a></p>
+  </div>
+</footer>
+
+<div class="wrap">
+  <a class="next-project" href="project-ai-health-link.html">
+    <p class="np-label">Next case study</p>
+    <p class="np-title">AI Health Link Canada →</p>
+  </a>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© 2026 Noibedya Narayan Ray</span>
+    <span>
+      <a href="mailto:nnr1011@outlook.com">Email</a>
+      <a href="https://www.linkedin.com/in/noibedya" target="_blank" rel="noopener">LinkedIn</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>
