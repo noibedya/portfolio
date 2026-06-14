@@ -1,7 +1,7 @@
-/* ───────────────────────────────────────────
-   Noibedya Narayan Ray — Portfolio
+/* âââââââââââââââââââââââââââââââââââââââââââ
+   Noibedya Narayan Ray â Portfolio
    Restrained, editorial, content-first.
-   ─────────────────────────────────────────── */
+   âââââââââââââââââââââââââââââââââââââââââââ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -11,7 +11,7 @@
   --muted:   #6f6a61;
   --line:    #e7e2da;
   --card:    #ffffff;
-  --accent:  #3c5b8f;          /* slate blue — used sparingly */
+  --accent:  #3c5b8f;          /* slate blue â used sparingly */
   --accent-soft: #e8edf5;
   --accent-light: #a8c0e6;     /* slate blue, lightened for dark surfaces */
   --cream:   #f5f1ea;
@@ -96,7 +96,7 @@ h3 { font-size: 1.05rem; font-weight: 700; margin: 2rem 0 .5rem; }
 p { margin-bottom: 1rem; }
 p:last-child { margin-bottom: 0; }
 .muted { color: var(--muted); }
-.work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
+.work-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
 .work-grid .project-card.featured { grid-column: 1 / -1; }
 .work-grid .project-card.featured .card-img { aspect-ratio: 21 / 9; }
 .work-grid .project-card.featured .card-title { font-size: 1.6rem; }
