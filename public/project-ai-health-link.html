@@ -107,6 +107,12 @@
 .back-link{display:inline-block;font-size:.88rem;color:var(--grey);text-decoration:none;margin-bottom:1rem}
 header.hero .back-link{color:#fff}
 .back-link:hover{color:var(--ink)}
+
+.nav-toggle{display:none;flex-direction:column;justify-content:space-between;width:24px;height:18px;background:none;border:none;cursor:pointer;padding:0;flex-shrink:0}
+.nav-toggle span{display:block;width:100%;height:2px;background:var(--navy);border-radius:2px}
+@media(max-width:640px){.nav-toggle{display:flex}.site-nav .nav-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);padding:8px 28px 16px;z-index:100;box-shadow:0 8px 24px rgba(0,0,0,.08)}.site-nav .nav-links.open{display:flex}.site-nav .nav-links li{width:100%}.site-nav .nav-links a{display:block;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.06)}.site-nav .nav-links a::after{display:none!important}.site-nav .nav-inner{position:relative}}
+
+header.hero .back-link{display:block;margin-bottom:16px;color:#fff!important}
 </style>
 </head>
 <body>
@@ -114,6 +120,7 @@ header.hero .back-link{color:#fff}
 <header class="site-nav">
   <div class="nav-inner">
     <a class="brand" href="index.html">Noibedya Ray</a>
+    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="index.html#work" class="active">Work</a></li>
@@ -324,5 +331,7 @@ header.hero .back-link{color:#fff}
   </div>
 </footer>
 
+
+<script>(function(){var t=document.querySelector('.nav-toggle'),n=document.querySelector('.nav-links');if(t&&n)t.addEventListener('click',function(){n.classList.toggle('open');t.setAttribute('aria-expanded',n.classList.contains('open'))});})()</script>
 </body>
 </html>
