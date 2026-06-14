@@ -111,7 +111,8 @@
   .site-nav .nav-links a:hover{color:var(--ink)}
   .site-nav .nav-links a:hover::after{transform:scaleX(1)}
   .site-nav .nav-links a.active{color:var(--navy);font-weight:700}
-  .site-nav .nav-links a.active::after{transform:scaleX(1)}
+.site-nav .nav-links a.active::before{content:"";position:absolute;left:50%;bottom:-10px;width:5px;height:5px;border-radius:50%;background:var(--navy);transform:translateX(-50%)}
+  
   .back-link{display:inline-block;font-size:.88rem;color:rgba(255,255,255,.6);text-decoration:none;margin-bottom:1.5rem}
   .back-link:hover{color:#fff}
   /* HERO LAYOUT */
