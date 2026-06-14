@@ -101,7 +101,7 @@ p:last-child { margin-bottom: 0; }
 .work-grid .project-card.featured .card-img { aspect-ratio: 21 / 9; }
 .work-grid .project-card.featured .card-title { font-size: 1.6rem; }
 .work-grid .project-card.featured .card-summary { font-size: 1rem; max-width: 46em; }
-@media (max-width: 720px) { .work-grid { grid-template-columns: 1fr; } .work-grid .project-card.featured .card-img { aspect-ratio: 16 / 10; } .card-img { aspect-ratio: unset; } .card-img img { height: auto !important; object-fit: cover !important; } }
+@media (max-width: 720px) { .work-grid { grid-template-columns: 1fr; } .card-img { aspect-ratio: unset !important; } .card-img img { height: auto !important; object-fit: cover !important; } }
 .project-card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; text-decoration: none; color: var(--ink); display: flex; flex-direction: column; transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease; }
 .project-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(28, 26, 23, .08); color: var(--ink); }
 .card-img { aspect-ratio: 16 / 10; overflow: hidden; background: var(--accent-soft); }
