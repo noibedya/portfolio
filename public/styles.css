@@ -62,7 +62,7 @@ header.site-nav { position: sticky; top: 0; z-index: 50; background: rgba(31, 43
 .dark { background: #1f2b40; color: var(--cream); }
 .dark .muted,.dark .hero-sub,.dark .contact-sub,.dark .hero-eyebrow { color: var(--cream-muted); }
 .dark .section-label,.dark h1 em { color: var(--accent-light); }
-.dark .btn-primary { background: var(--accent-light); color: #1f2b40; }
+.dark .btn-primary { background: var(--cream); color: var(--ink); }
 .dark .btn-primary:hover { background: var(--cream); color: var(--ink); }
 .dark .btn-ghost { color: var(--cream); border-color: var(--line-dark); }
 .dark .btn-ghost:hover { border-color: var(--cream); color: var(--cream); }
@@ -152,3 +152,16 @@ footer { border-top: 1px solid var(--line); padding: 2rem 0 2.5rem; }
 .next-project:hover { border-color: var(--accent); color: var(--ink); }
 .next-project .np-label { font-size: .74rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin-bottom: .3rem; }
 .next-project .np-title { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; }
+
+.otwbadge {
+  display: inline-block;
+  background: rgba(86,185,116,.15);
+  color: #6dd08a;
+  border: 1px solid rgba(86,185,116,.3);
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: .82em;
+  font-weight: 600;
+  letter-spacing: .04em;
+  margin-left: 4px;
+}
