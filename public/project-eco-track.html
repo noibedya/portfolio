@@ -141,6 +141,18 @@
     .phone-feature,.phone-feature.flip{grid-template-columns:1fr}
     .phone-feature .phone-img{max-width:260px;margin:0 auto}
   }
+
+  /* --- Hamburger / Mobile Nav --- */
+  .nav-toggle{display:none;flex-direction:column;justify-content:space-between;width:24px;height:18px;background:none;border:none;cursor:pointer;padding:0;flex-shrink:0}
+  .nav-toggle span{display:block;width:100%;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s,opacity .2s}
+  @media(max-width:640px){
+    .nav-toggle{display:flex}
+    .site-nav .nav-links{position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:#fff;border-bottom:1px solid rgba(0,0,0,.1);padding:8px 28px 16px;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.08);display:none!important}
+    .site-nav .nav-links.open{display:flex!important}
+    .site-nav .nav-links li{width:100%}
+    .site-nav .nav-links a{display:block;padding:12px 0;font-size:1rem;border-bottom:1px solid var(--line)}
+    .site-nav .nav-links li:last-child a{border-bottom:none}
+  }
 </style>
 </head>
 <body>
@@ -149,6 +161,7 @@
 <nav class="site-nav">
   <div class="nav-inner">
     <a class="brand" href="index.html">Noibedya Ray</a>
+    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="index.html#work" class="active">Work</a></li>
@@ -443,5 +456,10 @@
   </div>
 </footer>
 
+<script>
+document.querySelector('.nav-toggle').addEventListener('click',function(){
+  document.querySelector('.site-nav .nav-links').classList.toggle('open');
+});
+</script>
 </body>
 </html>
