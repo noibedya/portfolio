@@ -96,7 +96,7 @@ h3 { font-size: 1.05rem; font-weight: 700; margin: 2rem 0 .5rem; }
 p { margin-bottom: 1rem; }
 p:last-child { margin-bottom: 0; }
 .muted { color: var(--muted); }
-.work-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
+.work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
 .work-grid .project-card.featured { grid-column: 1 / -1; }
 .work-grid .project-card.featured .card-img { aspect-ratio: auto; max-height: 480px; }
 .work-grid .project-card.featured .card-title { font-size: 1.6rem; }
