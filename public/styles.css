@@ -98,7 +98,7 @@ p:last-child { margin-bottom: 0; }
 .muted { color: var(--muted); }
 .work-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
 .work-grid .project-card.featured { grid-column: 1 / -1; }
-.work-grid .project-card.featured .card-img { aspect-ratio: 16 / 9; }
+.work-grid .project-card.featured .card-img { aspect-ratio: auto; max-height: 480px; }
 .work-grid .project-card.featured .card-title { font-size: 1.6rem; }
 .work-grid .project-card.featured .card-summary { font-size: 1rem; max-width: 46em; }
 @media (max-width: 720px) { .work-grid { grid-template-columns: 1fr; } .card-img { aspect-ratio: unset !important; } .card-img img { height: auto !important; object-fit: cover !important; } }
