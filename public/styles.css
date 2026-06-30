@@ -119,7 +119,7 @@ p:last-child { margin-bottom: 0; }
 .skill-group:last-child { margin-bottom: 0; }
 .skill-group-label { font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: .6rem; }
 .skill-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
-.skill-tag { font-size: .82rem; font-weight: 500; background: var(--bg); border: 1px solid var(--line); padding: .3rem .8rem; border-radius: 99px; color: var(--ink); transition: border-color .15s ease, color .15s ease, transform .15s ease; }
+.skill-tag { white-space: nowrap; font-size: .82rem; font-weight: 500; background: var(--bg); border: 1px solid var(--line); padding: .3rem .8rem; border-radius: 99px; color: var(--ink); transition: border-color .15s ease, color .15s ease, transform .15s ease; }
 .skill-tag:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 .contact-title { font-family: var(--serif); font-weight: 500; font-size: clamp(1.9rem, 4.5vw, 2.8rem); letter-spacing: -.02em; margin-bottom: 1rem; }
 .contact-sub { color: var(--muted); max-width: 30em; margin-bottom: 2rem; }
