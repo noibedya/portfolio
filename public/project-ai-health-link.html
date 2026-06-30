@@ -224,6 +224,7 @@ header.hero .back-link{display:block;margin-bottom:16px;color:#fff!important}
   <div class="wrap">
     <div class="kicker">Key Decisions</div>
     <h2>The design calls that shaped the product</h2>
+                <p class="section-context">Every decision in this section was shaped by the same constraint: the person using this interface may be sick, scared, or in physical discomfort. Comfortable users can tolerate ambiguity. Stressed users cannot.</p>
 
     <h3>1 · An emergency gate before the AI says a word</h3>
     <p>The first screen of the triage flow doesn't ask about symptoms. It asks "Are you in immediate danger?" and puts a full-width Call 911 button under the question. AI triage is for the ambiguous middle, not emergencies, and the safest place to make that distinction is before the conversation starts. Only after the user opts to continue does the check-up begin.</p>
@@ -263,7 +264,11 @@ header.hero .back-link{display:block;margin-bottom:16px;color:#fff!important}
       <figcaption>Tablet adaptation: nav rail, grid reflow, charted vitals, and master-detail records.</figcaption>
     </figure>
   </div>
-</section>
+
+                <div class="decision-item">
+                  <h3>What the self-audit caught: contrast debt on primary buttons</h3>
+                  <p>White text on the coral primary buttons measures roughly 2.9:1 against the background, short of the 4.5:1 WCAG AA minimum. This is fixable at the component level in an afternoon. I am naming it here rather than only in the self-audit because catching it early and calling it out is how good design teams prevent it from reaching engineering.</p>
+                </div></section>
 
 <section>
   <div class="wrap">
