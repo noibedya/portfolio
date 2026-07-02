@@ -45,7 +45,7 @@ img { max-width: 100%; display: block; }
 .container { max-width: var(--max); margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2rem); }
 .text-col  { max-width: var(--max-text); }
 .todo { background: #fdf3c7; outline: 1px dashed #c9a227; border-radius: 4px; padding: 0 .35em; font-style: normal; }
-header.site-nav { position: sticky; top: 0; z-index: 50; background: rgba(31, 43, 64, .85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line-dark); }
+header.site-nav { position: sticky; top: 0; z-index: 50; background: rgba(31, 43, 64, .97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line-dark); }
 .nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2rem); height: 64px; display: flex; align-items: center; justify-content: space-between; }
 .brand { font-family: var(--serif); font-weight: 600; font-size: 1.05rem; color: var(--cream); text-decoration: none; letter-spacing: -.01em; transition: color .15s ease; }
 .brand:hover { color: var(--accent-light); }
