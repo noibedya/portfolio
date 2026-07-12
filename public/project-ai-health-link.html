@@ -83,7 +83,7 @@
   @media(max-width:640px){.grid2{grid-template-columns:1fr}.meta{gap:20px}}
 
 /* site nav / footer / next-project (added for site-wide consistency) */
-.site-nav{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);background:rgba(255,255,255,.92);backdrop-filter:blur(10px)}
+.site-nav{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);background:#ffffff}
 .site-nav .nav-inner{max-width:880px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between}
 .site-nav .brand{font-family:"Newsreader",serif;font-weight:600;font-size:1.05rem;color:var(--ink);text-decoration:none;letter-spacing:-.01em;transition:color .15s ease}
 .site-nav .brand:hover{color:var(--navy)}
@@ -186,7 +186,7 @@ header.hero .back-link{display:block;margin-bottom:16px;color:#fff!important}
     <div class="callout"><p><b>My role:</b> everything. Research framing, flows, wireframes, the high-fidelity UI, the component sheet, the tablet study. On a personal project no decision is inherited, so every pattern here had to earn its place.</p></div>
     <figure>
       <!-- TODO: re-export image after fixing Mange Prescription typo in Figma -->
-<img src="assets/mediapp/ahl-image-2.jpg" alt="Two phones showing the Consult screen and the Dashboard">
+<img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-2.jpg" alt="Two phones showing the Consult screen and the Dashboard">
       <figcaption>Consults and the dashboard, the two screens that carry most of the product's weight.</figcaption>
     </figure>
   </div>
@@ -216,7 +216,7 @@ header.hero .back-link{display:block;margin-bottom:16px;color:#fff!important}
       <div class="t-item"><b>Week 4 · Tablet adaptation study</b><span>Adapted the dashboard and health vault to tablet: bottom navigation becomes a persistent left rail, the 'Nearest Care' map expands into an interactive panel, and health records adopt a master-detail pattern that uses the extra width instead of stacking.</span></div>
     </div>
     <figure>
-      <img src="assets/mediapp/ahl-image-3.png" alt="The four core screens: Dashboard, My Health, Consults, Settings">
+      <img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-3.png" alt="The four core screens: Dashboard, My Health, Consults, Settings">
       <figcaption>The four-tab core: Dashboard, My Health (the health vault), Consults, and Settings.</figcaption>
     </figure>
   </div>
@@ -234,14 +234,14 @@ header.hero .back-link{display:block;margin-bottom:16px;color:#fff!important}
     <h3>2 · One question per screen, and more than one way to answer</h3>
     <p>The check-up runs five questions, each on its own screen with a progress bar ("2 of 5 Questions") so the commitment is always visible. Because users may be typing through pain or panic, the symptom description field accepts voice-to-text and photos of visible symptoms, not just typed input. Checkbox questions cover associated symptoms, health history, severity, and duration. Everything past the first question is a tap target rather than an essay.</p>
     <figure>
-      <img src="assets/mediapp/ahl-image-4.png" alt="Triage flow: emergency gate, symptom input, symptom checklist, assessment result">
+      <img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-4.png" alt="Triage flow: emergency gate, symptom input, symptom checklist, assessment result">
       <figcaption>The triage spine: emergency gate → free-form symptom input (voice/photo/text) → guided questions → assessment.</figcaption>
     </figure>
 
     <h3>3 · AI that shows its work</h3>
     <p>The assessment ends with a risk level, a plain-language AI insight explaining the reasoning ("Initial assessment suggests a viral infection… we recommend monitoring your temperature and fluid intake"), and three honest exits: book a virtual consult, view home-care instructions, or download a PDF summary for your doctor. The PDF is the one I care about most. It admits the AI is a triage tool rather than a doctor, and it makes handing the case to a real one easy.</p>
     <figure>
-      <img src="assets/mediapp/ahl-image-5.jpg" alt="The symptom duration question and the assessment summary screen">
+      <img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-5.jpg" alt="The symptom duration question and the assessment summary screen">
       <figcaption>The last question explains why it's asking. The result explains what the AI concluded and what to do next.</figcaption>
     </figure>
 
@@ -249,7 +249,7 @@ header.hero .back-link{display:block;margin-bottom:16px;color:#fff!important}
     <p>When an assessment leads to an appointment, the reason travels with it: consult cards read "Reason: Follow-up Infection (AI Triage)". The clinician sees why the patient is coming before the call starts, and the patient never re-explains themselves. Booking itself is filterable by All / Virtual / Walk-in, with provider ratings and one-tap booking.</p>
     <figure>
       <!-- TODO: re-export image after fixing Mange Prescription typo in Figma -->
-<img src="assets/mediapp/ahl-image-6.jpg" alt="Tilted phone showing the Consult screen with the AI triage reason on the appointment card" style="max-width:340px;display:block;margin:0 auto">
+<img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-6.jpg" alt="Tilted phone showing the Consult screen with the AI triage reason on the appointment card" style="max-width:340px;display:block;margin:0 auto">
       <figcaption>The consult card carries the AI triage reason, so the patient never re-explains themselves.</figcaption>
     </figure>
 
@@ -257,26 +257,29 @@ header.hero .back-link{display:block;margin-bottom:16px;color:#fff!important}
     <p>The home screen gives the symptom check the hero slot, because it's the action with the highest stakes and the most hesitation. Below it: live vitals pulled from connected wearables (Apple Watch, Oura Ring), quick links to prescriptions and consults, and a 'Nearest Care' map with real walk-in distances. The health vault holds the provincial health card with a QR code for clinic check-ins, past AI triage reports, and immunization records.</p>
     <figure>
       <!-- TODO: re-export image after fixing Mange Prescription typo in Figma -->
-<img src="assets/mediapp/ahl-image-7.jpg" alt="Phone showing the dashboard with symptom check, vitals, and nearest care map" style="max-width:560px;display:block;margin:0 auto">
+<img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-7.jpg" alt="Phone showing the dashboard with symptom check, vitals, and nearest care map" style="max-width:560px;display:block;margin:0 auto">
       <figcaption>The dashboard: symptom check on top, live vitals and nearest care below.</figcaption>
     </figure>
 
     <h3>6 · Scaling to tablet without stretching the phone</h3>
     <p>The tablet study reworks the architecture instead of inflating it: bottom navigation becomes a persistent left rail so primary sections stay visible; stacked dashboard cards reflow into a grid; vitals gain historical charts instead of single numbers; and health records move to a master-detail pattern, list on the left and full record on the right, which removes a whole screen per record.</p>
     <figure>
-      <img src="assets/mediapp/ahl-image-8.jpg" alt="Tablet adaptation of the dashboard and health vault">
+      <img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-8.jpg" alt="Tablet adaptation of the dashboard and health vault">
       <figcaption>Tablet adaptation: nav rail, grid reflow, charted vitals, and master-detail records.</figcaption>
     </figure>
-                omponent sheet</b> (palette, buttons, form controls, all four navigation states) that keeps the 17 screens consistent.</li>
+    <p>What the four weeks produced:</p>
+    <ul class="clean">
+      <li>A <b>17-screen mobile UI</b>: the triage flow with its emergency gate, the dashboard, the health vault, consults, and booking.</li>
+      <li>A <b>component sheet</b> (palette, buttons, form controls, all four navigation states) that keeps the 17 screens consistent.</li>
       <li>A <b>responsive tablet study</b> that documents the reasoning behind each layout change, not just the redrawn screens.</li>
     </ul>
     <figure>
       <!-- TODO: re-export image after fixing Mange Prescription typo in Figma -->
-<img src="assets/mediapp/ahl-image-9.jpg" alt="Two phones showing the Dashboard and the appointment booking list">
+<img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-9.jpg" alt="Two phones showing the Dashboard and the appointment booking list">
       <figcaption>Dashboard to booking, the path most sessions take.</figcaption>
     </figure>
     <figure>
-      <img src="assets/mediapp/ahl-image-10.png" alt="Component sheet with palette, buttons, form controls and navigation states">
+      <img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-10.png" alt="Component sheet with palette, buttons, form controls and navigation states">
       <figcaption>The component sheet: palette, controls, and the four navigation states behind every screen.</figcaption>
     </figure>
   </div>
@@ -336,5 +339,29 @@ header.hero .back-link{display:block;margin-bottom:16px;color:#fff!important}
 
 
 <script>(function(){var t=document.querySelector('.nav-toggle'),n=document.querySelector('.nav-links');if(t&&n)t.addEventListener('click',function(){n.classList.toggle('open');t.setAttribute('aria-expanded',n.classList.contains('open'))});})()</script>
+
+<style>
+  figure img{cursor:zoom-in}
+  .lightbox{position:fixed;inset:0;z-index:200;background:rgba(12,14,20,.92);display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;opacity:0;transition:opacity .2s ease}
+  .lightbox.open{opacity:1}
+  .lightbox img{max-width:96vw;max-height:92vh;width:auto;height:auto;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+  .lightbox .lb-hint{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#cbd2dd;font-size:13px}
+</style>
+<script>
+(function(){
+  var box=document.createElement('div');box.className='lightbox';box.setAttribute('role','dialog');box.setAttribute('aria-label','Image preview');
+  var img=document.createElement('img');var hint=document.createElement('div');hint.className='lb-hint';hint.textContent='Click anywhere or press Esc to close';
+  box.appendChild(img);box.appendChild(hint);
+  function close(){box.classList.remove('open');setTimeout(function(){if(box.parentNode)box.parentNode.removeChild(box);img.src='';},200);}
+  box.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  document.querySelectorAll('figure img').forEach(function(el){
+    el.addEventListener('click',function(){
+      img.src=el.currentSrc||el.src;img.alt=el.alt||'';
+      document.body.appendChild(box);requestAnimationFrame(function(){box.classList.add('open');});
+    });
+  });
+})();
+</script>
 </body>
 </html>

@@ -103,7 +103,7 @@
 
         <a class="project-card reveal" href="project-cavw.html">
           <div class="card-img">
-            <img src="assets/cavw/cavw-cover.png" alt="Creative Asset & Video Workflow dashboard and review room" loading="lazy" />
+            <img loading="lazy" decoding="async" src="assets/cavw/cavw-cover.png" alt="Creative Asset & Video Workflow dashboard and review room" loading="lazy" />
           </div>
           <div class="card-body">
             <p class="card-kicker">B2B SaaS &middot; 4-week concept &middot; Desktop web</p>
@@ -183,7 +183,6 @@
           </div>
         </div>
       </div>
-      </div>
     </section>
   </div>
 
@@ -217,16 +216,39 @@
 </footer>
 
 <script>
-  const reveals = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: .15 });
-  reveals.forEach((el) => io.observe(el));
+  // Reveal-on-scroll: opt-in (html.js-reveal) so content is never hidden when
+  // JS is unavailable, and with a safety sweep so fast scrolls / anchor jumps
+  // can't leave sections invisible.
+  (function () {
+    const reveals = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return; // no .js-reveal class -> everything stays visible
+    }
+    document.documentElement.classList.add('js-reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -5% 0px' });
+    reveals.forEach((el) => io.observe(el));
+    // Safety net: if anything is still hidden 1.2s after the last scroll, show it.
+    let sweepTimer;
+    const sweep = () => {
+      clearTimeout(sweepTimer);
+      sweepTimer = setTimeout(() => {
+        document.querySelectorAll('.reveal:not(.visible)').forEach((el) => {
+          const r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible');
+        });
+      }, 1200);
+    };
+    window.addEventListener('scroll', sweep, { passive: true });
+    window.addEventListener('load', sweep);
+  })();
 
   const navLinks = document.querySelectorAll('.nav-links a');
   const navSections = [

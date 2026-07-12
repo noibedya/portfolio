@@ -101,7 +101,7 @@
   ul.clean li::before{content:"→";position:absolute;left:0;color:var(--pink);font-weight:700}
   /* SITE NAV */
   h1,h2,.tag,.site-nav .brand{font-family:'Newsreader',Georgia,serif}
-  .site-nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .site-nav{position:sticky;top:0;z-index:50;background:#ffffff;border-bottom:1px solid var(--line)}
   .site-nav .nav-inner{max-width:880px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between}
   .site-nav .brand{font-weight:600;font-size:1.05rem;color:var(--ink);text-decoration:none;letter-spacing:-.01em;transition:color .15s ease}
   .site-nav .brand:hover{color:var(--navy)}
@@ -460,6 +460,30 @@
 document.querySelector('.nav-toggle').addEventListener('click',function(){
   document.querySelector('.site-nav .nav-links').classList.toggle('open');
 });
+</script>
+
+<style>
+  figure img{cursor:zoom-in}
+  .lightbox{position:fixed;inset:0;z-index:200;background:rgba(12,14,20,.92);display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;opacity:0;transition:opacity .2s ease}
+  .lightbox.open{opacity:1}
+  .lightbox img{max-width:96vw;max-height:92vh;width:auto;height:auto;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+  .lightbox .lb-hint{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#cbd2dd;font-size:13px}
+</style>
+<script>
+(function(){
+  var box=document.createElement('div');box.className='lightbox';box.setAttribute('role','dialog');box.setAttribute('aria-label','Image preview');
+  var img=document.createElement('img');var hint=document.createElement('div');hint.className='lb-hint';hint.textContent='Click anywhere or press Esc to close';
+  box.appendChild(img);box.appendChild(hint);
+  function close(){box.classList.remove('open');setTimeout(function(){if(box.parentNode)box.parentNode.removeChild(box);img.src='';},200);}
+  box.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  document.querySelectorAll('figure img').forEach(function(el){
+    el.addEventListener('click',function(){
+      img.src=el.currentSrc||el.src;img.alt=el.alt||'';
+      document.body.appendChild(box);requestAnimationFrame(function(){box.classList.add('open');});
+    });
+  });
+})();
 </script>
 </body>
 </html>

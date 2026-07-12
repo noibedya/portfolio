@@ -45,7 +45,7 @@ img { max-width: 100%; display: block; }
 .container { max-width: var(--max); margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2rem); }
 .text-col  { max-width: var(--max-text); }
 .todo { background: #fdf3c7; outline: 1px dashed #c9a227; border-radius: 4px; padding: 0 .35em; font-style: normal; }
-header.site-nav { position: sticky; top: 0; z-index: 50; background: rgba(31, 43, 64, .97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line-dark); }
+header.site-nav { position: sticky; top: 0; z-index: 50; background: #1f2b40; border-bottom: 1px solid var(--line-dark); }
 .nav-inner { max-width: var(--max); margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2rem); height: 64px; display: flex; align-items: center; justify-content: space-between; }
 .brand { font-family: var(--serif); font-weight: 600; font-size: 1.05rem; color: var(--cream); text-decoration: none; letter-spacing: -.01em; transition: color .15s ease; }
 .brand:hover { color: var(--accent-light); }
@@ -70,7 +70,7 @@ header.site-nav { position: sticky; top: 0; z-index: 50; background: rgba(31, 43
 .hero.dark::before { content: ""; position: absolute; width: 30rem; height: 30rem; background: radial-gradient(circle, rgba(168, 192, 230, .22), transparent 70%); top: -12rem; right: -8rem; border-radius: 50%; pointer-events: none; }
 .hero.dark::after { content: ""; position: absolute; width: 22rem; height: 22rem; background: radial-gradient(circle, rgba(255, 255, 255, .07), transparent 70%); bottom: -10rem; left: -6rem; border-radius: 50%; pointer-events: none; }
 .hero.dark .hero-grid { position: relative; z-index: 1; }
-.hero { min-height: calc(100vh - 64px); display: flex; align-items: center; padding: clamp(2.5rem, 6vw, 4rem) 0; }
+.hero { min-height: min(calc(100vh - 64px), 780px); display: flex; align-items: center; padding: clamp(2.5rem, 6vw, 4rem) 0; }
 .hero > .container { width: 100%; }
 .hero-grid { display: flex; align-items: center; gap: clamp(2rem, 5vw, 4rem); }
 .hero-grid > .hero-text { flex: 1; min-width: 0; }
@@ -124,7 +124,12 @@ p:last-child { margin-bottom: 0; }
 .skill-tag:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 .contact-title { font-family: var(--serif); font-weight: 500; font-size: clamp(1.9rem, 4.5vw, 2.8rem); letter-spacing: -.02em; margin-bottom: 1rem; }
 .contact-sub { color: var(--muted); max-width: 30em; margin-bottom: 2rem; }
-.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+/* Reveal is opt-in via JS: .js-reveal is added by the script, so content is
+   always visible when JS fails, and never animates for reduced-motion users. */
+.js-reveal .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal .reveal { opacity: 1; transform: none; transition: none; }
+}
 .reveal.visible { opacity: 1; transform: translateY(0); }
 .work-grid .reveal:nth-child(2) { transition-delay: .08s; }
 .work-grid .reveal:nth-child(3) { transition-delay: .16s; }

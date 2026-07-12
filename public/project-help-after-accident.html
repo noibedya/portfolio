@@ -78,7 +78,7 @@
 
   /* ── site chrome (matches portfolio-v2/styles.css) ── */
   h1,h2,.tag,.site-nav .brand{font-family:'Newsreader',Georgia,serif}
-  .site-nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .site-nav{position:sticky;top:0;z-index:50;background:#ffffff;border-bottom:1px solid var(--line)}
   .site-nav .nav-inner{max-width:880px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between}
   .site-nav .brand{font-weight:600;font-size:1.05rem;color:var(--ink);text-decoration:none;letter-spacing:-.01em;transition:color .15s ease}
   .site-nav .brand:hover{color:var(--navy)}
@@ -111,6 +111,12 @@ header.hero .back-link{color:#fff}
 @media(max-width:640px){.nav-toggle{display:flex}.site-nav .nav-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:#fff;border-bottom:1px solid var(--line);padding:8px 28px 16px;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.08)}.site-nav .nav-links.open{display:flex}.site-nav .nav-links li{width:100%}.site-nav .nav-links a{display:block;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.06)}.site-nav .nav-links a::after{display:none!important}.site-nav .nav-links a::before{display:none!important}.site-nav .nav-links a{color:#1a2744!important;font-size:1rem!important;font-weight:400!important}.site-nav .nav-links a.active,.site-nav .nav-links a[aria-current]{font-weight:700!important;color:#1a2744!important}.site-nav .nav-inner{position:relative}}
 
 header.hero .back-link{display:block;margin-bottom:16px;color:#fff!important}
+
+  .embed-shell{position:relative;background:#0d1117;border-radius:14px;min-height:320px}
+  .embed-shell::before{content:"Loading interactive prototype\2026";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#9aa4b2;font-size:15px}
+  .embed-shell iframe{position:relative;opacity:0;transition:opacity .4s ease}
+  .embed-shell.loaded::before{content:none}
+  .embed-shell.loaded iframe{opacity:1}
 </style>
 </head>
 <body>
@@ -212,35 +218,35 @@ header.hero .back-link{display:block;margin-bottom:16px;color:#fff!important}
     <h3>1 · One question per screen, momentum over density</h3>
     <p>Rather than cram the practice profile into three dense forms, I split it into single-purpose screens ("What's your name?", "Where is your practice?", "Set your clinic hours"), each with one CTA. A "Take 2 minutes or less" promise up front sets the contract. The headlines also talk back: once Jane picks Doctor, the next screen greets her with "Hello, Dr. Jane." Small thing, but it makes ten steps feel like a conversation instead of a form.</p>
     <figure>
-      <img src="assets/haa/haa-image-2.jpg" alt="Shared signup trunk showing empty, filled, and disabled/enabled CTA states for all user types" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img loading="lazy" decoding="async" src="assets/haa/haa-image-2.jpg" alt="Shared signup trunk showing empty, filled, and disabled/enabled CTA states for all user types" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>The shared signup trunk. Every screen exists in empty + filled + disabled/enabled CTA states.</figcaption>
     </figure>
 
     <h3>2 · Clinic hours: the iteration I'm proudest of</h3>
     <p>My first clinic-hours screen used a dropdown row per day. It worked, but it was cramped and fiddly on a phone. In critique my senior asked a simple question: how many clinics actually keep different hours every day? Almost none. The revised pattern uses tappable day chips, Mon to Fri pre-selected, with one opens/closes control. The common case now takes two taps. The odd schedule still works.</p>
     <figure>
-      <img src="assets/haa/haa-image-3.jpg" alt="Initial onboarding iteration (left) versus revised pattern (right)" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img loading="lazy" decoding="async" src="assets/haa/haa-image-3.jpg" alt="Initial onboarding iteration (left) versus revised pattern (right)" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>Initial iteration (left) vs. revised pattern (right). Designing for the common case first.</figcaption>
     </figure>
 
     <h3>3 · Patient intake that flexes to capacity</h3>
     <p>Someone who was just in a car accident might manage a form. They might only manage a phone call. So instead of one intake flow there are four: one-click intake, self intake, digital intake with guided instructions, and phone intake run by a specialist, where the patient's only job is to pick up. The platform routes people by what they can handle that day.</p>
     <figure>
-      <img src="assets/haa/haa-image-4.jpg" alt="Four intake models tested across four levels of patient capacity" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img loading="lazy" decoding="async" src="assets/haa/haa-image-4.jpg" alt="Four intake models tested across four levels of patient capacity" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>Four intake models for four levels of patient capacity.</figcaption>
     </figure>
 
     <h3>4 · Trust signals where skepticism peaks</h3>
     <p>Skepticism peaks at three moments. The first screen answers it with "Connect with over 5,000+ verified lawyers and doctors nationwide." Password creation answers it with rule checkmarks that tick live as you type. And before going live, a full "Review and finish" summary lets you edit any section. The final screen reads "You're live. Patients and clients in your area can now find you." Signup ends on a payoff rather than a dead end.</p>
     <figure>
-      <img src="assets/haa/haa-image-5.jpg" alt="Professional practice goes live — the payoff screen at the end of onboarding" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img loading="lazy" decoding="async" src="assets/haa/haa-image-5.jpg" alt="Professional practice goes live — the payoff screen at the end of onboarding" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>Ending on the payoff: the moment the professional's practice goes live.</figcaption>
     </figure>
 
     <h3>5 · Desktop gets the same care</h3>
     <p>Professionals often sign up from the front-desk computer, so every mobile step has a laptop counterpart. The split layout keeps the brand illustration on the left and a focused form column on the right, and the two platforms read as one product.</p>
     <figure>
-      <img src="assets/haa/haa-image-6.jpg" alt="Professional day-one dashboard: beyond onboarding into daily use" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img loading="lazy" decoding="async" src="assets/haa/haa-image-6.jpg" alt="Professional day-one dashboard: beyond onboarding into daily use" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>Full mobile/desktop parity across the signup trunk.</figcaption>
     </figure>
   </div>
@@ -253,7 +259,7 @@ header.hero .back-link{display:block;margin-bottom:16px;color:#fff!important}
     <h2>Patient onboarding: try it live</h2>
     <p style="max-width:640px;margin-bottom:36px;">Walk through the same screens a patient encounters from first landing to confirmation. Every interaction is real: profession selection, incident type, appointment context, and trust validation, all in one seamless session.</p>
     <div style="position:relative;border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(60,91,143,.18);border:1px solid var(--line);">
-      <iframe style="border:none;display:block;width:100%;height:1050px;" src="https://embed.figma.com/proto/hhgJxkjGMpG7OaOc1yQok9/HAA_Patient-Onboarding?node-id=1-2400&p=f&viewport=265%2C147%2C0.02&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A2400&page-id=0%3A1&embed-host=share" allowfullscreen></iframe>
+      <div class="embed-shell"><iframe loading="lazy" onload="this.parentNode.classList.add('loaded')" style="border:none;display:block;width:100%;height:1050px;" src="https://embed.figma.com/proto/hhgJxkjGMpG7OaOc1yQok9/HAA_Patient-Onboarding?node-id=1-2400&p=f&viewport=265%2C147%2C0.02&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A2400&page-id=0%3A1&embed-host=share" allowfullscreen></iframe></div>
     </div>
   </div>
 </section>
@@ -282,7 +288,7 @@ header.hero .back-link{display:block;margin-bottom:16px;color:#fff!important}
       <li>Set the onboarding visual language (navy and pink palette, conversational tone, illustrated layouts) that the later persona flows adopted.</li>
       <li>My senior designer and the GoMAXPAIN team approved the work for the HelpAfterAccident.com build.</li>
     </ul>
-    <figure><img src="assets/haa/haa-image-7.jpg" alt="Component breakdown showing onboarding screen states and design system elements" style="width:100%;max-width:560px;display:block;margin:0 auto;border-radius:14px;border:1px solid var(--line)"><figcaption>Beyond onboarding: the professional's day-one dashboard with urgent matches and the patient queue.</figcaption></figure>
+    <figure><img loading="lazy" decoding="async" src="assets/haa/haa-image-7.jpg" alt="Component breakdown showing onboarding screen states and design system elements" style="width:100%;max-width:560px;display:block;margin:0 auto;border-radius:14px;border:1px solid var(--line)"><figcaption>Beyond onboarding: the professional's day-one dashboard with urgent matches and the patient queue.</figcaption></figure>
     <blockquote>What this project taught me: how to ship a coherent system at speed, and when to defend a decision in critique versus when to let it go.</blockquote>
   </div>
 </section>
@@ -355,5 +361,29 @@ header.hero .back-link{display:block;margin-bottom:16px;color:#fff!important}
 
 
 <script>(function(){var t=document.querySelector('.nav-toggle'),n=document.querySelector('.nav-links');if(t&&n)t.addEventListener('click',function(){n.classList.toggle('open');t.setAttribute('aria-expanded',n.classList.contains('open'))});})()</script>
+
+<style>
+  figure img{cursor:zoom-in}
+  .lightbox{position:fixed;inset:0;z-index:200;background:rgba(12,14,20,.92);display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;opacity:0;transition:opacity .2s ease}
+  .lightbox.open{opacity:1}
+  .lightbox img{max-width:96vw;max-height:92vh;width:auto;height:auto;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+  .lightbox .lb-hint{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#cbd2dd;font-size:13px}
+</style>
+<script>
+(function(){
+  var box=document.createElement('div');box.className='lightbox';box.setAttribute('role','dialog');box.setAttribute('aria-label','Image preview');
+  var img=document.createElement('img');var hint=document.createElement('div');hint.className='lb-hint';hint.textContent='Click anywhere or press Esc to close';
+  box.appendChild(img);box.appendChild(hint);
+  function close(){box.classList.remove('open');setTimeout(function(){if(box.parentNode)box.parentNode.removeChild(box);img.src='';},200);}
+  box.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  document.querySelectorAll('figure img').forEach(function(el){
+    el.addEventListener('click',function(){
+      img.src=el.currentSrc||el.src;img.alt=el.alt||'';
+      document.body.appendChild(box);requestAnimationFrame(function(){box.classList.add('open');});
+    });
+  });
+})();
+</script>
 </body>
 </html>

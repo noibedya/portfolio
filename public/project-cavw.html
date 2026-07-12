@@ -89,7 +89,7 @@
   @media(max-width:640px){.grid2,.grid3{grid-template-columns:1fr}.meta{gap:20px}}
 
 /* site nav / footer / next-project (added for site-wide consistency) */
-.site-nav{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);background:rgba(255,255,255,.92);backdrop-filter:blur(10px)}
+.site-nav{position:sticky;top:0;z-index:50;border-bottom:1px solid var(--line);background:#ffffff}
 .site-nav .nav-inner{max-width:880px;margin:0 auto;padding:0 28px;height:64px;display:flex;align-items:center;justify-content:space-between}
 .site-nav .brand{font-family:"Newsreader",serif;font-weight:600;font-size:1.05rem;color:var(--ink);text-decoration:none;letter-spacing:-.01em;transition:color .15s ease}
 .site-nav .brand:hover{color:var(--navy)}
@@ -191,7 +191,7 @@ header.hero .back-link{color:#fff!important}
     </div>
     <div class="callout"><p><b>My role:</b> everything. UX research, product strategy, wireframing, UI design, interaction design. Nothing came from a brief or an existing design system, so every pattern had to earn its place.</p></div>
     <figure>
-      <img src="assets/cavw/cavw-image-2.jpg" alt="CAVW cover: laptop showing the review room over a blurred dashboard, with B2B SaaS badge">
+      <img loading="lazy" decoding="async" src="assets/cavw/cavw-image-2.jpg" alt="CAVW cover: laptop showing the review room over a blurred dashboard, with B2B SaaS badge">
       <figcaption>The concept in one image: production board behind, review room in front. Two halves of the same workflow.</figcaption>
     </figure>
   </div>
@@ -281,14 +281,14 @@ header.hero .back-link{color:#fff!important}
     <h3>3 · Why timestamped feedback?</h3>
     <p>Anchoring comments to exact timecodes removes the ambiguity that causes revision cycles. "Color contrast is too high at 0:12" is actionable in a way "fix the colors" never is. Numbered markers on the scrubber map each comment to its moment, and the feedback panel keeps the full conversation threaded next to the player.</p>
     <figure>
-      <img src="assets/cavw/cavw-image-3.jpg" alt="The timestamped review room: video player with numbered timeline markers and a feedback panel with timecoded comments">
+      <img loading="lazy" decoding="async" src="assets/cavw/cavw-image-3.jpg" alt="The timestamped review room: video player with numbered timeline markers and a feedback panel with timecoded comments">
       <figcaption>The review room: numbered markers on the timeline, timecoded comments on the right, approval one click away.</figcaption>
     </figure>
 
     <h3>4 · Cards that carry their own context</h3>
     <p>Each smart task card carries its video thumbnail, assigned editor, deadline, version history, and comment indicators: enough that a strategist scanning the board never has to open a task to know its state. The activity feed and asset inspector live in a right rail, so checking an asset never takes you away from the pipeline.</p>
     <figure>
-      <img src="assets/cavw/cavw-image-4.jpg" alt="The Kanban workflow dashboard: four columns from To Do to Approved with smart task cards and the contextual activity rail">
+      <img loading="lazy" decoding="async" src="assets/cavw/cavw-image-4.jpg" alt="The Kanban workflow dashboard: four columns from To Do to Approved with smart task cards and the contextual activity rail">
       <figcaption>The dashboard: four pipeline stages, smart task cards, and the contextual activity & asset inspector rail.</figcaption>
     </figure>
 
@@ -307,7 +307,7 @@ header.hero .back-link{color:#fff!important}
     <h2>The board in motion</h2>
     <p>Static frames can't show the two interactions the whole concept rests on, so I prototyped them: a task card dragged across the pipeline updates its state in real time, and the review room opens as a layer over the board, so reviewing a cut never pulls you out of the work.</p>
     <figure>
-      <video src="assets/cavw/cavw-interaction.mp4" autoplay loop muted playsinline controls style="width:100%;border-radius:14px;border:1px solid var(--line);display:block" preload="metadata"></video>
+      <video src="assets/cavw/cavw-interaction.mp4" poster="assets/cavw/cavw-poster.jpg" autoplay loop muted playsinline controls style="width:100%;border-radius:14px;border:1px solid var(--line);display:block" preload="metadata"></video>
       <figcaption>Prototype walkthrough: drag-and-drop status change, then the timestamped review room opening over the dashboard.</figcaption>
     </figure>
   </div>
@@ -381,5 +381,29 @@ header.hero .back-link{color:#fff!important}
 
 
 <script>(function(){var t=document.querySelector('.nav-toggle'),n=document.querySelector('.nav-links');if(t&&n)t.addEventListener('click',function(){n.classList.toggle('open');t.setAttribute('aria-expanded',n.classList.contains('open'))});})()</script>
+
+<style>
+  figure img{cursor:zoom-in}
+  .lightbox{position:fixed;inset:0;z-index:200;background:rgba(12,14,20,.92);display:flex;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;opacity:0;transition:opacity .2s ease}
+  .lightbox.open{opacity:1}
+  .lightbox img{max-width:96vw;max-height:92vh;width:auto;height:auto;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+  .lightbox .lb-hint{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#cbd2dd;font-size:13px}
+</style>
+<script>
+(function(){
+  var box=document.createElement('div');box.className='lightbox';box.setAttribute('role','dialog');box.setAttribute('aria-label','Image preview');
+  var img=document.createElement('img');var hint=document.createElement('div');hint.className='lb-hint';hint.textContent='Click anywhere or press Esc to close';
+  box.appendChild(img);box.appendChild(hint);
+  function close(){box.classList.remove('open');setTimeout(function(){if(box.parentNode)box.parentNode.removeChild(box);img.src='';},200);}
+  box.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  document.querySelectorAll('figure img').forEach(function(el){
+    el.addEventListener('click',function(){
+      img.src=el.currentSrc||el.src;img.alt=el.alt||'';
+      document.body.appendChild(box);requestAnimationFrame(function(){box.classList.add('open');});
+    });
+  });
+})();
+</script>
 </body>
 </html>
