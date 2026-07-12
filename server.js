@@ -11,7 +11,7 @@ const app  = express();
 const PORT = process.env.PORT || 3000;
 
 // ── ADMIN PASSWORD ──────────────────────────────────────────────────────────
-const ADMIN_PASSWORD = 'portfolio2025';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'portfolio2025'; // TODO: set ADMIN_PASSWORD in Vercel env and remove the fallback — the old value is public in git history
 
 // ── PATHS (Vercel uses /tmp for writable storage) ───────────────────────────
 const IS_VERCEL   = !!process.env.VERCEL;
