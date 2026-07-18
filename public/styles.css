@@ -112,7 +112,8 @@ p:last-child { margin-bottom: 0; }
 .card-kicker { font-size: .74rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin-bottom: .4rem; }
 .card-title { font-family: var(--serif); font-weight: 600; font-size: 1.3rem; line-height: 1.25; margin-bottom: .5rem; }
 .card-summary { font-size: .92rem; color: var(--muted); margin-bottom: 1rem; }
-.card-link { margin-top: auto; font-size: .88rem; font-weight: 600; color: var(--accent); }
+.card-outcome { margin-top: auto; font-size: .84rem; font-weight: 600; color: var(--accent); margin-bottom: .55rem; }
+.card-link { font-size: .88rem; font-weight: 600; color: var(--accent); }
 
 
 
