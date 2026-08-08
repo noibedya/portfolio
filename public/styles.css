@@ -15,9 +15,9 @@
   --accent-soft: #e8edf5;
   --accent-light: #a8c0e6;     /* slate blue, lightened for dark surfaces */
   --cream:   #f5f1ea;
-  --cream-muted: #aab0bd;
+  --cream-muted: #c3cad6;
   --line-dark: rgba(245, 241, 234, .14);
-  --hero-grad: linear-gradient(135deg, #1f2b40 0%, #28395a 45%, #3c5b8f 100%);
+  --hero-grad: linear-gradient(135deg, #1f2b40 0%, #28395a 45%, #33517f 100%);
   --serif:   'Newsreader', Georgia, serif;
   --sans:    system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --mono:    ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
@@ -160,6 +160,14 @@ footer { border-top: 1px solid var(--line); padding: 2rem 0 2.5rem; }
 .next-project:hover { border-color: var(--accent); color: var(--ink); }
 .next-project .np-label { font-size: .74rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin-bottom: .3rem; }
 .next-project .np-title { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; }
+
+/* Focus visibility (WCAG 2.4.7) */
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.dark a:focus-visible, .dark button:focus-visible, .quote-band a:focus-visible, header.site-nav a:focus-visible, header.site-nav button:focus-visible { outline-color: var(--accent-light); }
+/* Control boundary contrast (WCAG 1.4.11) */
+.dark .btn-ghost { border-color: rgba(245, 241, 234, .45); }
+.dark .btn-ghost:hover { border-color: var(--cream); }
+@media (max-width: 640px) { .footer-inner a { display: inline-block; padding: .5rem 0; } }
 .contact-note { margin-top: 1.5rem; font-size: .88rem; color: var(--cream-muted); }
 
 .otwbadge {

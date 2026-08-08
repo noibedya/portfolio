@@ -110,9 +110,13 @@ header.hero .back-link{color:#fff}
 
 .nav-toggle{display:none;flex-direction:column;justify-content:space-between;width:24px;height:18px;background:none;border:none;cursor:pointer;padding:0;flex-shrink:0}
 .nav-toggle span{display:block;width:100%;height:2px;background:var(--navy);border-radius:2px}
-@media(max-width:640px){.nav-toggle{display:flex}.site-nav .nav-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:#fff;border-bottom:1px solid var(--line);padding:8px 28px 16px;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.08)}.site-nav .nav-links.open{display:flex}.site-nav .nav-links li{width:100%}.site-nav .nav-links a{display:block;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.06)}.site-nav .nav-links a::after{display:none!important}.site-nav .nav-links a::before{display:none!important}.site-nav .nav-links a{color:#1a2744!important;font-size:1rem!important;font-weight:400!important}.site-nav .nav-links a.active,.site-nav .nav-links a[aria-current]{font-weight:700!important;color:#1a2744!important}.site-nav .nav-inner{position:relative}}
+@media(max-width:640px){.nav-toggle{display:flex}.site-nav .nav-links{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:0;background:#fff;border-bottom:1px solid var(--line);padding:8px 28px 16px;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.08)}.site-nav .nav-links.open{display:flex}.site-nav .nav-links li{width:100%}.site-nav .nav-links a{display:block;padding:13px 0;border-bottom:1px solid rgba(0,0,0,.06)}.site-nav .nav-links a::after{display:none!important}.site-nav .nav-links a::before{display:none!important}.site-nav .nav-links a{color:#1a2744!important;font-size:1rem!important;font-weight:400!important}.site-nav .nav-links a.active,.site-nav .nav-links a[aria-current]{font-weight:700!important;color:#1a2744!important}.site-nav .nav-inner{position:relative}}
 
 header.hero .back-link{display:block;margin-bottom:16px;color:#fff!important}
+</style>
+<style>
+a:focus-visible,button:focus-visible{outline:2px solid #3c5b8f;outline-offset:3px;border-radius:4px}
+header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-visible,.site-nav button:focus-visible{outline-color:#fff}
 </style>
 </head>
 <body>
