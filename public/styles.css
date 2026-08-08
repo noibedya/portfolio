@@ -160,6 +160,7 @@ footer { border-top: 1px solid var(--line); padding: 2rem 0 2.5rem; }
 .next-project:hover { border-color: var(--accent); color: var(--ink); }
 .next-project .np-label { font-size: .74rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin-bottom: .3rem; }
 .next-project .np-title { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; }
+.contact-note { margin-top: 1.5rem; font-size: .88rem; color: var(--cream-muted); }
 
 .otwbadge {
   display: inline-block;

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin &mdash; Portfolio CMS</title>
+<title>Admin · Portfolio CMS</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -192,7 +192,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 </div>
 <button class="btn-delete" id="deleteBtn" onclick="deleteProject()" style="display:none;">Delete</button>
 </div>
-<div id="cloudNotice" class="cloud-notice">&#9888; Cloudinary not configured &mdash; uploads limited to ~4 MB. Add CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET to Vercel env vars for unlimited uploads.</div>
+<div id="cloudNotice" class="cloud-notice">&#9888; Cloudinary not configured, so uploads are limited to ~4 MB. Add CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET to Vercel env vars for unlimited uploads.</div>
 <div class="form-grid">
 <div class="form-group full"><label class="form-label">Title</label><input class="form-input" id="fTitle" type="text" placeholder="Project title"></div>
 <div class="form-group"><label class="form-label">Category</label>
@@ -215,7 +215,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 <div class="upload-zone" id="coverZone">
 <input type="file" id="coverInput" accept="image/*,video/*,.pdf,application/pdf" onchange="handleCoverSelect(this)">
 <div class="upload-zone-text"><strong>Click to upload</strong> or drag &amp; drop</div>
-<div class="upload-accept">Images, videos (MP4, WebM), PDFs &mdash; any size with Cloudinary</div>
+<div class="upload-accept">Images, videos (MP4, WebM), PDFs. Any size with Cloudinary</div>
 </div>
 <div class="upload-progress" id="coverProgress"><div class="progress-bar-wrap"><div class="progress-bar" id="coverProgressBar"></div></div><div class="progress-text" id="coverProgressText">Uploading...</div></div>
 <div class="cover-preview" id="coverPreview"></div></div>
@@ -223,7 +223,7 @@ body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-s
 <div class="upload-zone" id="galleryZone">
 <input type="file" id="galleryInput" accept="image/*,video/*,.pdf,application/pdf" multiple onchange="handleGallerySelect(this)">
 <div class="upload-zone-text"><strong>Click to upload</strong> or drag &amp; drop</div>
-<div class="upload-accept">Multiple files supported &mdash; images, videos, PDFs &mdash; any size with Cloudinary</div>
+<div class="upload-accept">Multiple files supported: images, videos, PDFs. Any size with Cloudinary</div>
 </div>
 <div class="upload-progress" id="galleryProgress"><div class="progress-bar-wrap"><div class="progress-bar" id="galleryProgressBar"></div></div><div class="progress-text" id="galleryProgressText">Uploading...</div></div>
 <div class="gallery-grid" id="galleryGrid"></div></div>
