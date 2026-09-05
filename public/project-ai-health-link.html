@@ -130,18 +130,19 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
 </style>
 </head>
 <body>
+<a class="skip-link" href="#top">Skip to content</a>
 
 <header class="site-nav">
   <div class="nav-inner">
     <a class="brand" href="index.html">Noibedya Ray</a>
-    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
-    <ul class="nav-links">
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links"><span></span><span></span><span></span></button>
+    <nav aria-label="Main"><ul class="nav-links" id="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="index.html#work" class="active">Work</a></li>
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#contact">Contact</a></li>
       <li><a href="resume.html">Resume</a></li>
-    </ul>
+    </ul></nav>
   </div>
 </header>
 
@@ -167,7 +168,7 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
 </header>
 
 <div class="stats">
-  <div class="wrap">
+  <div class="wrap" id="top" tabindex="-1">
     <div class="stat"><b>17</b><span>Screens designed</span></div>
     <div class="stat"><b>8</b><span>Triage steps</span></div>
     <div class="stat"><b>3</b><span>Risk levels</span></div>
