@@ -134,23 +134,24 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
 </style>
 </head>
 <body>
+<a class="skip-link" href="#top">Skip to content</a>
 
 <header class="site-nav">
   <div class="nav-inner">
     <a class="brand" href="index.html">Noibedya Ray</a>
-    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
-    <ul class="nav-links">
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links"><span></span><span></span><span></span></button>
+    <nav aria-label="Main"><ul class="nav-links" id="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="index.html#work" class="active">Work</a></li>
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#contact">Contact</a></li>
       <li><a href="resume.html">Resume</a></li>
-    </ul>
+    </ul></nav>
   </div>
 </header>
 
 <header class="hero">
-  <div class="wrap">
+  <div class="wrap" id="top" tabindex="-1">
     <a class="back-link" href="index.html#work">← All work</a>
     <span class="tag">UX / Product Design Case Study</span>
     <h1>One shared system, five diverging flows: onboarding for a platform where doctors, patients, and lawyers all need to feel at home</h1>
@@ -218,7 +219,7 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
       <div class="t-item"><b>Checkpoint 4 · Critique loops, V5 → V6, dashboard</b><span>Two full revision rounds with my senior. We marked the rejected directions and kept them on the canvas for comparison. Closed with the professional's post-signup dashboard, the day-one experience after going live.</span></div>
     </div>
     <figure>
-      <img src="assets/haa/haa-image-1.jpg" alt="Lawyer onboarding flow end to end: one persona, one path, all screen states" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img width="2200" height="615" src="assets/haa/haa-image-1.jpg" alt="Lawyer onboarding flow end to end: one persona, one path, all screen states" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>One persona end to end: the lawyer onboarding flow, with every step in filled and empty states.</figcaption>
     </figure>
   </div>
@@ -232,57 +233,57 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
     <h3>1 · One question per screen, momentum over density</h3>
     <p>Rather than cram the practice profile into three dense forms, I split it into single-purpose screens ("What's your name?", "Where is your practice?", "Set your clinic hours"), each with one CTA. A "Take 2 minutes or less" promise up front sets the contract. The headlines also talk back: once Jane picks Doctor, the next screen greets her with "Hello, Dr. Jane." Small thing, but it makes ten questions feel like a conversation instead of a form.</p>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/haa/haa-image-2.jpg" alt="Shared signup trunk showing empty, filled, and disabled/enabled CTA states for all user types" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img loading="lazy" decoding="async" width="1800" height="1461" src="assets/haa/haa-image-2.jpg" alt="Shared signup trunk showing empty, filled, and disabled/enabled CTA states for all user types" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>The shared signup trunk. Every screen exists in empty + filled + disabled/enabled CTA states.</figcaption>
     </figure>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/haa/haa-patient-onboarding-flow.jpg" alt="Patient onboarding flow overview exported from the working Figma file" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img loading="lazy" decoding="async" width="3000" height="1414" src="assets/haa/haa-patient-onboarding-flow.jpg" alt="Patient onboarding flow overview exported from the working Figma file" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>The patient onboarding flow, exported from the working file.</figcaption>
     </figure>
 
     <h3>2 · Clinic hours: the iteration I'm proudest of</h3>
     <p>My first clinic-hours screen used a dropdown row per day. It worked, but it was cramped and fiddly on a phone. In critique my senior asked a simple question: how many clinics actually keep different hours every day? Almost none. The revised pattern uses tappable day chips, Mon to Fri pre-selected, with one opens/closes control. The common case now takes two taps. The odd schedule still works.</p>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/haa/haa-image-3.jpg" alt="Initial onboarding iteration (left) versus revised pattern (right)" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img loading="lazy" decoding="async" width="1232" height="1020" src="assets/haa/haa-image-3.jpg" alt="Initial onboarding iteration (left) versus revised pattern (right)" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>Initial iteration (left) vs. revised pattern (right). Designing for the common case first.</figcaption>
     </figure>
 
     <h3>3 · Patient intake that flexes to capacity</h3>
     <p>Someone who was just in a car accident might manage a form. They might only manage a phone call. So instead of one intake flow there are four: one-click intake, self intake, digital intake with guided instructions, and phone intake run by a specialist, where the patient's only job is to pick up. The platform routes people by what they can handle that day.</p>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/haa/haa-image-4.jpg" alt="Four intake models tested across four levels of patient capacity" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img loading="lazy" decoding="async" width="1581" height="900" src="assets/haa/haa-image-4.jpg" alt="Four intake models tested across four levels of patient capacity" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>Four intake models for four levels of patient capacity.</figcaption>
     </figure>
 
     <p>The full working file for each model, exported straight from Figma. Click any canvas to zoom in.</p>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/haa/haa-intake-one-click.jpg" alt="One-click intake flow: every screen from confirmation to booked appointment" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img loading="lazy" decoding="async" width="3000" height="1642" src="assets/haa/haa-intake-one-click.jpg" alt="One-click intake flow: every screen from confirmation to booked appointment" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>One-click intake: the platform pre-fills everything, the patient confirms.</figcaption>
     </figure>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/haa/haa-intake-self.jpg" alt="Self intake flow: the patient completes the full form themselves" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img loading="lazy" decoding="async" width="3000" height="1642" src="assets/haa/haa-intake-self.jpg" alt="Self intake flow: the patient completes the full form themselves" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>Self intake: the full form, for patients who can manage it.</figcaption>
     </figure>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/haa/haa-intake-digital-instruction.jpg" alt="Digital intake with guided step-by-step instructions" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img loading="lazy" decoding="async" width="2393" height="1117" src="assets/haa/haa-intake-digital-instruction.jpg" alt="Digital intake with guided step-by-step instructions" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>Digital intake with guided instructions, one step at a time.</figcaption>
     </figure>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/haa/haa-intake-phone-specialist.jpg" alt="Phone intake conducted by an intake specialist: the patient only answers the call" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img loading="lazy" decoding="async" width="3000" height="1438" src="assets/haa/haa-intake-phone-specialist.jpg" alt="Phone intake conducted by an intake specialist: the patient only answers the call" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>Phone intake run by a specialist: the patient's only job is to pick up.</figcaption>
     </figure>
 
     <h3>4 · Trust signals where skepticism peaks</h3>
     <p>Skepticism peaks at three moments. The first screen answers it with "Connect with over 5,000+ verified lawyers and doctors nationwide." Password creation answers it with rule checkmarks that tick live as you type. And before going live, a full "Review and finish" summary lets you edit any section. The final screen reads "You're live. Patients and clients in your area can now find you." Signup ends on a payoff rather than a dead end.</p>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/haa/haa-image-5.jpg" alt="Professional practice goes live: the payoff screen at the end of onboarding" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img loading="lazy" decoding="async" width="1264" height="1000" src="assets/haa/haa-image-5.jpg" alt="Professional practice goes live: the payoff screen at the end of onboarding" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>Ending on the payoff: the moment the professional's practice goes live.</figcaption>
     </figure>
 
     <h3>5 · Desktop gets the same care</h3>
     <p>Professionals often sign up from the front-desk computer, so every mobile step has a laptop counterpart. The split layout keeps the brand illustration on the left and a focused form column on the right, and the two platforms read as one product.</p>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/haa/haa-image-6.jpg" alt="Professional day-one dashboard: beyond onboarding into daily use" style="width:100%;border-radius:14px;border:1px solid var(--line)">
+      <img loading="lazy" decoding="async" width="2200" height="1043" src="assets/haa/haa-image-6.jpg" alt="Full mobile and desktop parity across the signup trunk" style="width:100%;border-radius:14px;border:1px solid var(--line)">
       <figcaption>Full mobile/desktop parity across the signup trunk.</figcaption>
     </figure>
   </div>
@@ -309,8 +310,9 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
     <h2>Variables and elements</h2>
     <p style="max-width:640px;">Every element in the onboarding flow draws from a single shared library. The profession and incident-type selectors, button variants, and binary toggles all use the same token set, which is what made it possible to support five distinct professional roles without duplicating design work.</p>
     <figure style="margin:28px 0 0;">
-      <img src="/images/haa-components.png" alt="Variables and Elements: profession selector, incident type dropdown, CTA button variants, and Yes/No toggle component states" style="max-width:520px;width:100%;display:block;margin:0 auto;border-radius:14px;border:1px solid var(--line);box-shadow:0 4px 24px rgba(60,91,143,.1);">
-    </figure>
+      <img width="1781" height="3877" src="/images/haa-components.png" alt="Variables and Elements: profession selector, incident type dropdown, CTA button variants, and Yes/No toggle component states" style="max-width:520px;width:100%;display:block;margin:0 auto;border-radius:14px;border:1px solid var(--line);box-shadow:0 4px 24px rgba(60,91,143,.1);">
+    <figcaption>Component breakdown: onboarding screen states and design system elements</figcaption>
+</figure>
   </div>
 </section>
 
@@ -324,7 +326,7 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
       <li>Set the onboarding visual language (navy and pink palette, conversational tone, illustrated layouts) that the later persona flows adopted.</li>
       <li>My senior designer and the GoMAXPAIN team approved the work for the HelpAfterAccident.com build.</li>
     </ul>
-    <figure><img loading="lazy" decoding="async" src="assets/haa/haa-image-7.jpg" alt="Component breakdown showing onboarding screen states and design system elements" style="width:100%;max-width:560px;display:block;margin:0 auto;border-radius:14px;border:1px solid var(--line)"><figcaption>Beyond onboarding: the professional's day-one dashboard with urgent matches and the patient queue.</figcaption></figure>
+    <figure><img loading="lazy" decoding="async" width="718" height="900" src="assets/haa/haa-image-7.jpg" alt="Professional day-one dashboard with urgent matches and the patient queue" style="width:100%;max-width:560px;display:block;margin:0 auto;border-radius:14px;border:1px solid var(--line)"><figcaption>Beyond onboarding: the professional's day-one dashboard with urgent matches and the patient queue.</figcaption></figure>
     <blockquote>What this project taught me: how to ship a coherent system at speed, and when to defend a decision in critique versus when to let it go.</blockquote>
   </div>
 </section>
