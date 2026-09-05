@@ -172,11 +172,11 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px s
 .otwbadge {
   display: inline-block;
   background: rgba(86,185,116,.15);
-  color: #6dd08a;
+  color: #FFFFFF;
   border: 1px solid rgba(86,185,116,.3);
-  padding: 2px 10px;
+  padding: 3px 10px;
   border-radius: 999px;
-  font-size: .82em;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: .04em;
   margin-left: 4px;
@@ -203,3 +203,25 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px s
 .chip { font-size: .92rem; color: var(--ink); background: var(--cream); border: 1px solid var(--line); border-radius: 8px; padding: .5rem 1rem; white-space: nowrap; transition: border-color .15s ease, color .15s ease; }
 .chip:hover { border-color: var(--accent); color: var(--accent); }
 @media (max-width: 820px) { .about-cols { grid-template-columns: 1fr; } }
+
+/* a11y: contrast fixes */
+.meta .k { color: #D0D6F0; font-size: 12px; }
+p.sub { color: #DCE1F5; }
+
+/* a11y: skip link */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1000;
+  background: #1F2B40;
+  color: #FFFFFF;
+  padding: 12px 18px;
+  text-decoration: none;
+  border-radius: 0 0 6px 0;
+}
+.skip-link:focus { left: 0; }
+main:focus { outline: none; }
+
+/* a11y: prevent layout shift */
+img { height: auto; }
