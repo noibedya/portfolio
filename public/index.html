@@ -36,22 +36,23 @@
 </style>
 </head>
 <body>
+<a class="skip-link" href="#top">Skip to content</a>
 
 <header class="site-nav">
   <div class="nav-inner">
     <a class="brand" href="#top">Noibedya Ray</a>
-    <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
-    <ul class="nav-links">
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links"><span></span><span></span><span></span></button>
+    <nav aria-label="Main"><ul class="nav-links" id="nav-links">
       <li><a href="#top">Home</a></li>
       <li><a href="#work">Work</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="resume.html">Resume</a></li>
-    </ul>
+    </ul></nav>
   </div>
 </header>
 
-<main id="top">
+<main id="top" tabindex="-1">
 
   <!-- HERO -->
   <section class="hero dark">
@@ -67,7 +68,7 @@
           </div>
         </div>
         <div class="hero-photo">
-          <img src="assets/profile.jpg" alt="Noibedya Narayan Ray" />
+          <img width="512" height="512" src="assets/profile.jpg" alt="Noibedya Narayan Ray" />
         </div>
       </div>
     </div>
@@ -86,7 +87,7 @@
       <div class="work-grid">
         <a class="project-card featured reveal" href="project-help-after-accident.html">
           <div class="card-img">
-            <img src="assets/haa/haa-cover.jpg" alt="HelpAfterAccident.com onboarding shown on laptop and phone" loading="lazy" />
+            <img width="2400" height="1035" src="assets/haa/haa-cover.jpg" alt="HelpAfterAccident.com onboarding shown on laptop and phone" loading="lazy" />
           </div>
           <div class="card-body">
             <p class="card-kicker">Pre-launch &middot; Legal-medical referral &middot; Mobile + desktop</p>
@@ -105,7 +106,7 @@
 
         <a class="project-card reveal" href="project-cavw.html">
           <div class="card-img">
-            <img loading="lazy" decoding="async" src="assets/cavw/cavw-cover.jpg" alt="Creative Asset & Video Workflow dashboard and review room" loading="lazy" />
+            <img loading="lazy" decoding="async" width="1400" height="1042" src="assets/cavw/cavw-cover.jpg" alt="Creative Asset & Video Workflow dashboard and review room" loading="lazy" />
           </div>
           <div class="card-body">
             <p class="card-kicker">B2B SaaS &middot; 4-week concept &middot; Desktop web</p>
@@ -120,7 +121,7 @@
 
         <a class="project-card reveal" href="project-ai-health-link.html">
           <div class="card-img">
-            <img src="assets/mediapp/ai-health-link-cover.jpg" alt="AI Health Link Canada project cover" loading="lazy" />
+            <img width="1400" height="788" src="assets/mediapp/ai-health-link-cover.jpg" alt="AI Health Link Canada project cover" loading="lazy" />
           </div>
           <div class="card-body">
             <p class="card-kicker">Healthcare &middot; 4-week concept &middot; iOS + tablet</p>
