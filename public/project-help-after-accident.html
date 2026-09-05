@@ -139,7 +139,7 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
 <header class="site-nav">
   <div class="nav-inner">
     <a class="brand" href="index.html">Noibedya Ray</a>
-    <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav aria-label="Main"><ul class="nav-links" id="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="index.html#work" class="active">Work</a></li>
@@ -149,9 +149,10 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
     </ul></nav>
   </div>
 </header>
+<main id="top" tabindex="-1">
 
 <header class="hero">
-  <div class="wrap" id="top" tabindex="-1">
+  <div class="wrap">
     <a class="back-link" href="index.html#work">← All work</a>
     <span class="tag">UX / Product Design Case Study</span>
     <h1>One shared system, five diverging flows: onboarding for a platform where doctors, patients, and lawyers all need to feel at home</h1>
@@ -406,6 +407,11 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
   .lightbox.open{opacity:1}
   .lightbox img{max-width:96vw;max-height:92vh;width:auto;height:auto;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.5)}
   .lightbox .lb-hint{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#cbd2dd;font-size:13px}
+
+.skip-link{position:absolute;left:-9999px;top:0;z-index:1000;background:#1F2B40;color:#fff;padding:12px 18px;text-decoration:none;border-radius:0 0 6px 0}
+.skip-link:focus{left:0}
+.meta .k{color:#D0D6F0;font-size:12px}
+p.sub{color:#DCE1F5}
 </style>
 <script>
 (function(){
@@ -423,5 +429,6 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
   });
 })();
 </script>
+</main>
 </body>
 </html>
