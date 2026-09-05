@@ -142,7 +142,7 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
 <header class="site-nav">
   <div class="nav-inner">
     <a class="brand" href="index.html">Noibedya Ray</a>
-    <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav aria-label="Main"><ul class="nav-links" id="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="index.html#work" class="active">Work</a></li>
@@ -152,6 +152,7 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
     </ul></nav>
   </div>
 </header>
+<main id="top" tabindex="-1">
 
 <header class="hero">
   <div class="wrap hero-wrap">
@@ -162,7 +163,7 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
     <h1>A workflow system that gets video production out of Slack threads</h1>
     <p class="sub">CAVW (Creative Asset & Video Workflow) is a B2B SaaS concept that puts strategists, editors, and clients in one pipeline: a Kanban production board, smart task cards, and a review room where clients leave timestamped feedback straight from a link.</p>
     </div>
-    <div class="hero-art"><img src="assets/cavw/cavw-image-1.png" alt="Laptop mockup showing the CAVW review room and Kanban dashboard"></div>
+    <div class="hero-art"><img width="1325" height="811" src="assets/cavw/cavw-image-1.png" alt="Laptop mockup showing the CAVW review room and Kanban dashboard"></div>
     </div>
     <div class="meta">
       <div><span class="k">Role</span><span class="v">Solo Product Designer</span></div>
@@ -175,7 +176,7 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
 </header>
 
 <div class="stats">
-  <div class="wrap" id="top" tabindex="-1">
+  <div class="wrap">
     <div class="stat"><b>3</b><span>User roles, one pipeline</span></div>
     <div class="stat"><b>4</b><span>Workflow stages on the board</span></div>
     <div class="stat"><b>7</b><span>Steps in the core flow</span></div>
@@ -206,7 +207,7 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
     </div>
     <div class="callout"><p><b>My role:</b> everything. UX research, product strategy, wireframing, UI design, interaction design. Nothing came from a brief or an existing design system.</p></div>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/cavw/cavw-image-2.jpg" alt="CAVW cover: laptop showing the review room over a blurred dashboard, with B2B SaaS badge">
+      <img loading="lazy" decoding="async" width="1451" height="1080" src="assets/cavw/cavw-image-2.jpg" alt="CAVW cover: laptop showing the review room over a blurred dashboard, with B2B SaaS badge">
       <figcaption>The concept in one image: production board behind, review room in front. Two halves of the same workflow.</figcaption>
     </figure>
   </div>
@@ -296,14 +297,14 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
     <h3>3 · Why timestamped feedback?</h3>
     <p>Anchoring comments to exact timecodes removes the ambiguity that causes revision cycles. "Color contrast is too high at 0:12" is actionable in a way "fix the colors" never is. Numbered markers on the scrubber map each comment to its moment, and the feedback panel keeps the full conversation threaded next to the player.</p>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/cavw/cavw-image-3.jpg" alt="The timestamped review room: video player with numbered timeline markers and a feedback panel with timecoded comments">
+      <img loading="lazy" decoding="async" width="1800" height="1166" src="assets/cavw/cavw-image-3.jpg" alt="The timestamped review room: video player with numbered timeline markers and a feedback panel with timecoded comments">
       <figcaption>The review room: numbered markers on the timeline, timecoded comments on the right, approval one click away.</figcaption>
     </figure>
 
     <h3>4 · Cards that carry their own context</h3>
     <p>Each smart task card carries its video thumbnail, assigned editor, deadline, version history, and comment indicators: enough that a strategist scanning the board never has to open a task to know its state. The activity feed and asset inspector live in a right rail, so checking an asset never takes you away from the pipeline.</p>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/cavw/cavw-image-4.jpg" alt="The Kanban workflow dashboard: four columns from To Do to Approved with smart task cards and the contextual activity rail">
+      <img loading="lazy" decoding="async" width="1800" height="1166" src="assets/cavw/cavw-image-4.jpg" alt="The Kanban workflow dashboard: four columns from To Do to Approved with smart task cards and the contextual activity rail">
       <figcaption>The dashboard: four pipeline stages, smart task cards, and the contextual activity & asset inspector rail.</figcaption>
     </figure>
 
@@ -403,6 +404,9 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
   .lightbox.open{opacity:1}
   .lightbox img{max-width:96vw;max-height:92vh;width:auto;height:auto;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.5)}
   .lightbox .lb-hint{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#cbd2dd;font-size:13px}
+
+.skip-link{position:absolute;left:-9999px;top:0;z-index:1000;background:#1F2B40;color:#fff;padding:12px 18px;text-decoration:none;border-radius:0 0 6px 0}
+.skip-link:focus{left:0}
 </style>
 <script>
 (function(){
@@ -420,5 +424,6 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
   });
 })();
 </script>
+</main>
 </body>
 </html>
