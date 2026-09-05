@@ -135,7 +135,7 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
 <header class="site-nav">
   <div class="nav-inner">
     <a class="brand" href="index.html">Noibedya Ray</a>
-    <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links"><span></span><span></span><span></span></button>
+    <button class="nav-toggle" aria-label="Menu" aria-controls="nav-links" aria-expanded="false"><span></span><span></span><span></span></button>
     <nav aria-label="Main"><ul class="nav-links" id="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="index.html#work" class="active">Work</a></li>
@@ -145,6 +145,7 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
     </ul></nav>
   </div>
 </header>
+<main id="top" tabindex="-1">
 
 <header class="hero">
   <div class="wrap hero-wrap">
@@ -155,7 +156,7 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
     <h1>An AI health companion that triages symptoms before you ever reach a doctor</h1>
     <p class="sub">AI Health Link Canada is a concept app for Canadian healthcare: AI symptom triage, a digital health vault, and booking for virtual or walk-in care. I designed it end to end, on mobile and tablet, as a solo project.</p>
     </div>
-    <div class="hero-art"><img src="assets/mediapp/ahl-image-1.png" alt="Three phones fanned out showing the Dashboard, My Health, and Consult screens"></div>
+    <div class="hero-art"><img width="946" height="721" src="assets/mediapp/ahl-image-1.png" alt="Three phones fanned out showing the Dashboard, My Health, and Consult screens"></div>
     </div>
     <div class="meta">
       <div><span class="k">Role</span><span class="v">Solo Product Designer</span></div>
@@ -168,7 +169,7 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
 </header>
 
 <div class="stats">
-  <div class="wrap" id="top" tabindex="-1">
+  <div class="wrap">
     <div class="stat"><b>17</b><span>Screens designed</span></div>
     <div class="stat"><b>8</b><span>Triage steps</span></div>
     <div class="stat"><b>3</b><span>Risk levels</span></div>
@@ -199,7 +200,7 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
     </div>
     <div class="callout"><p><b>My role:</b> everything. Research framing, flows, wireframes, the high-fidelity UI, the component sheet, the tablet study. On a personal project no decision is inherited, so every pattern here had to earn its place.</p></div>
     <figure>
-<img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-2.jpg" alt="Two phones showing the Consult screen and the Dashboard">
+<img loading="lazy" decoding="async" width="1201" height="1354" src="assets/mediapp/ahl-image-2.jpg" alt="Two phones showing the Consult screen and the Dashboard">
       <figcaption>Consults and the dashboard, the two screens that carry most of the product's weight.</figcaption>
     </figure>
   </div>
@@ -229,7 +230,7 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
       <div class="t-item"><b>Week 4 · Tablet adaptation study</b><span>Adapted the dashboard and health vault to tablet: bottom navigation becomes a persistent left rail, the 'Nearest Care' map expands into an interactive panel, and health records adopt a master-detail pattern that uses the extra width instead of stacking.</span></div>
     </div>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-3.png" alt="The four core screens: Dashboard, My Health, Consults, Settings">
+      <img loading="lazy" decoding="async" width="1851" height="1028" src="assets/mediapp/ahl-image-3.png" alt="The four core screens: Dashboard, My Health, Consults, Settings">
       <figcaption>The four-tab core: Dashboard, My Health (the health vault), Consults, and Settings.</figcaption>
     </figure>
   </div>
@@ -247,35 +248,35 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
     <h3>2 · One question per screen, and more than one way to answer</h3>
     <p>The check-up runs five questions, each on its own screen with a progress bar ("2 of 5 Questions") so the commitment is always visible. Because users may be typing through pain or panic, the symptom description field accepts voice-to-text and photos of visible symptoms, not just typed input. Checkbox questions cover associated symptoms, health history, severity, and duration. Everything past the first question is a tap target rather than an essay.</p>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-4.png" alt="Triage flow: emergency gate, symptom input, symptom checklist, assessment result">
+      <img loading="lazy" decoding="async" width="1916" height="1028" src="assets/mediapp/ahl-image-4.png" alt="Triage flow: emergency gate, symptom input, symptom checklist, assessment result">
       <figcaption>The triage spine: emergency gate → free-form symptom input (voice/photo/text) → guided questions → assessment.</figcaption>
     </figure>
 
     <h3>3 · AI that shows its work</h3>
     <p>The assessment ends with a risk level, a plain-language AI insight explaining the reasoning ("Initial assessment suggests a viral infection… we recommend monitoring your temperature and fluid intake"), and three honest exits: book a virtual consult, view home-care instructions, or download a PDF summary for your doctor. The PDF is the one I care about most. It admits the AI is a triage tool rather than a doctor, and it makes handing the case to a real one easy.</p>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-5.jpg" alt="The symptom duration question and the assessment summary screen">
+      <img loading="lazy" decoding="async" width="1098" height="1184" src="assets/mediapp/ahl-image-5.jpg" alt="The symptom duration question and the assessment summary screen">
       <figcaption>The last question explains why it's asking. The result explains what the AI concluded and what to do next.</figcaption>
     </figure>
 
     <h3>4 · Triage context follows you into the booking</h3>
     <p>When an assessment leads to an appointment, the reason travels with it: consult cards read "Reason: Follow-up Infection (AI Triage)". The clinician sees why the patient is coming before the call starts, and the patient never re-explains themselves. Booking itself is filterable by All / Virtual / Walk-in, with provider ratings and one-tap booking.</p>
     <figure>
-<img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-6.jpg" alt="Tilted phone showing the Consult screen with the AI triage reason on the appointment card" style="max-width:340px;display:block;margin:0 auto">
+<img loading="lazy" decoding="async" width="676" height="1542" src="assets/mediapp/ahl-image-6.jpg" alt="Tilted phone showing the Consult screen with the AI triage reason on the appointment card" style="max-width:340px;display:block;margin:0 auto">
       <figcaption>The consult card carries the AI triage reason, so the patient never re-explains themselves.</figcaption>
     </figure>
 
     <h3>5 · A dashboard that leads with the riskiest task</h3>
     <p>The home screen gives the symptom check the hero slot, because it's the action with the highest stakes and the most hesitation. Below it: live vitals pulled from connected wearables (Apple Watch, Oura Ring), quick links to prescriptions and consults, and a 'Nearest Care' map with real walk-in distances. The health vault holds the provincial health card with a QR code for clinic check-ins, past AI triage reports, and immunization records.</p>
     <figure>
-<img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-7.jpg" alt="Phone showing the dashboard with symptom check, vitals, and nearest care map" style="max-width:560px;display:block;margin:0 auto">
+<img loading="lazy" decoding="async" width="568" height="1073" src="assets/mediapp/ahl-image-7.jpg" alt="Phone showing the dashboard with symptom check, vitals, and nearest care map" style="max-width:560px;display:block;margin:0 auto">
       <figcaption>The dashboard: symptom check on top, live vitals and nearest care below.</figcaption>
     </figure>
 
     <h3>6 · Scaling to tablet without stretching the phone</h3>
     <p>The tablet study reworks the architecture instead of inflating it: bottom navigation becomes a persistent left rail so primary sections stay visible; stacked dashboard cards reflow into a grid; vitals gain historical charts instead of single numbers; and health records move to a master-detail pattern, list on the left and full record on the right, which removes a whole screen per record.</p>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-8.jpg" alt="Tablet adaptation of the dashboard and health vault">
+      <img loading="lazy" decoding="async" width="2000" height="1324" src="assets/mediapp/ahl-image-8.jpg" alt="Tablet adaptation of the dashboard and health vault">
       <figcaption>Tablet adaptation: nav rail, grid reflow, charted vitals, and master-detail records.</figcaption>
     </figure>
     <p>What the four weeks produced:</p>
@@ -285,11 +286,11 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
       <li>A <b>responsive tablet study</b> that documents the reasoning behind each layout change, not just the redrawn screens.</li>
     </ul>
     <figure>
-<img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-9.jpg" alt="Two phones showing the Dashboard and the appointment booking list">
+<img loading="lazy" decoding="async" width="1016" height="1128" src="assets/mediapp/ahl-image-9.jpg" alt="Two phones showing the Dashboard and the appointment booking list">
       <figcaption>Dashboard to booking, the path most sessions take.</figcaption>
     </figure>
     <figure>
-      <img loading="lazy" decoding="async" src="assets/mediapp/ahl-image-10.png" alt="Component sheet with palette, buttons, form controls and navigation states">
+      <img loading="lazy" decoding="async" width="1284" height="1248" src="assets/mediapp/ahl-image-10.png" alt="Component sheet with palette, buttons, form controls and navigation states">
       <figcaption>The component sheet: palette, controls, and the four navigation states behind every screen.</figcaption>
     </figure>
   </div>
@@ -356,6 +357,9 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
   .lightbox.open{opacity:1}
   .lightbox img{max-width:96vw;max-height:92vh;width:auto;height:auto;border-radius:8px;box-shadow:0 24px 80px rgba(0,0,0,.5)}
   .lightbox .lb-hint{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#cbd2dd;font-size:13px}
+
+.skip-link{position:absolute;left:-9999px;top:0;z-index:1000;background:#1F2B40;color:#fff;padding:12px 18px;text-decoration:none;border-radius:0 0 6px 0}
+.skip-link:focus{left:0}
 </style>
 <script>
 (function(){
@@ -373,5 +377,6 @@ header.hero a:focus-visible,header.hero button:focus-visible,.site-nav a:focus-v
   });
 })();
 </script>
+</main>
 </body>
 </html>
